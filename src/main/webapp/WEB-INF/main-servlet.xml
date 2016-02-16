@@ -23,24 +23,66 @@
 	<tx:annotation-driven />
 
 	<!-- DataSource -->
-	<bean id="asiDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	<bean id="tfgDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://localhost:5432/asidb" />
-		<property name="username" value="asi" />
-		<property name="password" value="asi" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/tfgdb" />
+		<property name="username" value="postgres" />
+		<property name="password" value="1234" />
 	</bean>
+	
+	    <!--  SESSIONFACTORY BEAN   -->
+    
+    <!-- 
+       En Spring, a interface "AbstractSessionFactoryBean" encapsula a tecnoloxía utilizada para a conexión coa BD
+	   Nós queremos usar Hibernate 4, así que debemos usar a implementacion "hibernate4.LocalSessionFactoryBean"
+	   A factoría creará (e devolverá) un bean "SessionFactory" de Hibernate
+	   Ese é o xeito de compartir unha session factory con Spring (e de proporcionarllela, por exemplo, aos DAOS) mediante inxeccion de dependencias
+	   Aforramos a típica clase "Utils"
+	   Se quixeramos cambiar de DAOS, usariamos outra factoría de conexions
+	  -->     
+    
+    <bean id="tfgSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="tfgDataSource"/>
+        <property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+	        	<prop key="hibernate.show_sql">true</prop>
+	        	<prop key="hibernate.format_sql">true</prop>
+	        	<prop key="hibernate.use_sql_comments">true</prop>	        	
+	        	<!-- <prop key="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</prop>  -->
+				<prop key="hibernate.c3p0.min_size">5</prop>
+				<prop key="hibernate.c3p0.max_size">20</prop>
+				<prop key="hibernate.c3p0.timeout">300</prop>
+				<prop key="hibernate.c3p0.max_statements">50</prop>
+				<prop key="hibernate.c3p0.idle_test_period">3000</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				
+				<!-- 
+				hibernate.hbm2ddl.auto
+				So the list of possible options are,
+				validate: validate the schema, makes no changes to the database.
+				update: update the schema.
+				create: creates the schema, destroying previous data.
+				create-drop: drop the schema at the end of the session. 
+				 -->
+ 
+        	</props>            
+        </property>
+        <!--  Usamos anotacións de Hibernate: hai que dicirlle ónde buscalas -->
+        <property name="packagesToScan" value="es.udc.fi.lbd.monuzz.id.cursos.model" />
+    </bean>
 
 	<!-- JBDC Template -->
 	<bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-		<constructor-arg ref="asiDataSource" />
+		<constructor-arg ref="tfgDataSource" />
 	</bean>
 
 	<!-- Transaction Management -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="asiDataSource" />
+		<property name="dataSource" ref="tfgDataSource" />
 	</bean>
 
 	<!-- Tiles configuration -->
@@ -104,7 +146,7 @@
 	<!-- Select users and user_roles from database -->
 	<sec:authentication-manager>
 		<sec:authentication-provider>
-			<sec:jdbc-user-service id="userService" data-source-ref="asiDataSource"
+			<sec:jdbc-user-service id="userService" data-source-ref="tfgDataSource"
 				users-by-username-query="SELECT login, password, enabled FROM Users WHERE login = ?"
 				authorities-by-username-query="SELECT login, role FROM UserRoles WHERE login = ?" />
 		</sec:authentication-provider>
