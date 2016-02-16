@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="es.udc.lbd.spring" />
+	<mvc:annotation-driven />
+	<tx:annotation-driven />
+
+	<!-- DataSource -->
+	<bean id="asiDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/asidb" />
+		<property name="username" value="asi" />
+		<property name="password" value="asi" />
+	</bean>
+
+	<!-- JBDC Template -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="asiDataSource" />
+	</bean>
+
+	<!-- Transaction Management -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="asiDataSource" />
+	</bean>
+
+	<!-- Tiles configuration -->
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles/*.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Web resources (CSS, img, etc.) -->
+	<mvc:resources mapping="/resources/**" location="/resources/"
+		cache-period="31556926" />
+
+	<!-- Internationalization -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en_EN" />
+	</bean>
+
+	<mvc:interceptors>
+		<bean id="localeChangeInterceptor"
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="language" />
+		</bean>
+	</mvc:interceptors>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages" />
+	</bean>
+
+	<!-- Authentication -->
+	
+	<!-- enable use-expressions -->
+	<sec:http auto-config="true" use-expressions="true">
+		
+		<sec:intercept-url pattern="/issue/**" access="hasRole('ROLE_AUTHENTICATED')" />
+		
+		<!-- access denied page -->
+		<sec:access-denied-handler error-page="/403" />
+		
+		<sec:form-login 
+		    login-page="/login" 
+		    default-target-url="/" 
+			authentication-failure-url="/login?error" 
+			username-parameter="login"
+			password-parameter="password" />
+			
+		<sec:logout
+			logout-url="/logout"
+			logout-success-url="/" />
+		
+		<!-- enable CSRF protection -->
+		<sec:csrf/>
+	</sec:http>
+	
+	<!-- Select users and user_roles from database -->
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:jdbc-user-service id="userService" data-source-ref="asiDataSource"
+				users-by-username-query="SELECT login, password, enabled FROM Users WHERE login = ?"
+				authorities-by-username-query="SELECT login, role FROM UserRoles WHERE login = ?" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+</beans>
