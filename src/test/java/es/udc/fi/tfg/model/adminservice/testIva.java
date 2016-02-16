@@ -1,4 +1,4 @@
-package seguimientoPYME;
+package es.udc.fi.tfg.model.adminservice;
 
 import static org.junit.Assert.*;
 
@@ -13,14 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.model.iva.Iva;
 import es.udc.fi.tfg.model.services.AdminService;
 
-//@ContextConfiguration(locations = {"spring-module.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/spring-config.xml")
+@Transactional
 public class testIva {
+	
 	@Autowired
-	//@Qualifier("adminService")
 	private AdminService adminService;
 
 	public Iva alimentos;
@@ -29,14 +34,17 @@ public class testIva {
 	@Test
 	public void test() {
 		
-		alimentos = new Iva("Alimentos", null);
-		productos = new Iva("Productos", null);
+		alimentos = new Iva("Alimentos", 10);
+		productos = new Iva("Productos", 21);
 		
 		
+		System.out.println("HOLAAAAAAA");
 		adminService.registroIVA(alimentos);
+		System.out.println("PRUEBAAAAAAAAAAAAAA");
 		adminService.registroIVA(productos);
-	
-		adminService.eliminarIVA(alimentos);
-		adminService.eliminarIVA(productos);
+		System.out.println("QQQQQ");
+		
+		//adminService.eliminarIVA(alimentos);
+		//adminService.eliminarIVA(productos);
 	}
 }

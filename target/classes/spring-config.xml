@@ -18,7 +18,7 @@
 		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="es.udc.lbd.spring" />
+	<context:component-scan base-package="es.udc.fi.tfg" />
 	<mvc:annotation-driven />
 	<tx:annotation-driven />
 
@@ -81,12 +81,13 @@
 
 	<!-- Transaction Management -->
 	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="tfgDataSource" />
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name = "sessionFactory" ref = "tfgSessionFactory" />
 	</bean>
 
 	<!-- Tiles configuration -->
-	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+	
+	<!--  <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
 
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -95,7 +96,8 @@
 			</list>
 		</property>
 	</bean>
-
+	-->
+	
 	<!-- Web resources (CSS, img, etc.) -->
 	<mvc:resources mapping="/resources/**" location="/resources/"
 		cache-period="31556926" />

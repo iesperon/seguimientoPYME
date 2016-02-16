@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Repository
 @EnableTransactionManagement
-@Immutable
 public class JdbcIvaDAO implements IvaDAO{
 	
 	@Autowired
@@ -24,6 +23,7 @@ public class JdbcIvaDAO implements IvaDAO{
 		if(miiva.getId_iva() != null){
 			throw new RuntimeException("Intento de creación de IVA ya persistente");
 		}
+		System.out.println("ESTAMOS AQUI");
 		return (Long) sessionFactory.getCurrentSession().save(miiva);
 	}
 

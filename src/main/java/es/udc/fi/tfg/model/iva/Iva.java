@@ -54,7 +54,7 @@ public class Iva {
 		this.porcentaje = porcentaje;
 	}
 
-	/*
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,7 +90,7 @@ public class Iva {
 			return false;
 		return true;
 	}
-	*/
+	
 	
 	
 }
