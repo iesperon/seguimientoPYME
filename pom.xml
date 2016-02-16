@@ -7,13 +7,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>ficssue</name>
+	<name>seguimientoPYME</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.springframework-version>4.2.2.RELEASE</org.springframework-version>
 		<spring.security.version>4.0.3.RELEASE</spring.security.version>
 		<tiles.version>3.0.5</tiles.version>
+		<hibernate.version>4.3.7.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -118,6 +119,18 @@
     		<artifactId>tiles-extras</artifactId>
     		<version>${tiles.version}</version>
 		</dependency>
+		
+		<!-- HIBERNATE -->
+    	<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
 
 	</dependencies>
 
@@ -150,9 +163,9 @@
 
 				<configuration>
 					<driver>org.postgresql.Driver</driver>
-					<url>jdbc:postgresql://localhost:5432/asidb</url>
-					<username>asi</username>
-					<password>asi</password>
+					<url>jdbc:postgresql://localhost:5432/tfgdb</url>
+					<username>postgres</username>
+					<password>1234</password>
 					<autocommit>true</autocommit>
 				</configuration>
 
