@@ -22,7 +22,6 @@ import es.udc.fi.tfg.model.services.AdminService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring-config.xml")
-@Transactional
 public class testIva {
 	
 	@Autowired
@@ -38,13 +37,10 @@ public class testIva {
 		productos = new Iva("Productos", 21);
 		
 		
-		System.out.println("HOLAAAAAAA");
 		adminService.registroIVA(alimentos);
-		System.out.println("PRUEBAAAAAAAAAAAAAA");
 		adminService.registroIVA(productos);
-		System.out.println("QQQQQ");
 		
-		//adminService.eliminarIVA(alimentos);
-		//adminService.eliminarIVA(productos);
+		adminService.eliminarIVA(alimentos);
+		adminService.eliminarIVA(productos);
 	}
 }
