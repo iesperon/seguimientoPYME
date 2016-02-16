@@ -19,7 +19,7 @@
 
 	<dependencies>
 
-		<!-- Junit -->
+		<!-- Junit j-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
