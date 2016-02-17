@@ -1,7 +1,9 @@
-package es.udc.fi.tfg.model.usuario;
+package es.udc.fi.tfg.seguimiento.daos;
 
 import java.util.List;
 import javax.management.InstanceNotFoundException;
+
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface UsuarioDAO {
 

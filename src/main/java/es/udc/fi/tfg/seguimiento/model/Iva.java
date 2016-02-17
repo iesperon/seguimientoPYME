@@ -1,4 +1,4 @@
-package es.udc.fi.tfg.model.iva;
+package es.udc.fi.tfg.seguimiento.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

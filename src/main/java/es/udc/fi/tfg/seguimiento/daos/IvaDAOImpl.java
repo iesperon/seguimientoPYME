@@ -1,4 +1,4 @@
-package es.udc.fi.tfg.model.iva;
+package es.udc.fi.tfg.seguimiento.daos;
 
 import java.util.List;
 
@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import es.udc.fi.tfg.seguimiento.model.Iva;
+
 @Repository
 @EnableTransactionManagement
-public class JdbcIvaDAO implements IvaDAO{
+public class IvaDAOImpl implements IvaDAO{
 	
 	@Autowired
 	private SessionFactory sessionFactory;

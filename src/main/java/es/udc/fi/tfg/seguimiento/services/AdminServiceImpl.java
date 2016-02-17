@@ -1,11 +1,11 @@
-package es.udc.fi.tfg.model.services;
+package es.udc.fi.tfg.seguimiento.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.udc.fi.tfg.model.iva.Iva;
-import es.udc.fi.tfg.model.iva.IvaDAO;
+import es.udc.fi.tfg.seguimiento.daos.IvaDAO;
+import es.udc.fi.tfg.seguimiento.model.Iva;
 
 @Service
 @Transactional

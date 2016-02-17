@@ -1,4 +1,4 @@
-package es.udc.fi.tfg.model.usuario;
+package es.udc.fi.tfg.seguimiento.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +11,11 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import es.udc.fi.tfg.model.tienda.Tienda;
-
-@Entity
-@PrimaryKeyJoinColumn(name="id_usuario")
-@Table(name="USUARIOS")
+//@Entity
+//@PrimaryKeyJoinColumn(name="id_usuario")
+//@Table(name="USUARIOS")
 public class Usuario {
-
+/*
 	private Long id_usuario;
 	private String nombre;
 	private String apellido1;
@@ -130,6 +128,6 @@ public class Usuario {
 
 
 
-	
+	*/
 	
 }

@@ -1,7 +1,8 @@
-package es.udc.fi.tfg.model.iva;
+package es.udc.fi.tfg.seguimiento.daos;
 
 import java.util.List;
-import es.udc.fi.tfg.model.iva.Iva;
+
+import es.udc.fi.tfg.seguimiento.model.Iva;
 
 public interface IvaDAO {
 

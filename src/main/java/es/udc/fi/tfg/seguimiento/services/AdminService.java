@@ -1,6 +1,6 @@
-package es.udc.fi.tfg.model.services;
+package es.udc.fi.tfg.seguimiento.services;
 
-import es.udc.fi.tfg.model.iva.Iva;
+import es.udc.fi.tfg.seguimiento.model.Iva;
 
 public interface AdminService {
 
