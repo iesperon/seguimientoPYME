@@ -2,20 +2,13 @@ package es.udc.fi.tfg.model.adminservice;
 
 import static org.junit.Assert.*;
 
-import org.apache.tiles.request.ApplicationContext;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.services.AdminService;
@@ -35,11 +28,24 @@ public class testIva {
 		
 		alimentos = new Iva("Alimentos", 10);
 		productos = new Iva("Productos", 21);
-		
-		
+				
+		//Insertamos IVAs
 		adminService.registroIVA(alimentos);
 		adminService.registroIVA(productos);
 		
+		//Buscamos los IVAs
+		List<Iva> milista = adminService.obtenerTodosIva();
+		assertEquals(2, milista.size());
+		
+		//Buscamos un IVA
+		assertEquals(alimentos, (Iva) adminService.buscarIvaPorPorcentaje(alimentos.getPorcentaje()));
+		
+		//Modificamos un IVA
+		productos.setNombre("Productos Nuevos");
+		productos.setPorcentaje(18);
+		adminService.actualizarIVA(productos);
+		
+		//Borramos los datos
 		adminService.eliminarIVA(alimentos);
 		adminService.eliminarIVA(productos);
 	}
