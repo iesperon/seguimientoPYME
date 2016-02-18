@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.udc.fi.tfg.seguimiento.daos.CentroDAO;
 import es.udc.fi.tfg.seguimiento.daos.CierreDAO;
 import es.udc.fi.tfg.seguimiento.daos.EmpresaDAO;
 import es.udc.fi.tfg.seguimiento.daos.IvaDAO;
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Cierre;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
@@ -37,6 +39,13 @@ public class AdminServiceImpl implements AdminService{
 	
 	public void setEmpresaDAO (EmpresaDAO empresaDAO){
 		this.empresaDAO = empresaDAO;
+	}
+	
+	@Autowired
+	private CentroDAO centroDAO = null;
+	
+	public void setCentroDAO (CentroDAO centroDAO){
+		this.centroDAO = centroDAO;
 	}
 
 	//**********IVA***********
@@ -105,6 +114,23 @@ public class AdminServiceImpl implements AdminService{
 	public List<Empresa> buscarEmpresaPorNombre(String minombre) {
 		return empresaDAO.findByNombre(minombre);
 	}
+
+	//**********CENTRO***********
+	public void registroCentro(Centro micentro) {
+		centroDAO.create(micentro);
+	}
+
+	public void eliminarCentro(Centro micentro) {
+		centroDAO.remove(micentro);
+	}
+
+	public void actualizarCentro(Centro micentro) {
+		centroDAO.update(micentro);
+	}
+
+	/*public List<Centro> obtenerCentros(Empresa miempresa) {
+		return centroDAO.findAllByEmpresa(miempresa);
+	}*/
 
 	
 	

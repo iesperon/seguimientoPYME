@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.services;
 import java.sql.Timestamp;
 import java.util.List;
 
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Cierre;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
@@ -21,6 +22,7 @@ public interface AdminService {
 	public Iva buscarIvaPorPorcentaje (Integer miporcentaje);
 	//Obtener todos los IVAs
 	public List<Iva> obtenerTodosIva();
+	
 	
 	//**********Cierre de caja**************
 	
@@ -50,5 +52,17 @@ public interface AdminService {
 	public Empresa buscarEmpresaPorCif(String micif);
 	//Buscar empresas por nombre
 	public List<Empresa> buscarEmpresaPorNombre(String minombre);
+	
+	
+	//**********Centro**************
+	
+	//Registro de un centro
+	public void registroCentro(Centro micentro);
+	//Eliminación de un centro
+	public void eliminarCentro(Centro micentro);
+	//Actualizar los datos de un centro
+	public void actualizarCentro(Centro micentro);
+	//Buscar todos los centros de una empresa
+	//public List<Centro> obtenerCentros(Empresa miempresa);
 	
 }

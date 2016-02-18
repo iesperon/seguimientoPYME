@@ -1,10 +1,15 @@
 package es.udc.fi.tfg.seguimiento.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -19,7 +24,10 @@ public class Empresa {
 	private String descripcion;
 	private String email;
 	private byte[] logo; 
+	private Set<Centro> centro = new HashSet<Centro>();
+	
 
+	
 	public Empresa(){
 	}
 	
@@ -31,7 +39,7 @@ public class Empresa {
 		this.email = email;
 		this.logo = logo;
 	}
-
+	
 	@Id
 	@SequenceGenerator(name="empresaId",sequenceName = "id_empresa_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="empresaId")
@@ -96,6 +104,15 @@ public class Empresa {
 
 	public void setLogo(byte[] logo) {
 		this.logo = logo;
+	}
+	
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	public Set<Centro> getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Set<Centro> centro) {
+		this.centro = centro;
 	}
 
 	@Override
