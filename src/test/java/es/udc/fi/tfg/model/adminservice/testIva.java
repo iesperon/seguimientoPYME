@@ -26,6 +26,7 @@ public class testIva {
 	@Test
 	public void test() {
 		
+		//******************IVA*****************
 		alimentos = new Iva("Alimentos", 10);
 		productos = new Iva("Productos", 21);
 				
