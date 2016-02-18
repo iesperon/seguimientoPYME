@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.CierreDAO;
+import es.udc.fi.tfg.seguimiento.daos.EmpresaDAO;
 import es.udc.fi.tfg.seguimiento.daos.IvaDAO;
 import es.udc.fi.tfg.seguimiento.model.Cierre;
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 
 @Service
@@ -29,10 +31,17 @@ public class AdminServiceImpl implements AdminService{
 	public void setCierreDAO (CierreDAO cierreDAO){
 		this.cierreDAO = cierreDAO;
 	}
+	
+	@Autowired
+	private EmpresaDAO empresaDAO = null;
+	
+	public void setEmpresaDAO (EmpresaDAO empresaDAO){
+		this.empresaDAO = empresaDAO;
+	}
 
 	//**********IVA***********
 	public void registroIVA(Iva miiva) {
-		ivaDAO.insert(miiva);	
+		ivaDAO.create(miiva);	
 	}
 
 	public void eliminarIVA(Iva miiva) {
@@ -51,7 +60,7 @@ public class AdminServiceImpl implements AdminService{
 		return ivaDAO.findAll();
 	}
 
-	//**********Cierre***********
+	//**********CIERRE***********
 	public void registroCierre(Cierre micierre) {
 		cierreDAO.create(micierre);		
 	}
@@ -70,6 +79,31 @@ public class AdminServiceImpl implements AdminService{
 
 	public List<Cierre> obtenerTodosCierres() {
 		return cierreDAO.findAll();
+	}
+	
+	//**********EMPRESA***********
+	public void registroEmpresa(Empresa miempresa) {
+		empresaDAO.create(miempresa);
+	}
+
+	public void eliminarEmpresa(Empresa miempresa) {
+		empresaDAO.remove(miempresa);
+	}
+
+	public void actualizarEmpresa(Empresa miempresa) {
+		empresaDAO.update(miempresa);
+	}
+
+	public List<Empresa> obtenerTodasEmpresas() {
+		return empresaDAO.findAll();
+	}
+
+	public Empresa buscarEmpresaPorCif(String micif) {
+		return empresaDAO.findByCif(micif);
+	}
+
+	public List<Empresa> buscarEmpresaPorNombre(String minombre) {
+		return empresaDAO.findByNombre(minombre);
 	}
 
 	

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Cierre;
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 
 public interface AdminService {
@@ -33,4 +34,21 @@ public interface AdminService {
 	public Cierre buscarCierrePorFecha(Timestamp mifecha);
 	//Obtener todos los cierres 
 	public List<Cierre> obtenerTodosCierres();
+	
+	
+	//**********Empresa**************
+	
+	//Registro de una empresa
+	public void registroEmpresa(Empresa miempresa);
+	//Eliminación de una empresa
+	public void eliminarEmpresa(Empresa miempresa);
+	//Actualizar los datos de una empresa
+	public void actualizarEmpresa(Empresa miempresa);
+	//Obtener todas las empresas
+	public List<Empresa> obtenerTodasEmpresas();
+	//Buscar empresa por cif
+	public Empresa buscarEmpresaPorCif(String micif);
+	//Buscar empresas por nombre
+	public List<Empresa> buscarEmpresaPorNombre(String minombre);
+	
 }

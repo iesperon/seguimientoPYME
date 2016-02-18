@@ -22,7 +22,7 @@ public class IvaDAOImpl implements IvaDAO{
 		this.sessionFactory = sessionFactory;
 	}
 
-	public Long insert(Iva miiva) {
+	public Long create (Iva miiva) {
 		if(miiva.getId_iva() != null){
 			throw new RuntimeException("Intento de creación de IVA ya persistente");
 		}
