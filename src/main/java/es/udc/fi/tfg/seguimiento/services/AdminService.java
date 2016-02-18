@@ -63,6 +63,6 @@ public interface AdminService {
 	//Actualizar los datos de un centro
 	public void actualizarCentro(Centro micentro);
 	//Buscar todos los centros de una empresa
-	//public List<Centro> obtenerCentros(Empresa miempresa);
+	public List<Centro> obtenerCentros(Empresa miempresa);
 	
 }

@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name="EMPRESA")
 public class Empresa {
@@ -106,7 +109,8 @@ public class Empresa {
 		this.logo = logo;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
+	@Cascade({CascadeType.ALL})
 	public Set<Centro> getCentro() {
 		return centro;
 	}

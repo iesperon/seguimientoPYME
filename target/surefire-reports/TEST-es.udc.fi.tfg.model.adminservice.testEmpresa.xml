@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="es.udc.fi.tfg.model.adminservice.testEmpresa" time="0.622" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="es.udc.fi.tfg.model.adminservice.testEmpresa" time="0.64" errors="1" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_40\jre\bin"/>
@@ -64,5 +64,415 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="es.udc.fi.tfg.model.adminservice.testEmpresa" name="test" time="0.622"/>
+  <testcase classname="es.udc.fi.tfg.model.adminservice.testEmpresa" name="test" time="0.64">
+    <error message="could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement" type="org.springframework.dao.DataIntegrityViolationException">org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at org.springframework.orm.hibernate4.SessionFactoryUtils.convertHibernateAccessException(SessionFactoryUtils.java:161)
+	at org.springframework.orm.hibernate4.HibernateTransactionManager.convertHibernateAccessException(HibernateTransactionManager.java:684)
+	at org.springframework.orm.hibernate4.HibernateTransactionManager.doCommit(HibernateTransactionManager.java:566)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:757)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:726)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.commitTransactionAfterReturning(TransactionAspectSupport.java:478)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:272)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy34.eliminarCentro(Unknown Source)
+	at es.udc.fi.tfg.model.adminservice.testEmpresa.test(testEmpresa.java:77)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:254)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:129)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:49)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:126)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:112)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:211)
+	at org.hibernate.engine.jdbc.batch.internal.NonBatchingBatch.addToBatch(NonBatchingBatch.java:62)
+	at org.hibernate.persister.entity.AbstractEntityPersister.delete(AbstractEntityPersister.java:3400)
+	at org.hibernate.persister.entity.AbstractEntityPersister.delete(AbstractEntityPersister.java:3630)
+	at org.hibernate.action.internal.EntityDeleteAction.execute(EntityDeleteAction.java:114)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:463)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:349)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:350)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:56)
+	at org.hibernate.internal.SessionImpl.flush(SessionImpl.java:1222)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:425)
+	at org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction.beforeTransactionCommit(JdbcTransaction.java:101)
+	at org.hibernate.engine.transaction.spi.AbstractTransactionImpl.commit(AbstractTransactionImpl.java:177)
+	at org.springframework.orm.hibernate4.HibernateTransactionManager.doCommit(HibernateTransactionManager.java:558)
+	... 44 more
+Caused by: org.postgresql.util.PSQLException: ERROR: update o delete en «empresa» viola la llave foránea «fk_2cnojh1v44g6l6sxol9p2jymu» en la tabla «centro»
+  Detail: La llave (id_empresa)=(50) todavía es referida desde la tabla «centro».
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2103)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1836)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:257)
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:512)
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:388)
+	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeUpdate(AbstractJdbc2Statement.java:334)
+	at org.apache.commons.dbcp.DelegatingPreparedStatement.executeUpdate(DelegatingPreparedStatement.java:102)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:208)
+	... 57 more
+</error>
+    <system-out>Hibernate: 
+    alter table CENTRO 
+        drop constraint FK_2cnojh1v44g6l6sxol9p2jymu
+Hibernate: 
+    drop table if exists CENTRO cascade
+Hibernate: 
+    drop table if exists CIERRE cascade
+Hibernate: 
+    drop table if exists EMPRESA cascade
+Hibernate: 
+    drop table if exists IVA cascade
+Hibernate: 
+    drop sequence id_centro_seq
+Hibernate: 
+    drop sequence id_cierre_seq
+Hibernate: 
+    drop sequence id_empresa_seq
+Hibernate: 
+    drop sequence id_iva_seq
+Hibernate: 
+    create table CENTRO (
+        id_centro int8 not null,
+        calle varchar(255),
+        cp varchar(255),
+        email varchar(255),
+        nombre varchar(255) not null,
+        numero varchar(255),
+        pais varchar(255),
+        poblacion varchar(255),
+        provincia varchar(255),
+        telefono varchar(255),
+        id_empresa int8 not null,
+        primary key (id_centro)
+    )
+Hibernate: 
+    create table CIERRE (
+        id_cierre int8 not null,
+        caja float4,
+        diferencia float4,
+        efectivo float4,
+        fecha timestamp not null,
+        incidencias varchar(255),
+        tarjeta float4,
+        total float4,
+        primary key (id_cierre)
+    )
+Hibernate: 
+    create table EMPRESA (
+        id_empresa int8 not null,
+        cif varchar(255) not null,
+        descripcion varchar(255),
+        email varchar(255),
+        logo bytea,
+        nombre varchar(255) not null,
+        sector varchar(255),
+        primary key (id_empresa)
+    )
+Hibernate: 
+    create table IVA (
+        id_iva int8 not null,
+        nombre varchar(255),
+        porcentaje int4 not null,
+        primary key (id_iva)
+    )
+Hibernate: 
+    alter table CIERRE 
+        add constraint UK_m7dydcfe9al5mtlvesm4678cc  unique (fecha)
+Hibernate: 
+    alter table EMPRESA 
+        add constraint UK_rc1kbahs03nhcj8roo92g0jta  unique (cif)
+Hibernate: 
+    alter table IVA 
+        add constraint UK_xkaj28wo06km6gq88by58h7y  unique (nombre)
+Hibernate: 
+    alter table IVA 
+        add constraint UK_7i5kdblyfrwd7nsaoixby94bu  unique (porcentaje)
+Hibernate: 
+    alter table CENTRO 
+        add constraint FK_2cnojh1v44g6l6sxol9p2jymu 
+        foreign key (id_empresa) 
+        references EMPRESA
+Hibernate: 
+    create sequence id_centro_seq
+Hibernate: 
+    create sequence id_cierre_seq
+Hibernate: 
+    create sequence id_empresa_seq
+Hibernate: 
+    create sequence id_iva_seq
+Hibernate: 
+    select
+        nextval (&apos;id_empresa_seq&apos;)
+Hibernate: 
+    /* insert es.udc.fi.tfg.seguimiento.model.Empresa
+        */ insert 
+        into
+            EMPRESA
+            (cif, descripcion, email, logo, nombre, sector, id_empresa) 
+        values
+            (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    /* insert es.udc.fi.tfg.seguimiento.model.Empresa
+        */ insert 
+        into
+            EMPRESA
+            (cif, descripcion, email, logo, nombre, sector, id_empresa) 
+        values
+            (?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    /* 
+from
+    Empresa 
+where
+    nombre LIKE :nombre */ select
+        empresa0_.id_empresa as id_empre1_2_,
+        empresa0_.cif as cif2_2_,
+        empresa0_.descripcion as descripc3_2_,
+        empresa0_.email as email4_2_,
+        empresa0_.logo as logo5_2_,
+        empresa0_.nombre as nombre6_2_,
+        empresa0_.sector as sector7_2_ 
+    from
+        EMPRESA empresa0_ 
+    where
+        empresa0_.nombre like ?
+Hibernate: 
+    /* 
+from
+    Empresa 
+order by
+    nombre */ select
+        empresa0_.id_empresa as id_empre1_2_,
+        empresa0_.cif as cif2_2_,
+        empresa0_.descripcion as descripc3_2_,
+        empresa0_.email as email4_2_,
+        empresa0_.logo as logo5_2_,
+        empresa0_.nombre as nombre6_2_,
+        empresa0_.sector as sector7_2_ 
+    from
+        EMPRESA empresa0_ 
+    order by
+        empresa0_.nombre
+Hibernate: 
+    /* 
+from
+    Empresa 
+where
+    cif=:cif */ select
+        empresa0_.id_empresa as id_empre1_2_,
+        empresa0_.cif as cif2_2_,
+        empresa0_.descripcion as descripc3_2_,
+        empresa0_.email as email4_2_,
+        empresa0_.logo as logo5_2_,
+        empresa0_.nombre as nombre6_2_,
+        empresa0_.sector as sector7_2_ 
+    from
+        EMPRESA empresa0_ 
+    where
+        empresa0_.cif=?
+Hibernate: 
+    /* update
+        es.udc.fi.tfg.seguimiento.model.Empresa */ update
+            EMPRESA 
+        set
+            cif=?,
+            descripcion=?,
+            email=?,
+            logo=?,
+            nombre=?,
+            sector=? 
+        where
+            id_empresa=?
+Hibernate: 
+    select
+        nextval (&apos;id_centro_seq&apos;)
+Hibernate: 
+    /* insert es.udc.fi.tfg.seguimiento.model.Centro
+        */ insert 
+        into
+            CENTRO
+            (calle, cp, email, id_empresa, nombre, numero, pais, poblacion, provincia, telefono, id_centro) 
+        values
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    /* update
+        es.udc.fi.tfg.seguimiento.model.Empresa */ update
+            EMPRESA 
+        set
+            cif=?,
+            descripcion=?,
+            email=?,
+            logo=?,
+            nombre=?,
+            sector=? 
+        where
+            id_empresa=?
+Hibernate: 
+    /* insert es.udc.fi.tfg.seguimiento.model.Centro
+        */ insert 
+        into
+            CENTRO
+            (calle, cp, email, id_empresa, nombre, numero, pais, poblacion, provincia, telefono, id_centro) 
+        values
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    /* update
+        es.udc.fi.tfg.seguimiento.model.Empresa */ update
+            EMPRESA 
+        set
+            cif=?,
+            descripcion=?,
+            email=?,
+            logo=?,
+            nombre=?,
+            sector=? 
+        where
+            id_empresa=?
+Hibernate: 
+    /* update
+        es.udc.fi.tfg.seguimiento.model.Centro */ update
+            CENTRO 
+        set
+            calle=?,
+            cp=?,
+            email=?,
+            id_empresa=?,
+            nombre=?,
+            numero=?,
+            pais=?,
+            poblacion=?,
+            provincia=?,
+            telefono=? 
+        where
+            id_centro=?
+Hibernate: 
+    /* update
+        es.udc.fi.tfg.seguimiento.model.Empresa */ update
+            EMPRESA 
+        set
+            cif=?,
+            descripcion=?,
+            email=?,
+            logo=?,
+            nombre=?,
+            sector=? 
+        where
+            id_empresa=?
+Hibernate: 
+    /* 
+from
+    Centro 
+where
+    id_empresa = :id_empresa 
+order by
+    nombre */ select
+        centro0_.id_centro as id_centr1_0_,
+        centro0_.calle as calle2_0_,
+        centro0_.cp as cp3_0_,
+        centro0_.email as email4_0_,
+        centro0_.id_empresa as id_empr11_0_,
+        centro0_.nombre as nombre5_0_,
+        centro0_.numero as numero6_0_,
+        centro0_.pais as pais7_0_,
+        centro0_.poblacion as poblacio8_0_,
+        centro0_.provincia as provinci9_0_,
+        centro0_.telefono as telefon10_0_ 
+    from
+        CENTRO centro0_ 
+    where
+        id_empresa=? 
+    order by
+        centro0_.nombre
+Hibernate: 
+    select
+        empresa0_.id_empresa as id_empre1_2_0_,
+        empresa0_.cif as cif2_2_0_,
+        empresa0_.descripcion as descripc3_2_0_,
+        empresa0_.email as email4_2_0_,
+        empresa0_.logo as logo5_2_0_,
+        empresa0_.nombre as nombre6_2_0_,
+        empresa0_.sector as sector7_2_0_ 
+    from
+        EMPRESA empresa0_ 
+    where
+        empresa0_.id_empresa=?
+Hibernate: 
+    /* delete es.udc.fi.tfg.seguimiento.model.Centro */ delete 
+        from
+            CENTRO 
+        where
+            id_centro=?
+Hibernate: 
+    /* delete es.udc.fi.tfg.seguimiento.model.Empresa */ delete 
+        from
+            EMPRESA 
+        where
+            id_empresa=?
+</system-out>
+    <system-err>SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+feb 18, 2016 8:22:28 PM org.hibernate.annotations.common.reflection.java.JavaReflectionManager &lt;clinit&gt;
+INFO: HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+feb 18, 2016 8:22:28 PM org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate Core {4.3.7.Final}
+feb 18, 2016 8:22:28 PM org.hibernate.cfg.Environment &lt;clinit&gt;
+INFO: HHH000206: hibernate.properties not found
+feb 18, 2016 8:22:28 PM org.hibernate.cfg.Environment buildBytecodeProvider
+INFO: HHH000021: Bytecode provider name : javassist
+feb 18, 2016 8:22:28 PM org.hibernate.dialect.Dialect &lt;init&gt;
+INFO: HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+feb 18, 2016 8:22:28 PM org.hibernate.engine.jdbc.internal.LobCreatorBuilder useContextualLobCreation
+INFO: HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+feb 18, 2016 8:22:29 PM org.hibernate.engine.transaction.internal.TransactionFactoryInitiator initiateService
+INFO: HHH000399: Using default transaction strategy (direct JDBC transactions)
+feb 18, 2016 8:22:29 PM org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+INFO: HHH000397: Using ASTQueryTranslatorFactory
+feb 18, 2016 8:22:29 PM org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000227: Running hbm2ddl schema export
+feb 18, 2016 8:22:29 PM org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000230: Schema export complete
+feb 18, 2016 8:22:31 PM org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+WARN: SQL Error: 0, SQLState: 23503
+feb 18, 2016 8:22:31 PM org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+ERROR: ERROR: update o delete en «empresa» viola la llave foránea «fk_2cnojh1v44g6l6sxol9p2jymu» en la tabla «centro»
+  Detail: La llave (id_empresa)=(50) todavía es referida desde la tabla «centro».
+feb 18, 2016 8:22:31 PM org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl release
+INFO: HHH000010: On release of batch it still contained JDBC statements
+</system-err>
+  </testcase>
 </testsuite>

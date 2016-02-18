@@ -55,19 +55,31 @@ public class testEmpresa {
 		empresa1.setNombre("Hola1");
 		adminService.actualizarEmpresa(empresa1);
 		
-		//Borramos los datos
-		//adminService.eliminarEmpresa(empresa1);
-		//adminService.eliminarEmpresa(empresa2);
+	
 		
-		empresa3= (Empresa) adminService.buscarEmpresaPorCif(empresa1.getCif());
-		centro1 = new Centro("T001", "C/ Sin nombre", "BAJO","36003","Pontevedra","Pontevedra","España","tienda@tienda.es","+34986105232",empresa3);
-		centro2 = new Centro("T002", "C/ Del Centro", "10","36005","Pontevedra","Pontevedra","España","tiendanueva@tienda.es","+34626268512",empresa3);
+		//empresa3= (Empresa) adminService.buscarEmpresaPorCif(empresa1.getCif());
+		centro1 = new Centro("T001", "C/ Sin nombre", "BAJO","36003","Pontevedra","Pontevedra","España","tienda@tienda.es","+34986105232",empresa1);
+		centro2 = new Centro("T002", "C/ Del Centro", "10","36005","Pontevedra","Pontevedra","España","tiendanueva@tienda.es","+34626268512",empresa1);
 		
 		//Añadimos un centro
 		adminService.registroCentro(centro1);
 		adminService.registroCentro(centro2);
 		
+		//Modificamos un centro
+		centro1.setNombre("NUEVA_CENTRO!!!");
+		adminService.actualizarCentro(centro1);
 		
+		//Las listamos por empresa
+		List<Centro> milista3 = (List<Centro>) adminService.obtenerCentros(empresa1);
+		assertEquals(2, milista3.size());
+		
+		//Borramos un centro
+		adminService.eliminarCentro(centro1);
+		//adminService.eliminarCentro(centro2);
+		
+		//Borramos los datos
+		adminService.eliminarEmpresa(empresa1);
+		//adminService.eliminarEmpresa(empresa2);
 		
 		
 	}

@@ -1,6 +1,7 @@
 package es.udc.fi.tfg.seguimiento.services;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,7 +97,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	public void eliminarEmpresa(Empresa miempresa) {
-		empresaDAO.remove(miempresa);
+			empresaDAO.remove(miempresa);
 	}
 
 	public void actualizarEmpresa(Empresa miempresa) {
@@ -128,9 +129,9 @@ public class AdminServiceImpl implements AdminService{
 		centroDAO.update(micentro);
 	}
 
-	/*public List<Centro> obtenerCentros(Empresa miempresa) {
+	public List<Centro> obtenerCentros(Empresa miempresa) {
 		return centroDAO.findAllByEmpresa(miempresa);
-	}*/
+	}
 
 	
 	
