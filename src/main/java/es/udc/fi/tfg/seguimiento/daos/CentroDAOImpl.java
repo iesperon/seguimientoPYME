@@ -38,7 +38,7 @@ public class CentroDAOImpl implements CentroDAO {
 	@SuppressWarnings("unchecked")
 	public List<Centro> findAllByEmpresa(Empresa miempresa) {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Centro where id_empresa = :id_empresa order by nombre");
-		q.setParameter("id_empresa", miempresa.getId_empresa());
+		q.setParameter("id_empresa", miempresa.getIdEmpresa());
 		return (List<Centro>) q.list();
 	}
 

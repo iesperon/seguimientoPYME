@@ -20,7 +20,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name="CENTRO")
 public class Centro {
 
-	private Long id_centro;
+	private Long idCentro;
 	private String nombre;
 	private String calle;
 	private String numero;
@@ -52,13 +52,13 @@ public class Centro {
 	@Id
 	@SequenceGenerator(name="centroId",sequenceName = "id_centro_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="centroId")
-	@Column(name="id_centro")
-	public Long getId_centro() {
-		return id_centro;
+	@Column(name="idCentro")
+	public Long getIdCentro() {
+		return idCentro;
 	}
 
-	public void setId_centro(Long id_centro) {
-		this.id_centro = id_centro;
+	public void setIdCentro(Long idCentro) {
+		this.idCentro = idCentro;
 	}
 
 	@Column (name="nombre", nullable = false)
@@ -155,7 +155,7 @@ public class Centro {
 
 	@Override
 	public String toString() {
-		return "Centro [id_centro=" + id_centro + ", nombre=" + nombre + ", calle=" + calle + ", numero=" + numero
+		return "Centro [idCentro=" + idCentro + ", nombre=" + nombre + ", calle=" + calle + ", numero=" + numero
 				+ ", cp=" + cp + ", poblacion=" + poblacion + ", provincia=" + provincia + ", pais=" + pais + ", email="
 				+ email + ", telefono=" + telefono + ", empresa=" + empresa.getNombre() + "]";
 	}

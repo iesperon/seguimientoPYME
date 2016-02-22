@@ -72,9 +72,12 @@ public class testEmpresa {
 		//Las listamos por empresa
 		List<Centro> milista3 = (List<Centro>) adminService.obtenerCentros(empresa1);
 		assertEquals(2, milista3.size());
+		empresa1.getCentro().add(centro1);
+		empresa1.getCentro().add(centro2);
 		
 		//Borramos un centro
 		adminService.eliminarCentro(centro1);
+		empresa1.getCentro().remove(centro1);
 		//adminService.eliminarCentro(centro2);
 		
 		//Borramos los datos

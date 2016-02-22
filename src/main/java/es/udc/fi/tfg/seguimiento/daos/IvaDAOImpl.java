@@ -23,7 +23,7 @@ public class IvaDAOImpl implements IvaDAO{
 	}
 
 	public Long create (Iva miiva) {
-		if(miiva.getId_iva() != null){
+		if(miiva.getIdIva() != null){
 			throw new RuntimeException("Intento de creación de IVA ya persistente");
 		}
 		return (Long) sessionFactory.getCurrentSession().save(miiva);

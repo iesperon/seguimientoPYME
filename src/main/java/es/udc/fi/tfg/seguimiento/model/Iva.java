@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="IVA")
 public class Iva {
 	
-	private Long id_iva;
+	private Long idIva;
 	private String nombre;
 	private Integer porcentaje;
 	
@@ -27,13 +27,13 @@ public class Iva {
 	@Id 
 	@SequenceGenerator(name="ivaId", sequenceName = "id_iva_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="ivaId")
-	@Column (name="id_iva")
-	public Long getId_iva() {
-		return id_iva;
+	@Column (name="idIva")
+	public Long getIdIva() {
+		return idIva;
 	}
 
-	public void setId_iva(Long id_iva) {
-		this.id_iva = id_iva;
+	public void setIdIva(Long idIva) {
+		this.idIva = idIva;
 	}
 
 	@Column(name="nombre", unique = true)
@@ -66,7 +66,7 @@ public class Iva {
 
 	@Override
 	public String toString() {
-		return "Iva [id_iva=" + id_iva + ", nombre=" + nombre + ", porcentaje=" + porcentaje + "]";
+		return "Iva [idIva=" + idIva + ", nombre=" + nombre + ", porcentaje=" + porcentaje + "]";
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import org.hibernate.annotations.Formula;
 @Table(name="CIERRE")
 public class Cierre {
 
-	private Long id_cierre;
+	private Long idCierre;
 	private Timestamp fecha;
 	private Float efectivo;
 	private Float tarjeta;
@@ -43,13 +43,13 @@ public class Cierre {
 	@Id
 	@SequenceGenerator(name="cierreId",sequenceName = "id_cierre_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="cierreId")
-	@Column(name="id_cierre")
-	public Long getId_cierre() {
-		return id_cierre;
+	@Column(name="idCierre")
+	public Long getIdCierre() {
+		return idCierre;
 	}
 
-	public void setId_cierre(Long id_cierre) {
-		this.id_cierre = id_cierre;
+	public void setIdCierre(Long idCierre) {
+		this.idCierre = idCierre;
 	}
 
 	@Column (name="fecha", nullable = false, unique = true)
@@ -142,7 +142,7 @@ public class Cierre {
 
 	@Override
 	public String toString() {
-		return "Cierre [id_cierre=" + id_cierre + ", fecha=" + fecha + ", efectivo=" + efectivo + ", tarjeta=" + tarjeta
+		return "Cierre [idCierre=" + idCierre + ", fecha=" + fecha + ", efectivo=" + efectivo + ", tarjeta=" + tarjeta
 				+ ", total=" + total + ", incidencias=" + incidencias + ", diferencia=" + diferencia + "]";
 	}
 

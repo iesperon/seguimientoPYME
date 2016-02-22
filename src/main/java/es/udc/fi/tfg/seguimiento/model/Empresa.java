@@ -20,7 +20,7 @@ import org.hibernate.annotations.CascadeType;
 @Table(name="EMPRESA")
 public class Empresa {
 	
-	private Long id_empresa;
+	private Long idEmpresa;
 	private String nombre;
 	private String cif;
 	private String sector;
@@ -46,13 +46,13 @@ public class Empresa {
 	@Id
 	@SequenceGenerator(name="empresaId",sequenceName = "id_empresa_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="empresaId")
-	@Column(name="id_empresa")
-	public Long getId_empresa() {
-		return id_empresa;
+	@Column(name="idEmpresa")
+	public Long getIdEmpresa() {
+		return idEmpresa;
 	}
 
-	public void setId_empresa(Long id_empresa) {
-		this.id_empresa = id_empresa;
+	public void setIdEmpresa(Long idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
 
 	@Column (name="nombre", nullable = false)
@@ -109,7 +109,7 @@ public class Empresa {
 		this.logo = logo;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<Centro> getCentro() {
 		return centro;
