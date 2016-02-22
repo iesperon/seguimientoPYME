@@ -11,14 +11,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.udc.fi.tfg.seguimiento.model.Iva;
-import es.udc.fi.tfg.seguimiento.services.AdminService;
+import es.udc.fi.tfg.seguimiento.services.ProductoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring-config.xml")
 public class testIva {
 	
 	@Autowired
-	private AdminService adminService;
+	private ProductoService productoService;
 
 	public Iva alimentos;
 	public Iva productos;
@@ -31,23 +31,23 @@ public class testIva {
 		productos = new Iva("Productos", 21);
 				
 		//Insertamos IVAs
-		adminService.registroIVA(alimentos);
-		adminService.registroIVA(productos);
+		productoService.registroIVA(alimentos);
+		productoService.registroIVA(productos);
 		
 		//Buscamos los IVAs
-		List<Iva> milista = adminService.obtenerTodosIva();
+		List<Iva> milista = productoService.obtenerTodosIva();
 		assertEquals(2, milista.size());
 		
 		//Buscamos un IVA
-		assertEquals(alimentos, (Iva) adminService.buscarIvaPorPorcentaje(alimentos.getPorcentaje()));
+		assertEquals(alimentos, (Iva) productoService.buscarIvaPorPorcentaje(alimentos.getPorcentaje()));
 		
 		//Modificamos un IVA
 		productos.setNombre("Productos Nuevos");
 		productos.setPorcentaje(18);
-		adminService.actualizarIVA(productos);
+		productoService.actualizarIVA(productos);
 		
 		//Borramos los datos
-		adminService.eliminarIVA(alimentos);
-		adminService.eliminarIVA(productos);
+		productoService.eliminarIVA(alimentos);
+		productoService.eliminarIVA(productos);
 	}
 }

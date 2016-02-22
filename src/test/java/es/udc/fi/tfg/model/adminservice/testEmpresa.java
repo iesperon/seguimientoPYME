@@ -13,13 +13,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
-import es.udc.fi.tfg.seguimiento.services.AdminService;
+import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring-config.xml")
 public class testEmpresa {
 	@Autowired
-	private AdminService adminService;
+	private EmpresaService empresaService;
 	
 	public Empresa empresa1;
 	public Empresa empresa2;
@@ -37,23 +37,23 @@ public class testEmpresa {
 		
 
 		//Insertamos 
-		adminService.registroEmpresa(empresa1);
-		adminService.registroEmpresa(empresa2);
+		empresaService.registroEmpresa(empresa1);
+		empresaService.registroEmpresa(empresa2);
 		
 		//Buscamos por nombre (Buscamos alguna empresa que en su nombre tenga un '1')
-		List<Empresa> milista = adminService.buscarEmpresaPorNombre("1");
+		List<Empresa> milista = empresaService.buscarEmpresaPorNombre("1");
 		assertEquals(1, milista.size());
 		
 		//Obtenemos todos
-		List<Empresa> milista2 = adminService.obtenerTodasEmpresas();
+		List<Empresa> milista2 = empresaService.obtenerTodasEmpresas();
 		assertEquals(2, milista2.size());
 		
 		//Buscamos por CIF
-		assertEquals(empresa1, (Empresa) adminService.buscarEmpresaPorCif(empresa1.getCif()));
+		assertEquals(empresa1, (Empresa) empresaService.buscarEmpresaPorCif(empresa1.getCif()));
 		
 		//Modificamos una empresa 
 		empresa1.setNombre("Hola1");
-		adminService.actualizarEmpresa(empresa1);
+		empresaService.actualizarEmpresa(empresa1);
 		
 	
 		
@@ -62,26 +62,26 @@ public class testEmpresa {
 		centro2 = new Centro("T002", "C/ Del Centro", "10","36005","Pontevedra","Pontevedra","España","tiendanueva@tienda.es","+34626268512",empresa1);
 		
 		//Añadimos un centro
-		adminService.registroCentro(centro1);
-		adminService.registroCentro(centro2);
+		empresaService.registroCentro(centro1);
+		empresaService.registroCentro(centro2);
 		
 		//Modificamos un centro
 		centro1.setNombre("NUEVA_CENTRO!!!");
-		adminService.actualizarCentro(centro1);
+		empresaService.actualizarCentro(centro1);
 		
 		//Las listamos por empresa
-		List<Centro> milista3 = (List<Centro>) adminService.obtenerCentros(empresa1);
+		List<Centro> milista3 = (List<Centro>) empresaService.obtenerCentros(empresa1);
 		assertEquals(2, milista3.size());
 		empresa1.getCentro().add(centro1);
 		empresa1.getCentro().add(centro2);
 		
 		//Borramos un centro
-		adminService.eliminarCentro(centro1);
+		empresaService.eliminarCentro(centro1);
 		empresa1.getCentro().remove(centro1);
 		//adminService.eliminarCentro(centro2);
 		
 		//Borramos los datos
-		adminService.eliminarEmpresa(empresa1);
+		empresaService.eliminarEmpresa(empresa1);
 		//adminService.eliminarEmpresa(empresa2);
 		
 		
