@@ -11,12 +11,15 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-//@Entity
-//@PrimaryKeyJoinColumn(name="id_usuario")
-//@Table(name="USUARIOS")
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+@Entity
+@PrimaryKeyJoinColumn(name="id_usuario")
+@Table(name="USUARIOS")
 public class Usuario {
-/*
-	private Long id_usuario;
+
+	private Long idUsuario;
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
@@ -24,13 +27,13 @@ public class Usuario {
 	private String dni;
 	private String contrasena;
 	private Boolean admin;
-	private Tienda tienda; 
+	private Centro centro; 
 	
 	public Usuario(){
 	}
 
 	public Usuario(String nombre, String apellido1, String apellido2, String email, String dni, 
-			String contrasena, Boolean admin, Tienda tienda ){
+			String contrasena, Boolean admin, Centro centro ){
 		this.nombre=nombre;
 		this.apellido1=apellido1;
 		this.apellido2=apellido2;
@@ -38,19 +41,19 @@ public class Usuario {
 		this.dni=dni;
 		this.contrasena=contrasena;
 		this.admin=admin;
-		this.tienda=tienda;
+		this.centro=centro;
 	}
 	
 	@Id 
-	@SequenceGenerator(name="usuarioID", sequenceName = "id_usuario_seq")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="usuarioID")
-	@Column (name="id_usuario")
+	@SequenceGenerator(name="usuarioId", sequenceName = "id_usuario_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="usuarioId")
+	@Column (name="idUsuario")
 	public Long getId_usuario() {
-		return id_usuario;
+		return idUsuario;
 	}
 
-	public void setId_usuario(Long id_usuario) {
-		this.id_usuario = id_usuario;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 	@Column(name="nombre")
@@ -80,7 +83,7 @@ public class Usuario {
 		this.apellido2 = apellido2;
 	}
 
-	@Column(name="email")
+	@Column(name="email", nullable = false, unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -89,7 +92,7 @@ public class Usuario {
 		this.email = email;
 	}
 
-	@Column(name="dni")
+	@Column(name="dni", nullable = false, unique = true)
 	public String getDni() {
 		return dni;
 	}
@@ -98,7 +101,7 @@ public class Usuario {
 		this.dni = dni;
 	}
 
-	@Column(name="contrasena")
+	@Column(name="contrasena", nullable=false)
 	public String getContrasena() {
 		return contrasena;
 	}
@@ -107,7 +110,7 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	@Column(name="admin")
+	@Column(name="admin", nullable = false)
 	public Boolean getAdmin() {
 		return admin;
 	}
@@ -117,17 +120,47 @@ public class Usuario {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="tienda")
-	public Tienda getTienda() {
-		return tienda;
+	@JoinColumn(name="centro")
+	@Cascade({CascadeType.SAVE_UPDATE})
+	public Centro getCentro() {
+		return centro;
 	}
 
-	public void setTienda(Tienda tienda) {
-		this.tienda = tienda;
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (dni == null) {
+			if (other.dni != null)
+				return false;
+		} else if (!dni.equals(other.dni))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
 	}
 
 
-
-	*/
 	
 }

@@ -9,12 +9,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.JoinColumnOrFormula;
 
 @Entity
 @Table(name="EMPRESA")
@@ -28,12 +31,14 @@ public class Empresa {
 	private String email;
 	private byte[] logo; 
 	private Set<Centro> centro = new HashSet<Centro>();
+	private Usuario administrador;
 	
 
 	
 	public Empresa(){
 	}
 	
+	//Constructor sin administrador para el test
 	public Empresa(String nombre, String cif, String sector, String descripcion, String email, byte[] logo){
 		this.nombre = nombre;
 		this.cif = cif;
@@ -41,6 +46,16 @@ public class Empresa {
 		this.descripcion = descripcion;
 		this.email = email;
 		this.logo = logo;
+	}
+	
+	public Empresa(String nombre, String cif, String sector, String descripcion, String email, byte[] logo, Usuario administrador){
+		this.nombre = nombre;
+		this.cif = cif;
+		this.sector = sector;
+		this.descripcion = descripcion;
+		this.email = email;
+		this.logo = logo;
+		this.administrador=administrador;
 	}
 	
 	@Id
@@ -117,6 +132,16 @@ public class Empresa {
 
 	public void setCentro(Set<Centro> centro) {
 		this.centro = centro;
+	}
+	
+	@OneToOne
+	@JoinColumn(name="idAdmin")
+	public Usuario getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(Usuario administrador) {
+		this.administrador = administrador;
 	}
 
 	@Override

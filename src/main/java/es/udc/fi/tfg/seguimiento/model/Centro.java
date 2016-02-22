@@ -1,5 +1,8 @@
 package es.udc.fi.tfg.seguimiento.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -31,7 +35,9 @@ public class Centro {
 	private String email;
 	private String telefono;
 	private Empresa empresa;
+	private Set<Usuario> usuario = new HashSet<Usuario>();
 	
+
 	public Centro(){
 	}
 	
@@ -143,7 +149,7 @@ public class Centro {
 	}
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_empresa", nullable = false)
+	@JoinColumn(name="idEmpresa", nullable = false)
 	@Cascade({CascadeType.SAVE_UPDATE})
 	public Empresa getEmpresa() {
 		return empresa;
@@ -152,6 +158,17 @@ public class Centro {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
+	
+	@OneToMany(mappedBy="centro", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE})
+	public Set<Usuario> getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Set<Usuario> usuario) {
+		this.usuario = usuario;
+	}
+
 
 	@Override
 	public String toString() {

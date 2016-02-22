@@ -76,12 +76,12 @@ public class testEmpresa {
 		empresa1.getCentro().add(centro2);
 		
 		//Borramos un centro
-		empresaService.eliminarCentro(centro1);
-		empresa1.getCentro().remove(centro1);
+		//empresaService.eliminarCentro(centro1);
+		//empresa1.getCentro().remove(centro1);
 		//adminService.eliminarCentro(centro2);
 		
 		//Borramos los datos
-		empresaService.eliminarEmpresa(empresa1);
+		//empresaService.eliminarEmpresa(empresa1);
 		//adminService.eliminarEmpresa(empresa2);
 		
 		
