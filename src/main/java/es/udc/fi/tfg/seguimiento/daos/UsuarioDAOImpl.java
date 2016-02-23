@@ -51,11 +51,6 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		return (List<Usuario>) q.list();
 	}
 
-	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Long create(Usuario miusuario) {
 		return (Long) sessionFactory.getCurrentSession().save(miusuario);
 	}

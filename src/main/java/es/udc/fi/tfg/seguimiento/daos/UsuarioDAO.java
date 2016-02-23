@@ -13,7 +13,6 @@ public interface UsuarioDAO {
 	public Usuario findByDni (String midni, Centro micentro);
 	public List<Usuario> findByEmpresa(Empresa miempresa);
 	public List<Usuario> findByCentro(Centro micentro);
-	public List<Usuario> findAll();
 	public Long create (Usuario miusuario);
 	public void update (Usuario miusuario);
 	public void remove (Usuario miusuario);
