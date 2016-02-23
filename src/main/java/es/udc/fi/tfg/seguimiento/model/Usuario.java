@@ -26,14 +26,14 @@ public class Usuario {
 	private String email;
 	private String dni;
 	private String contrasena;
-	private Boolean admin;
+	private Integer admin;
 	private Centro centro; 
 	
 	public Usuario(){
 	}
 
 	public Usuario(String nombre, String apellido1, String apellido2, String email, String dni, 
-			String contrasena, Boolean admin, Centro centro ){
+			String contrasena, Integer admin, Centro centro ){
 		this.nombre=nombre;
 		this.apellido1=apellido1;
 		this.apellido2=apellido2;
@@ -48,7 +48,7 @@ public class Usuario {
 	@SequenceGenerator(name="usuarioId", sequenceName = "id_usuario_seq")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="usuarioId")
 	@Column (name="idUsuario")
-	public Long getId_usuario() {
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
@@ -111,16 +111,16 @@ public class Usuario {
 	}
 
 	@Column(name="admin", nullable = false)
-	public Boolean getAdmin() {
+	public Integer getAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(Boolean admin) {
+	public void setAdmin(Integer admin) {
 		this.admin = admin;
 	}
 
 	@ManyToOne
-	@JoinColumn(name="centro")
+	@JoinColumn(name="idCentro")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	public Centro getCentro() {
 		return centro;

@@ -33,7 +33,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	}
 
 	public Usuario findByDni(String midni, Centro micentro) {
-		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where dni=:dni and idCentro=:idCentro");
+		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where dni LIKE :dni and idCentro=:idCentro");
+		midni = "%"+midni+"%";
 		q.setParameter("dni", midni);
 		q.setParameter("idCentro", micentro.getIdCentro());
 		return (Usuario) q.list().get(0);
