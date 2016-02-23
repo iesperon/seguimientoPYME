@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>es.udc.fi.asi</groupId>
+	<groupId>es.udc.fi.tfg</groupId>
 	<artifactId>seguimientoPYMES</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>seguimientoPYME</name>
 
@@ -118,7 +118,7 @@
     		<groupId>org.apache.tiles</groupId>
     		<artifactId>tiles-extras</artifactId>
     		<version>${tiles.version}</version>
-		</dependency>
+		</dependency> 
 		
 		<!-- HIBERNATE -->
     	<dependency>
@@ -142,6 +142,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.8</version>
 				<configuration>
     				<scanIntervalSeconds>5</scanIntervalSeconds>
     			</configuration>

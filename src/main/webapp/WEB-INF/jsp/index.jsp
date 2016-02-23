@@ -1,8 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div><s:message code="home.welcome"/></div> 
 
-<div style="margin: 10px 0;">
-	<s:message code="home.startwith"/><a href="<c:url value="issue/list"/>"><s:message code="home.listofissues"/></a>
-</div>
+
+
+	<section class="text-right">
+	<h1>Registro de Empresas</h1>
+	<h2>Usuario:</h2>
+		<div class="col-xs-3">
+			<label for="nombre">Nombre</label>
+			<input class="form-control" id="nombre" type="text">
+		</div>
+	</section>
+
+
+

@@ -5,6 +5,6 @@
 <tiles-definitions>
     <definition name="defaultTemplate" template="/WEB-INF/template/template.jsp">
         <put-attribute name="content" value="/WEB-INF/template/defaultContent.jsp"/>
-        <put-attribute name="title" value="Issue management"/>
+        <put-attribute name="title" value="Error"/>
     </definition>
 </tiles-definitions>
