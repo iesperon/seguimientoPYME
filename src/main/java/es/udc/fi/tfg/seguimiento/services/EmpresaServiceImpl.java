@@ -58,10 +58,12 @@ public class EmpresaServiceImpl implements EmpresaService{
 	//**********CENTRO***********
 	public void registroCentro(Centro micentro) {
 		centroDAO.create(micentro);
+		micentro.getEmpresa().getCentro().add(micentro);
 	}
 
 	public void eliminarCentro(Centro micentro) {
 		centroDAO.remove(micentro);
+		micentro.getEmpresa().getCentro().remove(micentro);
 	}
 
 	public void actualizarCentro(Centro micentro) {

@@ -42,5 +42,11 @@ public class CentroDAOImpl implements CentroDAO {
 		return (List<Centro>) q.list();
 	}
 
+	public Centro findById(Long miid) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Centro where idCentro = :idCentro");
+		q.setParameter("idCentro", miid);
+		return (Centro) q.list().get(0);
+	}
+
 
 }

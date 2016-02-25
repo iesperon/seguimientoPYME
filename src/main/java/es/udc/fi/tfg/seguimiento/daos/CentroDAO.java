@@ -11,6 +11,7 @@ public interface CentroDAO {
 	public void remove(Centro micentro);
 	public void update(Centro micentro);
 	public List<Centro> findAllByEmpresa(Empresa miempresa);
+	public Centro findById(Long miid);
 	
 
 }

@@ -88,29 +88,30 @@ public class testEmpresa {
 		//Las listamos por empresa
 		List<Centro> milista3 = (List<Centro>) empresaService.obtenerCentros(empresa1);
 		assertEquals(2, milista3.size());
-		empresa1.getCentro().add(centro1);
-		empresa1.getCentro().add(centro2);
+		//empresa1.getCentro().add(centro1);
+		//empresa1.getCentro().add(centro2);
+		
 		
 		
 		//***************USUARIOS EMPLEADOS
-		usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",2,centro1);
-		centro1.getUsuario().add(usuario2);
+		//usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",2,centro1);
+		//centro1.getUsuario().add(usuario2);
 		
 		//INSERTAMOS 
-		usuarioService.registroUsuario(usuario2);
+		//usuarioService.registroUsuario(usuario2);
 		
 		//ACTUALIZAMOS 
-		usuario2.setCentro(centro2);
-		usuarioService.actualizarUsuario(usuario2);
-		centro1.getUsuario().remove(usuario2);
-		centro2.getUsuario().add(usuario2);
+		//usuario2.setCentro(centro2);
+		//usuarioService.actualizarUsuario(usuario2);
+		//centro1.getUsuario().remove(usuario2);
+		//centro2.getUsuario().add(usuario2);
 		
 		
 		//BUSQUEDAS
-		List<Usuario> milista4 = (List<Usuario>) usuarioService.buscarUsuarioPorCentro(centro2);
-		assertEquals(1, milista4.size());
+		//List<Usuario> milista4 = (List<Usuario>) usuarioService.buscarUsuarioPorCentro(centro2);
+		//assertEquals(1, milista4.size());
 		
-		assertEquals(usuario2, usuarioService.buscarUsuarioPorDni("541", centro2));
+		//assertEquals(usuario2, usuarioService.buscarUsuarioPorDni("541", centro2));
 		
 		
 		//Borramos un centro
@@ -119,7 +120,7 @@ public class testEmpresa {
 		//adminService.eliminarCentro(centro2);
 		
 		//Borramos los datos
-		//empresaService.eliminarEmpresa(empresa1);
+		empresaService.eliminarEmpresa(empresa1);
 		//adminService.eliminarEmpresa(empresa2);
 		
 		//Borramos los usuarios
