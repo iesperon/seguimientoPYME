@@ -3,48 +3,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
-<html>
-
-<head>
-    <title> MiPymeOnline </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
- 	<style type="text/css">
-        <%@include file="../../resources/css/bootstrap.min.css" %>
-    </style>
- 
-    
-</head>
-
-<body>
-
-	<nav class="navbar navbar-inverse">
- 		 <div class="container-fluid">
-    		<div class="navbar-header">
-      			<a class="navbar-brand" href="<c:url value="/" />">MiPymeOnline</a>
-    		</div>
-    		
-    		<form class="navbar-form navbar-right" role="search">
-        		<div class="form-group">
-          			<input type="text" class="form-control" placeholder="Email">
-          			<input type="password" class="form-control" placeholder="Contraseña">
-        		</div>
-        		<button type="submit" class="btn btn-primary">Aceptar</button>
-      		</form>
-    	</div>
-    </nav>
-	
-	<div class="row">
-		<div class="col-sm-4"></div>
-		<div class="col-sm-4">
-		 	<img src="<c:url value="/resources/images/logo11.png" />" class="img-rounded" alt="Logo" width="304" height="236">
-		</div>
-			
-	</div>
-
 	 <div class="row">
   		<div class="col-sm-6">
+  		<div class="row">
+  		<div class="col-sm-2"></div>  		
+		 	<img src="<c:url value="/resources/images/logo11.png" />" class="img-rounded" alt="Logo" width="304" height="236">
+		</div>
   			<h2>Descripción: </h2>
   				<div class="row">
   				  		<div class="col-sm-1"></div>
@@ -61,66 +25,105 @@
   				</div>
   		</div>
   		
+  		<script language="JavaScript">
+			submitForms = function(){
+    			document.getElementById("usuario").submit();
+    			document.getElementById("empresa").submit();
+			}
+		</script>
+  		
   		<div class="col-sm-6">
   			<div>
   				<h2>Registro de Empresas</h2>
 				<div class="row">
 				<h4>Usuario:</h4>
 				
-				<form:form action="addUser" method="POST" modelAttribute="usuario" class="form-horizontal" role="form">
+				<form:form action="addUser" name="usuario" method="POST" modelAttribute="usuario" class="form-horizontal" role="form">
 					
 					<div class="col-xs-3">
 						<label for="nombre">Nombre</label>
-						<form:input class="form-control" path="nombre" name="nombre" type="text"/>
+						<form:input class="form-control" path="nombre" type="text"/>
 					</div>
 				
 					<div class="col-xs-3">
 						<label for="apellido1">1º Apellido</label>
-						<form:input class="form-control" path="apellido1" name="apellido1" type="text"/>
+						<form:input class="form-control" path="apellido1" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="apellido2">2º Apellido</label>
-						<form:input class="form-control" path="apellido2" name="apellido2" type="text"/>
+						<form:input class="form-control" path="apellido2" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="email">Email</label>
-						<form:input class="form-control" path="email" name="email" type="text"/>
+						<form:input class="form-control" path="email" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="dni">DNI</label>
-						<form:input class="form-control" path="dni" name="dni" type="text"/>
+						<form:input class="form-control" path="dni" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="contrasena">Contraseña</label>
-						<form:input class="form-control" path="contrasena" name="contrasena" type="password"/>
+						<form:input class="form-control" path="contrasena" type="password"/>
 					</div>
 					
 					<div class="col-xs-3">
-						<form:input class="form-control" path="admin" name="admin" type="hidden" value="1"/>
+						<form:input class="form-control" path="admin" type="hidden" value="1"/>
 					</div>
-				
-					<div class="col-xs-3">
-						<input type="submit" value="Aceptar" class="btn btn-primary">
-					</div>
-					
-				</form:form>	
+								
+				</form:form>
+									
 				</div>
 			</div>
 			
 			<div class="row">
 				<h4> Empresa: </h4>
+					<form:form action="addEmpresa" name="empresa" method="POST" modelAttribute="empresa" class="form-horizontal" role="form">
+									
+					<div class="col-xs-3">
+						<label for="nombre">Nombre</label>
+						<form:input class="form-control" path="nombre" type="text"/>
+					</div>
 				
+					<div class="col-xs-3">
+						<label for="cif">CIF</label>
+						<form:input class="form-control" path="cif" type="text"/>
+					</div>
+					
+					<div class="col-xs-3">
+						<label for="sector">Sector</label>
+						<form:input class="form-control" path="sector"type="text"/>
+					</div>
+					
+					<div class="col-xs-3">
+						<label for="descripcion">Descripcion</label>
+						<form:input class="form-control" path="descripcion" type="text"/>
+					</div>
+					
+					<div class="col-xs-3">
+						<label for="email">Email</label>
+						<form:input class="form-control" path="email"  type="text"/>
+					</div>
+					
+					<div class="col-xs-3">
+						<label for="logo">Logo</label>
+						<span class="btn btn-default btn-file">
+							<form:input path="logo"  type="file"/>
+						</span>
+					</div>
+					
+											
+			</form:form>			
+							
 			</div>
-				
+			<br>
+			<div class="row">
+				<div class="col-xs-3">
+						<input type="submit" value="Aceptar" class="btn btn-primary" onclick="submitForms()">
+				</div>
+			</div>
 			</div>
   		</div>
-	</div>
-	
-
-
-</body>
-</html>

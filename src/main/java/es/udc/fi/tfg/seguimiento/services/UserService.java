@@ -25,5 +25,7 @@ public interface UserService {
 	//Buscar todos los usuarios de un centro 
 	public List<Usuario> buscarUsuarioPorCentro(Centro micentro);
 	
+	public Usuario buscarPorDNI(String midni);
+	
 	
 }

@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.CentroDAO;
 import es.udc.fi.tfg.seguimiento.daos.EmpresaDAO;
+import es.udc.fi.tfg.seguimiento.daos.UsuarioDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+
 
 @Service
 @Transactional
@@ -27,6 +29,13 @@ public class EmpresaServiceImpl implements EmpresaService{
 	
 	public void setCentroDAO (CentroDAO centroDAO){
 		this.centroDAO = centroDAO;
+	}
+	
+	@Autowired
+	private UsuarioDAO usuarioDAO = null;
+	
+	public void setUsuarioDAO (UsuarioDAO usuarioDAO){
+		this.usuarioDAO = usuarioDAO;
 	}
 
 	

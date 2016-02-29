@@ -89,7 +89,7 @@
 
 	<!-- Tiles configuration -->
 	
-	<!--  <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
 
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -97,14 +97,15 @@
 				<value>/WEB-INF/tiles/*.xml</value>
 			</list>
 		</property>
-	</bean>-->
+	</bean>
 	
 	
 	<!-- View Resolver -->
+	<!--   
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
-	</bean> 
+	</bean> --> 
 	
 	<!-- Web resources (CSS, img, etc.) -->
 	<mvc:resources mapping="/resources/**" location="/resources/"

@@ -23,6 +23,7 @@ public interface EmpresaService {
 		public List<Empresa> buscarEmpresaPorNombre(String minombre);
 		
 		
+		
 		//**********Centro**************
 		
 		//Registro de un centro

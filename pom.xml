@@ -114,11 +114,11 @@
 		</dependency>
 		
 		<!-- Tiles -->
-		<!--  <dependency>
+		<dependency>
     		<groupId>org.apache.tiles</groupId>
     		<artifactId>tiles-extras</artifactId>
     		<version>${tiles.version}</version>
-		</dependency>--> 
+		</dependency>
 		
 		<!-- HIBERNATE -->
     	<dependency>
