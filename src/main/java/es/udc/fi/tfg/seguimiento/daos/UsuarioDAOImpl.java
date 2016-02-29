@@ -40,13 +40,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		return (Usuario) q.list().get(0);
 	}
 
-	public Usuario findDNI(String midni){
-		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where dni LIKE :dni");
-		midni = "%"+midni+"%";
-		q.setParameter("dni", midni);
-		return (Usuario) q.list().get(0);
-	} 
-	
+
 	public List<Usuario> findByEmpresa(Empresa miempresa) {
 		// TODO Auto-generated method stub
 		return null;

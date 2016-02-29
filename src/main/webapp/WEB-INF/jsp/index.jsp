@@ -25,105 +25,93 @@
   				</div>
   		</div>
   		
-  		<script language="JavaScript">
-			submitForms = function(){
-    			document.getElementById("usuario").submit();
-    			document.getElementById("empresa").submit();
-			}
-		</script>
-  		
-  		<div class="col-sm-6">
-  			<div>
+  		<form:form action="addUser" name="myForm" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
+				<div class="col-sm-6">
+				<div>
   				<h2>Registro de Empresas</h2>
-				<div class="row">
-				<h4>Usuario:</h4>
 				
-				<form:form action="addUser" name="usuario" method="POST" modelAttribute="usuario" class="form-horizontal" role="form">
-					
+				<div class="row">
+				<h4>Usuario:</h4>	
+				
 					<div class="col-xs-3">
 						<label for="nombre">Nombre</label>
-						<form:input class="form-control" path="nombre" type="text"/>
+						<form:input class="form-control" path="usuario.nombre" type="text"/>
 					</div>
 				
 					<div class="col-xs-3">
 						<label for="apellido1">1º Apellido</label>
-						<form:input class="form-control" path="apellido1" type="text"/>
+						<form:input class="form-control" path="usuario.apellido1" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="apellido2">2º Apellido</label>
-						<form:input class="form-control" path="apellido2" type="text"/>
+						<form:input class="form-control" path="usuario.apellido2" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="email">Email</label>
-						<form:input class="form-control" path="email" type="text"/>
+						<form:input class="form-control" path="usuario.email" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="dni">DNI</label>
-						<form:input class="form-control" path="dni" type="text"/>
+						<form:input class="form-control" path="usuario.dni" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="contrasena">Contraseña</label>
-						<form:input class="form-control" path="contrasena" type="password"/>
+						<form:input class="form-control" path="usuario.contrasena" type="password"/>
 					</div>
 					
 					<div class="col-xs-3">
-						<form:input class="form-control" path="admin" type="hidden" value="1"/>
+						<form:input class="form-control" path="usuario.admin" type="hidden" value="1"/>
 					</div>
-								
-				</form:form>
-									
+					
 				</div>
-			</div>
-			
-			<div class="row">
-				<h4> Empresa: </h4>
-					<form:form action="addEmpresa" name="empresa" method="POST" modelAttribute="empresa" class="form-horizontal" role="form">
-									
+					
+				<div class="row">	
+					<h4> Empresa: </h4>
+					
 					<div class="col-xs-3">
 						<label for="nombre">Nombre</label>
-						<form:input class="form-control" path="nombre" type="text"/>
+						<form:input class="form-control" path="empresa.nombre" type="text"/>
 					</div>
 				
 					<div class="col-xs-3">
 						<label for="cif">CIF</label>
-						<form:input class="form-control" path="cif" type="text"/>
+						<form:input class="form-control" path="empresa.cif" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="sector">Sector</label>
-						<form:input class="form-control" path="sector"type="text"/>
+						<form:input class="form-control" path="empresa.sector"type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="descripcion">Descripcion</label>
-						<form:input class="form-control" path="descripcion" type="text"/>
+						<form:input class="form-control" path="empresa.descripcion" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="email">Email</label>
-						<form:input class="form-control" path="email"  type="text"/>
+						<form:input class="form-control" path="empresa.email"  type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="logo">Logo</label>
 						<span class="btn btn-default btn-file">
-							<form:input path="logo"  type="file"/>
+							<form:input path="empresa.logo"  type="file"/>
 						</span>
 					</div>
 					
-											
-			</form:form>			
-							
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-xs-3">
-						<input type="submit" value="Aceptar" class="btn btn-primary" onclick="submitForms()">
 				</div>
-			</div>
+				
+					<div class="col-xs-3">
+						<input type="submit" value="Aceptar" class="btn btn-primary" onclick="submitForms()">
+					</div>
+					
+				</div>
+			</div>		
+	</form:form>
 			</div>
   		</div>

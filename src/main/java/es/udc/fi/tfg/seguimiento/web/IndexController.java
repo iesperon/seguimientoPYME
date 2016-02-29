@@ -8,6 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.FormUser;
@@ -26,35 +28,20 @@ public class IndexController {
 	
 		
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("usuario",new Usuario());
-		model.addAttribute("empresa",new Empresa());
-		//model.addAttribute("myForm", new FormUser());
-		return "index";
+	public ModelAndView index(@RequestParam(value = "error", required = false) String error, 
+			@RequestParam(value = "logout", required = false) String logout) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("myForm", new FormUser());
+		
+		mav.setViewName("index");
+		
+		return mav;
+		
 	}
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public void addUser(Usuario usuario, BindingResult result, Model model) {
-		//if(result.hasErrors()){
-		//	return "index";
-		//}else{
-			usuarioService.registroUsuario(usuario);
-			
-		//	return "redirect:/";
-		//}
-	}
-	
-	@RequestMapping(value = "/addEmpresa", method = RequestMethod.POST)
-	public String addUser(Empresa empresa, BindingResult result, Model model) {
-		if(result.hasErrors()){
-			return "index";
-		}else{
-			empresaService.registroEmpresa(empresa);
-			return "redirect:/";
-		}
-	}
-	
-	/*@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String addUser(FormUser myForm, BindingResult result, Model model) {
 		if(result.hasErrors()){
 			return "index";
@@ -66,7 +53,7 @@ public class IndexController {
 			empresaService.registroEmpresa(empresa);
 			return "redirect:/";
 		}
-	}*/
+	}
 	
 	
 	

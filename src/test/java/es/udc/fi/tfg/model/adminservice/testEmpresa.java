@@ -94,11 +94,11 @@ public class testEmpresa {
 		
 		
 		//***************USUARIOS EMPLEADOS
-		//usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",2,centro1);
-		//centro1.getUsuario().add(usuario2);
+		usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",2,centro1);
+		centro1.getUsuario().add(usuario2);
 		
 		//INSERTAMOS 
-		//usuarioService.registroUsuario(usuario2);
+		usuarioService.registroUsuario(usuario2);
 		
 		//ACTUALIZAMOS 
 		//usuario2.setCentro(centro2);
@@ -120,7 +120,7 @@ public class testEmpresa {
 		//adminService.eliminarCentro(centro2);
 		
 		//Borramos los datos
-		empresaService.eliminarEmpresa(empresa1);
+		//empresaService.eliminarEmpresa(empresa1);
 		//adminService.eliminarEmpresa(empresa2);
 		
 		//Borramos los usuarios

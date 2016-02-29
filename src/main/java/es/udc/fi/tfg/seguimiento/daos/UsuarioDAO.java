@@ -11,7 +11,6 @@ public interface UsuarioDAO {
 
 	public List<Usuario> findByName (String minombre, Centro micentro);
 	public Usuario findByDni (String midni, Centro micentro);
-	public Usuario findDNI(String midni);
 	public List<Usuario> findByEmpresa(Empresa miempresa);
 	public List<Usuario> findByCentro(Centro micentro);
 	public Long create (Usuario miusuario);

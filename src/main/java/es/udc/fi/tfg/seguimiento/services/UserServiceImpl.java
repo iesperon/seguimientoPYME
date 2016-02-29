@@ -50,8 +50,5 @@ public class UserServiceImpl implements UserService{
 		return usuarioDAO.findByCentro(micentro);
 	}
 
-	public Usuario buscarPorDNI(String midni) {
-		return usuarioDAO.findDNI(midni);
-	}
 
 }
