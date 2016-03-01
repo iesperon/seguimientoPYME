@@ -41,7 +41,7 @@ public class testEmpresa {
 		
 		//USUARIO ADMINISTRADOR
 		
-		usuario1 = new Usuario("Iván","Esperón","Cespón","ivanesperon@gmail.com","76933725J","76933725J",1,null);
+		usuario1 = new Usuario("Iván","Esperón","Cespón","ivanesperon@gmail.com","76933725J","76933725J",true,null);
 				
 		//Insertamos el usuario
 		usuarioService.registroUsuario(usuario1);
@@ -94,7 +94,7 @@ public class testEmpresa {
 		
 		
 		//***************USUARIOS EMPLEADOS
-		usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",2,centro1);
+		usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",true,centro1);
 		centro1.getUsuario().add(usuario2);
 		
 		//INSERTAMOS 

@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.seguimiento.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -15,7 +15,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id_usuario")
 @Table(name="USUARIOS")
 public class Usuario {
 
@@ -26,23 +25,25 @@ public class Usuario {
 	private String email;
 	private String dni;
 	private String contrasena;
-	private Integer admin;
-	private Centro centro; 
+	private Boolean enabled;
+	private Centro centro;
 	
 	public Usuario(){
 	}
 
 	public Usuario(String nombre, String apellido1, String apellido2, String email, String dni, 
-			String contrasena, Integer admin, Centro centro ){
+			String contrasena, Boolean enabled, Centro centro ){
 		this.nombre=nombre;
 		this.apellido1=apellido1;
 		this.apellido2=apellido2;
 		this.email=email;
 		this.dni=dni;
 		this.contrasena=contrasena;
-		this.admin=admin;
+		this.enabled=enabled;
 		this.centro=centro;
+		this.enabled=enabled;
 	}
+	
 	
 	@Id 
 	@SequenceGenerator(name="usuarioId", sequenceName = "id_usuario_seq")
@@ -110,14 +111,15 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	@Column(name="admin", nullable = false)
-	public Integer getAdmin() {
-		return admin;
+	@Column(name="enabled", nullable = false)
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setAdmin(Integer admin) {
-		this.admin = admin;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
+	
 
 	@ManyToOne
 	@JoinColumn(name="idCentro")
@@ -129,7 +131,8 @@ public class Usuario {
 	public void setCentro(Centro centro) {
 		this.centro = centro;
 	}
-
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

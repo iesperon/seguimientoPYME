@@ -24,6 +24,12 @@ public interface UserService {
 	public List<Usuario> buscarUsuarioPorEmpresa(Empresa miempresa);
 	//Buscar todos los usuarios de un centro 
 	public List<Usuario> buscarUsuarioPorCentro(Centro micentro);
+	//Buscar usuario por email
+	public Usuario buscarUsuarioPorEmail(String miemail);
+	
+	//Registro administrador
+	public void registroAdmin(Usuario miusuario);
+	
 	
 
 	

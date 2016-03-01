@@ -16,6 +16,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+		
 
 	<context:annotation-config />
 	<context:component-scan base-package="es.udc.fi.tfg" />
@@ -129,5 +130,36 @@
 		<property name="basename" value="classpath:messages" />
 	</bean>
 	
+	<!-- Authentication -->
+	
+	<!-- enable use-expressions --> 
+	    
+ 	<sec:http auto-config="true" use-expressions="true">
+ 	
+ 	 	<sec:intercept-url pattern="/" access="permitAll" />		
+		
+		<sec:access-denied-handler error-page="/403" />
+		
+		<sec:form-login 
+		    login-page="/" 
+		    default-target-url="/" 
+			authentication-failure-url="/?error" 
+			username-parameter="email"
+			password-parameter="contrasena" />
+			
+		<sec:logout
+			logout-url="/logout"
+			logout-success-url="/" />
+	
+		<sec:csrf/>
+	</sec:http>
 
+  <sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:jdbc-user-service  data-source-ref="tfgDataSource"
+				users-by-username-query="SELECT email, contrasena FROM Usuarios WHERE email = ?"
+				authorities-by-username-query="SELECT email, rol FROM Roles WHERE email = ?"/>
+		</sec:authentication-provider>
+	</sec:authentication-manager> 
+	
 </beans>

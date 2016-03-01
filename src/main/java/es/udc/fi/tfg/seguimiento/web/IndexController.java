@@ -28,17 +28,37 @@ public class IndexController {
 	
 		
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index(@RequestParam(value = "error", required = false) String error, 
-			@RequestParam(value = "logout", required = false) String logout) {
+	public ModelAndView index() {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("myForm", new FormUser());
-		
+
 		mav.setViewName("index");
 		
 		return mav;
 		
+	}
+	
+	@RequestMapping(value="/login",method = RequestMethod.GET)
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error, 
+			@RequestParam(value = "logout", required = false) String logout) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("email",  new String());
+		mav.addObject("contrasena",  new String());
+		
+		mav.setViewName("index");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/403", method = RequestMethod.POST)
+	public ModelAndView notAllowed() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("403");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
@@ -48,7 +68,8 @@ public class IndexController {
 		}else{
 			Empresa empresa = myForm.getEmpresa();
 			Usuario usuario = myForm.getUsuario();
-			usuarioService.registroUsuario(usuario);
+			usuario.setEnabled(true);
+			usuarioService.registroAdmin(usuario);
 			empresa.setAdministrador(usuario);
 			empresaService.registroEmpresa(empresa);
 			return "redirect:/";

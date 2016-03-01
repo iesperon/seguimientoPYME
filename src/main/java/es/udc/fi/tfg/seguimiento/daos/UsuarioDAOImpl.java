@@ -65,4 +65,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		sessionFactory.getCurrentSession().delete(miusuario);
 	}
 
+	public Usuario findByEmail(String miemail) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where email=:email");
+		q.setParameter("email", miemail);
+		return (Usuario) q.list().get(0);
+	}
+
 }

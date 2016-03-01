@@ -9,9 +9,14 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/index.jsp"/>
 	</definition>
 
-<!-- Crear Empresa -->
-	<definition name="indexPrueba" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/indexPrueba.jsp"/>
+	<!-- Login -->
+	<definition name="login" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/login.jsp"/>
 	</definition>
-
+	
+	<!-- 403 -->
+	<definition name="403" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/403.jsp"/>
+	</definition>
+	
 </tiles-definitions>

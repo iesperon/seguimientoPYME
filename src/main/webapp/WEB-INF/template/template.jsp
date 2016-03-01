@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 
 <html>
@@ -25,18 +25,15 @@
  		 <div class="container-fluid">
     		<div class="navbar-header">
       			<a class="navbar-brand" href="<c:url value="/" />">MiPymeOnline</a>
-    		</div>
+    		</div>		    		
     		
-    		<form class="navbar-form navbar-right" role="search">
-        		<div class="form-group">
-          			<input type="text" class="form-control" placeholder="Email">
-          			<input type="password" class="form-control" placeholder="Contraseña">
-        		</div>
-        		<button type="submit" class="btn btn-primary">Aceptar</button>
-      		</form>
+    		   		
     	</div>
     </nav>
 	
+	<sec:authorize access="isAuthenticated()">
+    		HOLAAAAAAAAAAAAAAAA, ESTAS AUTENTICADO!!!!
+    </sec:authorize>
 	
 	<section>
 	<div  style="padding-top: auto;">

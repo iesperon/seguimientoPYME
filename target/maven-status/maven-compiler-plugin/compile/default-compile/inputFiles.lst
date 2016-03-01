@@ -1,5 +1,6 @@
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\EmpresaServiceImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Usuario.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Rol.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\EmpresaDAO.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\UserService.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\UsuarioDAO.java
@@ -20,8 +21,10 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\StockService.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\EmpresaDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\IvaDAO.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\RolDAO.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\ProductoServiceImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\IndexController.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\RolDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\IvaDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Iva.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\EmpresaService.java

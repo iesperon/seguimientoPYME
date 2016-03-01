@@ -1,7 +1,6 @@
 package es.udc.fi.tfg.seguimiento.daos;
 
 import java.util.List;
-import javax.management.InstanceNotFoundException;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
@@ -11,6 +10,7 @@ public interface UsuarioDAO {
 
 	public List<Usuario> findByName (String minombre, Centro micentro);
 	public Usuario findByDni (String midni, Centro micentro);
+	public Usuario findByEmail (String miemail);
 	public List<Usuario> findByEmpresa(Empresa miempresa);
 	public List<Usuario> findByCentro(Centro micentro);
 	public Long create (Usuario miusuario);
