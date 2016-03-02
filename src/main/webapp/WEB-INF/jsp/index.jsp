@@ -25,19 +25,20 @@
   				</div>
   		</div>
   		
-  		<form:form action="login" name="login" method="POST" class="form-horizontal" role="search">
+  		<form:form action="login" name="login" method="POST" class="form-horizontal" role="form">
         <div class="col-sm-6">
         <div>
         <h2>Entrar</h2>
         <div class="row">
         		<div class="col-xs-6">
-          			<form:input path="email" type="text" class="form-control" placeholder="Email" />
-          			<form:input path="contrasena" type="password" class="form-control" placeholder="Contraseña"/>
+          			<input name="email" type="text" class="form-control" placeholder="Email" />
+          			<input name="contrasena" type="password" class="form-control" placeholder="Contraseña"/>
         		</div>
         </div>
         <br>
         <input type="submit" class="btn btn-primary" value="Aceptar">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        
         </div>
         </div>
         </form:form>
@@ -127,4 +128,4 @@
 				</div>
 			</div>		
 	</form:form>
-			</div>
+	</div>

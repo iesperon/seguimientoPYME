@@ -141,7 +141,7 @@
 		<sec:access-denied-handler error-page="/403" />
 		
 		<sec:form-login 
-		    login-page="/" 
+		    login-page="/"  
 		    default-target-url="/" 
 			authentication-failure-url="/?error" 
 			username-parameter="email"
@@ -157,9 +157,9 @@
   <sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:jdbc-user-service  data-source-ref="tfgDataSource"
-				users-by-username-query="SELECT email, contrasena FROM Usuarios WHERE email = ?"
+				users-by-username-query="SELECT email, contrasena, enabled FROM Usuarios WHERE email = ?"
 				authorities-by-username-query="SELECT email, rol FROM Roles WHERE email = ?"/>
-		</sec:authentication-provider>
+			</sec:authentication-provider>
 	</sec:authentication-manager> 
 	
 </beans>

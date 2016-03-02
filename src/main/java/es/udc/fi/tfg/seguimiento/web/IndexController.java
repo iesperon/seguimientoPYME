@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.FormUser;
+import es.udc.fi.tfg.seguimiento.model.Login;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
@@ -28,11 +29,15 @@ public class IndexController {
 	
 		
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index() {
+	public ModelAndView index(@RequestParam(value = "error", required = false) String error, 
+			@RequestParam(value = "logout", required = false) String logout) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("myForm", new FormUser());
+		//mav.addObject("login",  new Login());
+		mav.addObject("email", new String());
+		mav.addObject("contrasena", new String());
 
 		mav.setViewName("index");
 		
@@ -45,9 +50,9 @@ public class IndexController {
 			@RequestParam(value = "logout", required = false) String logout) {
 		
 		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("email",  new String());
-		mav.addObject("contrasena",  new String());
+				
+		//mav.addObject("email",  new String());
+		//mav.addObject("contrasena",  new String());
 		
 		mav.setViewName("index");
 		
