@@ -25,30 +25,50 @@
  		 <div class="container-fluid">
     		<div class="navbar-header">
       			<a class="navbar-brand" href="<c:url value="/" />">MiPymeOnline</a>
-    		</div>		    		
+    		</div>
+    		
+    		
+    	<sec:authorize access="not isAuthenticated()">
+    		
+    		<form:form action="login" name="login" method="POST" class="navbar-form navbar-right" role="search">
+        		<div class="form-group">
+          			<input name="email" type="text" class="form-control" placeholder="Email"/>
+          			<input name="contrasena" type="password" class="form-control" placeholder="Contraseña"/>
+        		</div>
+        		<input type="submit" class="btn btn-primary" value="Aceptar">
+        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+      		</form:form>		    		
+    	
+    	</sec:authorize>
+    		
+    		
+    		<!-- LOGOUT -->
+				<!--Esta autorizado-->
+				<sec:authorize access="isAuthenticated()"> 
+				<form action=<c:url value="/logout"/> method="post" class="navbar-form navbar-right"  id="logoutForm">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+					</form>
+
+					<script>
+						function formSubmit() {
+							document.getElementById("logoutForm").submit();
+						}
+					</script>
+				
+				<div class="navbar-form navbar-right">
+					<a href="javascript:formSubmit()"class="btn btn-danger">Logout </a>
+				</div>	
+				</sec:authorize>		
     		
     		   		
     	</div>
     </nav>
 	
-	<sec:authorize access="isAuthenticated()">
-    		HOLAAAAAAAAAAAAAAAA, ESTAS AUTENTICADO!!!!
-    </sec:authorize>
-	
 	<section>
-	<div  style="padding-top: auto;">
-	<div class="row">	
-    	<div class="container">
 	
-		<div id="contentwrapper">
-			<div id="content">
 				<tiles:insertAttribute name="content"/> 
-			</div>
-		</div>
-	
-		</div>
-	</div>
-	</div>
+			
     </section>
     
 

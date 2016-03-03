@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface EmpresaService {
 
@@ -21,6 +22,8 @@ public interface EmpresaService {
 		public Empresa buscarEmpresaPorCif(String micif);
 		//Buscar empresas por nombre
 		public List<Empresa> buscarEmpresaPorNombre(String minombre);
+		//Buscar empresa por empleado
+		public Empresa buscarEmpresaPorAdmin(Usuario miusuario);
 		
 		
 		

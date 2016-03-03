@@ -11,6 +11,7 @@ import es.udc.fi.tfg.seguimiento.daos.EmpresaDAO;
 import es.udc.fi.tfg.seguimiento.daos.UsuarioDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 
 @Service
@@ -63,6 +64,10 @@ public class EmpresaServiceImpl implements EmpresaService{
 	public List<Empresa> buscarEmpresaPorNombre(String minombre) {
 		return empresaDAO.findByNombre(minombre);
 	}
+	
+	public Empresa buscarEmpresaPorAdmin(Usuario miusuario) {
+		return empresaDAO.findByAdmin(miusuario);
+	}
 
 	//**********CENTRO***********
 	public void registroCentro(Centro micentro) {
@@ -82,4 +87,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 	public List<Centro> obtenerCentros(Empresa miempresa) {
 		return centroDAO.findAllByEmpresa(miempresa);
 	}
+
+
+	
 }

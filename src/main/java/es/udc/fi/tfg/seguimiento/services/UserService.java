@@ -27,6 +27,7 @@ public interface UserService {
 	//Buscar usuario por email
 	public Usuario buscarUsuarioPorEmail(String miemail);
 	
+	
 	//Registro administrador
 	public void registroAdmin(Usuario miusuario);
 	

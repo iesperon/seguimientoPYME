@@ -142,7 +142,7 @@
 		
 		<sec:form-login 
 		    login-page="/"  
-		    default-target-url="/" 
+		    default-target-url="/admin/centros" 
 			authentication-failure-url="/?error" 
 			username-parameter="email"
 			password-parameter="contrasena" />

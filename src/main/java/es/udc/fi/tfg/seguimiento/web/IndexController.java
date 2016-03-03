@@ -45,7 +45,7 @@ public class IndexController {
 		
 	}
 	
-	@RequestMapping(value="/login",method = RequestMethod.GET)
+	/*@RequestMapping(value="/login",method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error, 
 			@RequestParam(value = "logout", required = false) String logout) {
 		
@@ -54,10 +54,10 @@ public class IndexController {
 		//mav.addObject("email",  new String());
 		//mav.addObject("contrasena",  new String());
 		
-		mav.setViewName("index");
+		mav.setViewName("");
 		
 		return mav;
-	}
+	}*/
 	
 	@RequestMapping(value = "/403", method = RequestMethod.POST)
 	public ModelAndView notAllowed() {

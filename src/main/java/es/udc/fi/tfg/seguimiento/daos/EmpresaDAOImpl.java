@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 @Repository
 @EnableTransactionManagement
@@ -50,6 +51,12 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 	public Empresa findByCif(String micif) {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Empresa where cif=:cif");
 		q.setParameter("cif", micif);
+		return (Empresa) q.list().get(0);
+	}
+
+	public Empresa findByAdmin(Usuario miusuario) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Empresa where idadmin=:idadmin");
+		q.setParameter("idadmin", miusuario.getIdUsuario());
 		return (Empresa) q.list().get(0);
 	}
 	

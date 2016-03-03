@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.daos;
 import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface EmpresaDAO {
 	
@@ -12,4 +13,5 @@ public interface EmpresaDAO {
 	public List<Empresa> findAll();
 	public List<Empresa> findByNombre(String minombre);
 	public Empresa findByCif(String micif);
+	public Empresa findByAdmin(Usuario miusuario);
 }

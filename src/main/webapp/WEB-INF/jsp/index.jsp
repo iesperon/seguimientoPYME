@@ -3,6 +3,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+
+
+<div  style="padding-top: auto;">
+	<div class="row">	
+    	<div class="container">
+	
+		<div id="contentwrapper">
+			<div id="content">
+
 	 <div class="row">
   		<div class="col-sm-6">
   		<div class="row">
@@ -25,25 +34,16 @@
   				</div>
   		</div>
   		
-  		<form:form action="login" name="login" method="POST" class="form-horizontal" role="form">
-        <div class="col-sm-6">
-        <div>
-        <h2>Entrar</h2>
-        <div class="row">
-        		<div class="col-xs-6">
-          			<input name="email" type="text" class="form-control" placeholder="Email" />
-          			<input name="contrasena" type="password" class="form-control" placeholder="Contraseña"/>
-        		</div>
-        </div>
-        <br>
-        <input type="submit" class="btn btn-primary" value="Aceptar">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        
-        </div>
-        </div>
-        </form:form>
+  		<!-- Hace que no pase nada pulsando intro -->
+  		<script>
+    		 function anular(e) {
+    	     	 tecla = (document.all) ? e.keyCode : e.which;
+          		return (tecla != 13);
+     		}
+		</script>
   		
-  		<form:form action="addUser" name="myForm" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
+  		  		
+  		<form:form action="addUser" name="myForm" method="POST" modelAttribute="myForm" class="form-horizontal" role="form" onkeypress="return anular(event)">
 				<div class="col-sm-6">
 				<div>
   				<h2>Registro de Empresas</h2>
@@ -129,3 +129,9 @@
 			</div>		
 	</form:form>
 	</div>
+	
+	</div>
+</div>
+</div>
+</div>
+</div>
