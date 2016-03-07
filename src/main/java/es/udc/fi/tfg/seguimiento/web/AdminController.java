@@ -33,10 +33,12 @@ public class AdminController {
 	public ModelAndView centros() {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		List<Centro> centros = empresaService.obtenerCentros(miempresa);
+		
 		model.addObject("centroslist",centros);
 		model.addObject("myCentro", new Centro());
 		model.setViewName("centros");
@@ -69,10 +71,12 @@ public class AdminController {
 	public ModelAndView empleados() {
 		ModelAndView model = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		List<Centro> centros = empresaService.obtenerCentros(miempresa);
+		
 		/*for(Centro micentro : centros){
 			List<Usuario> usuarios = usuarioService.buscarUsuarioPorCentro(micentro);
 			model.addObject("usuarioslist",usuarios);

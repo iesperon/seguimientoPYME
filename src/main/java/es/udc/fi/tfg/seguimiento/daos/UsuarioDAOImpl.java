@@ -40,10 +40,11 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		return (Usuario) q.list().get(0);
 	}
 
-
+	@SuppressWarnings("unchecked")
 	public List<Usuario> findByEmpresa(Empresa miempresa) {
-		// TODO Auto-generated method stub
-		return null;
+		Query q = sessionFactory.getCurrentSession().createQuery("select u from Usuario u join u.centro where u.centro.empresa=:idEmpresa");
+		q.setParameter("idEmpresa", miempresa);
+		return (List<Usuario>) q.list();
 	}
 
 	@SuppressWarnings("unchecked")

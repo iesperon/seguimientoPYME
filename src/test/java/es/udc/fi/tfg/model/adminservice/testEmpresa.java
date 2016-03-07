@@ -100,6 +100,9 @@ public class testEmpresa {
 		//INSERTAMOS 
 		usuarioService.registroUsuario(usuario2);
 		
+		List<Usuario> milista4 = usuarioService.buscarUsuarioPorEmpresa(empresa1);
+		System.out.println("***********************************************************"+milista4.get(0).getNombre());
+		assertEquals(usuario2, milista4.get(0));
 		//ACTUALIZAMOS 
 		//usuario2.setCentro(centro2);
 		//usuarioService.actualizarUsuario(usuario2);

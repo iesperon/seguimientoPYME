@@ -16,4 +16,5 @@ public interface UsuarioDAO {
 	public Long create (Usuario miusuario);
 	public void update (Usuario miusuario);
 	public void remove (Usuario miusuario);
+
 }
