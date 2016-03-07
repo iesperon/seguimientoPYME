@@ -15,6 +15,11 @@
  	<style type="text/css">
         <%@include file="../../resources/css/bootstrap.min.css" %>
     </style>
+    
+    <style type="text/css">
+        <%@include file="../../resources/fonts/glyphicons-halflings-regular.svg" %>
+    </style>
+ 
  
     
 </head>
@@ -65,8 +70,22 @@
     	</div>
     </nav>
 	
-	<section>
-	
+	<section>	
+		<sec:authorize access="isAuthenticated()"> 
+			 <div class="col-md-2" id="leftCol">
+              	
+				<div class="well"> 
+              	<ul class="nav nav-stacked" id="sidebar">
+                  <li><a href="/seguimientoPYMES/admin/centros">Centros</a></li>
+                  <li><a href="/seguimientoPYMES/admin/empleados">Empleados</a></li>
+                  <li><a href="#sec3">Section 3</a></li>
+                  <li><a href="#sec4">Section 4</a></li>
+              	</ul>
+  				</div>
+
+      		</div> 
+      	</sec:authorize>		
+      		
 				<tiles:insertAttribute name="content"/> 
 			
     </section>

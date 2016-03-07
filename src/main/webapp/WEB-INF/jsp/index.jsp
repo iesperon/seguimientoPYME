@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 
 
@@ -22,7 +23,7 @@
   				<div class="row">
   				  		<div class="col-sm-1"></div>
 						<div class="col-sm-8">
-						<p>
+						<p class="text-justify">
 						La importancia de tener un sistema de control interno en las pequeñas y medianas empresas ha ido incrementado en los últimos años, 
 						siendo esta la parte que se encarga de la organización de los procedimientos y necesidades del negocio, así como de verificar la eficiencia y la 
 						productividad en las operaciones. Por todo esto se va a desarrollar una aplicación web donde el administrador de una PYME pueda registrar su empresa 
@@ -42,6 +43,7 @@
      		}
 		</script>
   		
+  	<sec:authorize access="not isAuthenticated()">
   		  		
   		<form:form action="addUser" name="myForm" method="POST" modelAttribute="myForm" class="form-horizontal" role="form" onkeypress="return anular(event)">
 				<div class="col-sm-6">
@@ -128,6 +130,8 @@
 				</div>
 			</div>		
 	</form:form>
+	</sec:authorize>
+	
 	</div>
 	
 	</div>

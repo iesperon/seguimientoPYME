@@ -37,4 +37,6 @@ public interface EmpresaService {
 		public void actualizarCentro(Centro micentro);
 		//Buscar todos los centros de una empresa
 		public List<Centro> obtenerCentros(Empresa miempresa);
+		//Buscar centro por id
+		public Centro buscarCentroPorId(Long miid);
 }

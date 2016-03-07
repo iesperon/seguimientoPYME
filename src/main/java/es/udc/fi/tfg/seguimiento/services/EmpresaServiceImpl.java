@@ -87,6 +87,10 @@ public class EmpresaServiceImpl implements EmpresaService{
 	public List<Centro> obtenerCentros(Empresa miempresa) {
 		return centroDAO.findAllByEmpresa(miempresa);
 	}
+	
+	public Centro buscarCentroPorId(Long miid){
+		return centroDAO.findById(miid);
+	}
 
 
 	
