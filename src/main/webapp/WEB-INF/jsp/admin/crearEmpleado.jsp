@@ -9,43 +9,52 @@
       		
      	<div class="col-md-9">    
     
-    		<form:form action="addEmpleado" method="POST" modelAttribute="usuario" class="form-horizontal" role="form">
+    		<form:form action="addEmpleado" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
 				<div class="col-sm-12">
 				<div>
 					<h2>Registro de Empleados</h2>
+					
+					<p>${centro.idCentro}<p>
+					<p>${centro.nombre}<p>
+					<p>${centro.calle}<p>
+					<p>${centro.poblacion}<p>
+					
+					
 						<div class="row">
 		
 						<div class="col-xs-3">
 							<label for="nombre">Nombre</label>
-							<form:input class="form-control" path="nombre" type="text"/>
+							<form:input class="form-control" path="usuario.nombre" type="text"/>
 						</div>
 						
 						<div class="col-xs-3">
 							<label for="apellido1">1º Apellido</label>
-							<form:input class="form-control" path="apellido1" type="text"/>
+							<form:input class="form-control" path="usuario.apellido1" type="text"/>
 						</div>
 						
 						<div class="col-xs-3">
 							<label for="apellido2">2º Apellido</label>
-							<form:input class="form-control" path="apellido2" type="text"/>
+							<form:input class="form-control" path="usuario.apellido2" type="text"/>
 						</div>
 						
 						<div class="col-xs-3">
 							<label for="dni">DNI</label>
-							<form:input class="form-control" path="dni" type="text"/>
+							<form:input class="form-control" path="usuario.dni" type="text"/>
 						</div>
 						
 						<div class="col-xs-3">
 							<label for="email">Email</label>
-							<form:input class="form-control" path="email" type="text"/>
+							<form:input class="form-control" path="usuario.email" type="text"/>
 						</div>
 						
 						<div class="col-xs-3">
 							<label for="contrasena">Contraseña</label>
-							<form:input class="form-control" path="contrasena" type="text"/>
+							<form:input class="form-control" path="usuario.contrasena" type="text"/>
 						</div>
-
-														
+						
+						<div class="col-xs-3">
+							<form:input class="form-control" path="idCentro" value="${idCentro}" type="hidden"/>
+						</div>													
 						</div>
 						
 					<br>

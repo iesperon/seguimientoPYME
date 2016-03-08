@@ -9,12 +9,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.FormUser;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
@@ -93,18 +96,24 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/addEmpleado", method = RequestMethod.POST)
-	public String addEmpleado(Usuario usuario,Centro centro, BindingResult result, Model model) {
-		usuario.setCentro(centro);	
+	public String addEmpleado(FormUser myForm, BindingResult result, ModelAndView model) {
+		Usuario usuario= myForm.getUsuario();
+		Long idCentro = myForm.getIdCentro();
+		Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		usuario.setCentro(micentro);
+		usuario.setEnabled(true);
 		usuarioService.registroUsuario(usuario);
-		model.addAttribute("empleadoNuevo", usuario);
+		model.addObject("empleadoNuevo", usuario);
 		return "redirect:/admin/empleados";
 		
 	}
 	
 	@RequestMapping(value = "/crearEmpleado",method = RequestMethod.GET)
-	public void crearEmpleado(Long idCentro, Model model) {
-		Centro micentro = empresaService.buscarCentroPorId(idCentro);
-		model.addAttribute("micentro",micentro);	
+	public ModelAndView crearEmpleado(Long idCentro, ModelAndView model) {
+		model.addObject("idCentro", idCentro);
+		model.addObject("myForm", new FormUser());
+		model.setViewName("crearEmpleado");
+		return model;
 	}
 	
 }

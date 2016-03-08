@@ -4,6 +4,8 @@ public class FormUser {
 
 	private Usuario usuario;
 	private Empresa empresa;
+	private Centro centro;
+	private Long idCentro;
 	
 	public FormUser(){ 
 		
@@ -14,6 +16,27 @@ public class FormUser {
 		this.empresa=empresa;
 	}
 	
+	public FormUser(Usuario usuario, Long idCentro){
+		this.usuario=usuario;
+		this.idCentro=idCentro;
+	}
+	
+	public Long getIdCentro() {
+		return idCentro;
+	}
+
+	public void setIdCentro(Long idCentro) {
+		this.idCentro = idCentro;
+	}
+
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
