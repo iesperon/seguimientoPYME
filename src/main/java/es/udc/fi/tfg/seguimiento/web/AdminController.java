@@ -52,10 +52,16 @@ public class AdminController {
 		}else{
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String login = auth.getName();
+			
 			Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 			Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 			centro.setEmpresa(miempresa);
 			empresaService.registroCentro(centro);
+			if (miusuario.getCentro()==null){
+				miusuario.setCentro(centro);
+				usuarioService.actualizarUsuario(miusuario);
+			}
+		
 			return "redirect:/admin/centros";
 		}
 	}
@@ -76,24 +82,29 @@ public class AdminController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		List<Centro> centros = empresaService.obtenerCentros(miempresa);
+		List <Usuario> usuarios = usuarioService.buscarUsuarioPorEmpresa(miempresa);
 		
-		/*for(Centro micentro : centros){
-			List<Usuario> usuarios = usuarioService.buscarUsuarioPorCentro(micentro);
-			model.addObject("usuarioslist",usuarios);
-		}*/
-		List <Usuario> usuarios = usuarioService.buscarUsuarioPorCentro(centros.get(0));
 		model.addObject("usuarioslist", usuarios);
-		model.addObject("myUsuario", new Centro());
+		model.addObject("centroslist", centros);
+		model.addObject("myUsuario", new Usuario());
 		model.setViewName("empleados");
 		return model;
 	}
 	
 	
-	@RequestMapping(value = "/addUsuario", method = RequestMethod.POST)
-	public String addUsuario(Usuario usuario, BindingResult result, Model model) {
-	
-			return "redirect:/admin/centros";
+	@RequestMapping(value = "/addEmpleado", method = RequestMethod.POST)
+	public String addEmpleado(Usuario usuario,Centro centro, BindingResult result, Model model) {
+		usuario.setCentro(centro);	
+		usuarioService.registroUsuario(usuario);
+		model.addAttribute("empleadoNuevo", usuario);
+		return "redirect:/admin/empleados";
 		
+	}
+	
+	@RequestMapping(value = "/crearEmpleado",method = RequestMethod.GET)
+	public void crearEmpleado(Long idCentro, Model model) {
+		Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		model.addAttribute("micentro",micentro);	
 	}
 	
 }

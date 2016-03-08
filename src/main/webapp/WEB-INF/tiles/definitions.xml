@@ -19,6 +19,11 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/empleados.jsp"/>
 	</definition>
 	
+	<!-- Crear Empleados -->
+	<definition name="crearEmpleado" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/crearEmpleado.jsp"/>
+	</definition>
+	
 	<!-- 403 -->
 	<definition name="403" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/403.jsp"/>

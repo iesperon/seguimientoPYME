@@ -18,7 +18,7 @@
         				<th>Pais</th>
         				<th>Email</th>
         				<th>Teléfono</th>
-        				<th></th>
+        				<th>Empleados</th>
    					</tr>
     			<c:forEach var="centro" items="${centroslist}" varStatus="status">
     				<tr>
@@ -33,6 +33,11 @@
     					<c:url var="centroUrl" value="eliminarCentro">
 							<c:param name="idCentro" value="${centro.idCentro}"/>
 						</c:url>
+						<c:url var="centroUrl2" value="crearEmpleado">
+							<c:param name="idCentro" value="${centro.idCentro}"/>
+						</c:url>
+						
+						<td><a href='<c:out value="${centroUrl2}"/>'>Añadir</a></td>		
 						<td><a href='<c:out value="${centroUrl}"/>'>Eliminar</a></td>		
 						
 	   				</tr>    		
