@@ -13,14 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
  	<style type="text/css">
-        <%@include file="../../resources/css/bootstrap.min.css" %>
+        <%@include file="../../resources/bootstrap/css/bootstrap.min.css" %>
     </style>
-    
-    <style type="text/css">
-        <%@include file="../../resources/fonts/glyphicons-halflings-regular.svg" %>
-    </style>
- 
- 
+
     
 </head>
 

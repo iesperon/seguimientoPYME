@@ -31,7 +31,18 @@ public class CentroDAOImpl implements CentroDAO {
 	}
 
 	public void update(Centro micentro) {
-		sessionFactory.getCurrentSession().update(micentro);
+		Centro centroMod = findById(micentro.getIdCentro());
+		centroMod.setCalle(micentro.getCalle());
+		centroMod.setCp(micentro.getCp());
+		centroMod.setEmail(micentro.getEmail());
+		centroMod.setNombre(micentro.getNombre());
+		centroMod.setNumero(micentro.getNumero());
+		centroMod.setPoblacion(micentro.getPoblacion());
+		centroMod.setProvincia(micentro.getProvincia());
+		centroMod.setPais(micentro.getPais());
+		centroMod.setTelefono(micentro.getTelefono());
+		
+		sessionFactory.getCurrentSession().update(centroMod);
 	}
 	
 	

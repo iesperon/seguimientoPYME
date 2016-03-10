@@ -1,7 +1,9 @@
 package es.udc.fi.tfg.seguimiento.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.InstanceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,7 +42,8 @@ public class AdminController {
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
-		List<Centro> centros = empresaService.obtenerCentros(miempresa);
+		List<Centro> centros=new ArrayList<Centro>(miempresa.getCentro());
+		//List<Centro> centros = empresaService.obtenerCentros(miempresa);
 		
 		model.addObject("centroslist",centros);
 		model.addObject("myCentro", new Centro());
@@ -115,5 +118,22 @@ public class AdminController {
 		model.setViewName("crearEmpleado");
 		return model;
 	}
+	
+	
+	@RequestMapping(value="/editarCentro",method = RequestMethod.GET)
+	public ModelAndView editarCentro(ModelAndView model, Long idCentro){
+		Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		model.addObject("centro", micentro);
+		model.setViewName("editarCentro");
+		return model;
+	}
+	
+	@RequestMapping(value="/confirmarEdicion",method = RequestMethod.POST)
+	public String confirmarEdicion(Model model, Centro micentro){
+			empresaService.actualizarCentro(micentro);
+			model.addAttribute("centroeditado",micentro);
+			return "redirect:/admin/centros";
+	}
+	
 	
 }
