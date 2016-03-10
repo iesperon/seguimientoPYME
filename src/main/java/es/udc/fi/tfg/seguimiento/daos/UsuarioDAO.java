@@ -13,6 +13,7 @@ public interface UsuarioDAO {
 	public Usuario findByEmail (String miemail);
 	public List<Usuario> findByEmpresa(Empresa miempresa);
 	public List<Usuario> findByCentro(Centro micentro);
+	public Usuario findById(Long idUsuario);
 	public Long create (Usuario miusuario);
 	public void update (Usuario miusuario);
 	public void remove (Usuario miusuario);

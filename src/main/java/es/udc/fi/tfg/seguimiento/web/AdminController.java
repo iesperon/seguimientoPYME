@@ -73,7 +73,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/eliminarCentro",method = RequestMethod.GET)
-	public String eliminarEntrada(Model model, Long idCentro, String tipo){
+	public String eliminarEntrada(Model model, Long idCentro){
 		empresaService.eliminarCentro(empresaService.buscarCentroPorId(idCentro));
 		return "redirect:/admin/centros";
 	}
@@ -123,16 +123,23 @@ public class AdminController {
 	@RequestMapping(value="/editarCentro",method = RequestMethod.GET)
 	public ModelAndView editarCentro(ModelAndView model, Long idCentro){
 		Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		model.addObject("idCentro",idCentro);
 		model.addObject("centro", micentro);
 		model.setViewName("editarCentro");
 		return model;
 	}
 	
 	@RequestMapping(value="/confirmarEdicion",method = RequestMethod.POST)
-	public String confirmarEdicion(Model model, Centro micentro){
+	public String confirmarEdicion(Model model, Centro micentro, Long idCentro){
 			empresaService.actualizarCentro(micentro);
 			model.addAttribute("centroeditado",micentro);
 			return "redirect:/admin/centros";
+	}
+	
+	@RequestMapping(value="/eliminarEmpleado",method = RequestMethod.GET)
+	public String eliminarEmpleado(Model model, Long idUsuario){
+		usuarioService.eliminarUsuario(usuarioService.buscarUsuarioPorId(idUsuario));
+		return "redirect:/admin/empleados";
 	}
 	
 	

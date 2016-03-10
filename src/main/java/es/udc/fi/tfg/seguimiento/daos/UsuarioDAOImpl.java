@@ -72,4 +72,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		return (Usuario) q.list().get(0);
 	}
 
+	public Usuario findById(Long idUsuario) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where idUsuario=:idUsuario");
+		q.setParameter("idUsuario", idUsuario);
+		return (Usuario) q.list().get(0);
+	}
+
 }

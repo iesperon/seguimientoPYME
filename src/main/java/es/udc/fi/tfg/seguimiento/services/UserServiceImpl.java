@@ -31,17 +31,25 @@ public class UserServiceImpl implements UserService{
 		this.rolDAO = rolDAO;
 	}
 	
+	public void registroRol(Rol rol){
+		rolDAO.create(rol);
+	}
+	
+	public Rol buscarRolPorRol(String rol){
+		return rolDAO.findByRol(rol);
+	}
+
+	
 	public void registroUsuario(Usuario miusuario) {
+		Rol mirol=rolDAO.findByRol("ROLE_USER");
+		miusuario.setRol(mirol);
 		usuarioDAO.create(miusuario);
-		Rol mirol = new Rol();
-		mirol.setRol("ROLE_USER");
-		mirol.setEmail(miusuario.getEmail());
-		mirol.setUsuario(miusuario);
-		rolDAO.create(mirol);
+		miusuario.getCentro().getUsuario().add(miusuario);
 	}
 
 	public void eliminarUsuario(Usuario miusuario) {
 		usuarioDAO.remove(miusuario);
+		miusuario.getCentro().getUsuario().remove(miusuario);
 	}
 
 	public void actualizarUsuario(Usuario miusuario) {
@@ -69,12 +77,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public void registroAdmin(Usuario miusuario) {
+		Rol mirol=rolDAO.findByRol("ROLE_ADMIN");
+		miusuario.setRol(mirol);
 		usuarioDAO.create(miusuario);
-		Rol mirol = new Rol();
-		mirol.setRol("ROLE_ADMIN");
-		mirol.setEmail(miusuario.getEmail());
-		mirol.setUsuario(miusuario);
-		rolDAO.create(mirol);
+	}
+
+	public Usuario buscarUsuarioPorId(Long idUsuario) {
+		return usuarioDAO.findById(idUsuario);
 	}
 
 

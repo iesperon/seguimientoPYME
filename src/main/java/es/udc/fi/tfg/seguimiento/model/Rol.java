@@ -10,15 +10,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 
 @Entity
-@Table(name="ROLES")
+@Table(name="ROL")
 public class Rol {
 
 	private Long idRol;
-	private Usuario usuario;
 	private String rol;
-	private String email;
 	
 
 
@@ -26,10 +27,8 @@ public class Rol {
 		
 	}
 	
-	public Rol (Usuario usuario, String rol, String email){
-		this.usuario=usuario;
+	public Rol (String rol){
 		this.rol=rol;
-		this.email=email;
 	}
 	
 	@Id 
@@ -42,24 +41,6 @@ public class Rol {
 
 	public void setIdRol(Long idRol) {
 		this.idRol = idRol;
-	}
-	
-	@OneToOne
-	@JoinColumn(name="idUsuario")
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
-	@Column(name="email")
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	
 	@Column(name="rol")

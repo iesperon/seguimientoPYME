@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Rol;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface UserService {
@@ -26,12 +27,18 @@ public interface UserService {
 	public List<Usuario> buscarUsuarioPorCentro(Centro micentro);
 	//Buscar usuario por email
 	public Usuario buscarUsuarioPorEmail(String miemail);
+	//Buscar usuario por Id
+	public Usuario buscarUsuarioPorId(Long idUsuario);
 	
 	
 	//Registro administrador
 	public void registroAdmin(Usuario miusuario);
 	
-	
+	//Registro rol
+	public void registroRol(Rol rol);
+	//Buscar rol
+	public Rol buscarRolPorRol(String rol);
+
 
 	
 }

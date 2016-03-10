@@ -59,7 +59,9 @@
 							<form:input class="form-control" path="telefono" value="${centro.telefono}"  type="text"/>
 						</div>
 					
-					
+						<div class="col-xs-3">
+							<form:input class="form-control" path="idCentro" value="${idCentro}" type="hidden"/>
+						</div>	
 											
 						</div>
 						

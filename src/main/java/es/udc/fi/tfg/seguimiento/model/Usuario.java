@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,12 +28,13 @@ public class Usuario {
 	private String contrasena;
 	private Boolean enabled;
 	private Centro centro;
+	private Rol rol;
 	
 	public Usuario(){
 	}
 
 	public Usuario(String nombre, String apellido1, String apellido2, String email, String dni, 
-			String contrasena, Boolean enabled, Centro centro ){
+			String contrasena, Boolean enabled, Centro centro, Rol rol ){
 		this.nombre=nombre;
 		this.apellido1=apellido1;
 		this.apellido2=apellido2;
@@ -42,7 +44,9 @@ public class Usuario {
 		this.enabled=enabled;
 		this.centro=centro;
 		this.enabled=enabled;
+		this.rol=rol;
 	}
+	
 	
 	
 	@Id 
@@ -130,6 +134,16 @@ public class Usuario {
 
 	public void setCentro(Centro centro) {
 		this.centro = centro;
+	}
+	
+	@OneToOne
+	@JoinColumn(name="idRol")
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 	
 	

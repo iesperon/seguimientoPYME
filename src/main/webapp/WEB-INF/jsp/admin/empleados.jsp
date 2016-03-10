@@ -16,6 +16,7 @@
         				<th>2º Apellido</th>
         				<th>DNI</th>
         				<th>Email</th>
+        				<th></th>
    					</tr>
     			<c:forEach var="usuario" items="${usuarioslist}" varStatus="status">
     				<tr>
@@ -24,6 +25,17 @@
     					<td>${usuario.apellido2}</td>
     					<td>${usuario.dni}</td>
     					<td>${usuario.email}</td>
+    					
+    					<c:url var="usuarioUrl" value="eliminarEmpleado">
+							<c:param name="idUsuario" value="${usuario.idUsuario}"/>
+						</c:url>
+						<c:url var="usuarioUrl2" value="editarEmpleado">
+							<c:param name="idUsuario" value="${usuario.idUsuario}"/>
+						</c:url>
+						
+						<td><a href='<c:out value="${usuarioUrl}"/>'>Eliminar </a> | <a href='<c:out value="${usuarioUrl2}"/>'>Editar</a></td>
+						
+    					
     				
 	   				</tr>    		
     			</c:forEach>

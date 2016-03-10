@@ -161,7 +161,7 @@
 		<sec:authentication-provider>
 			<sec:jdbc-user-service  data-source-ref="tfgDataSource"
 				users-by-username-query="SELECT email, contrasena, enabled FROM Usuarios WHERE email = ?"
-				authorities-by-username-query="SELECT email, rol FROM Roles WHERE email = ?"/>
+				authorities-by-username-query="SELECT u.email, r.rol FROM Rol r JOIN Usuarios u ON r.idRol=u.idRol WHERE u.email = ?"/>
 			</sec:authentication-provider>
 	</sec:authentication-manager> 
 	

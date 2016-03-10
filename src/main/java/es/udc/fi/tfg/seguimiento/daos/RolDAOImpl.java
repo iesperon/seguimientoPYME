@@ -1,6 +1,8 @@
 package es.udc.fi.tfg.seguimiento.daos;
 
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +35,11 @@ public class RolDAOImpl implements RolDAO{
 		sessionFactory.getCurrentSession().delete(mirol);
 	}
 
-	public Rol findByUsuario(Usuario miusuario) {
-		Query q = sessionFactory.getCurrentSession().createQuery("from Roles where idUsuario=:idUsuario");
-		q.setParameter("idUsuario", miusuario.getIdUsuario());
-		return (Rol) q.list().get(0);
+	public Rol findByRol(String mirol) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Rol where rol LIKE :rol" );
+		q.setParameter("rol", mirol);
+		return (Rol) q.list().get(0);	
 	}
 
-	public Rol findByEmail(String email) {
-		Query q = sessionFactory.getCurrentSession().createQuery("from Roles where email=:email");
-		q.setParameter("email", email);
-		return (Rol) q.list().get(0);
-	}
 
 }

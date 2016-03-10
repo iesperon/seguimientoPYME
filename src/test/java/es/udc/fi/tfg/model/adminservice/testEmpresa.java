@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Rol;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
@@ -36,12 +37,27 @@ public class testEmpresa {
 	public Usuario usuario2;
 	public Usuario usuario3;
 	
+	public Rol rol1;
+	public Rol rol2;
+	
 	@Test
 	public void test() {
 		
+		//ROLES
+		rol1 = new Rol("ADMIN_ROLE");
+		usuarioService.registroRol(rol1);
+		System.out.println("************************************* "+usuarioService.buscarRolPorRol("ADMIN_ROLE").getRol());
+		
+		System.out.println("********************************************************");
+		
+		rol2=new Rol("USER_ROLE");
+		usuarioService.registroRol(rol2);
+		
+	
+		
 		//USUARIO ADMINISTRADOR
 		
-		usuario1 = new Usuario("Iván","Esperón","Cespón","ivanesperon@gmail.com","76933725J","76933725J",true,null);
+		usuario1 = new Usuario("Iván","Esperón","Cespón","ivanesperon@gmail.com","76933725J","76933725J",true,null,rol1);
 				
 		//Insertamos el usuario
 		usuarioService.registroUsuario(usuario1);
@@ -94,7 +110,7 @@ public class testEmpresa {
 		
 		
 		//***************USUARIOS EMPLEADOS
-		usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",true,centro1);
+		usuario2 = new Usuario("Martín", "Gonzalez","Cespon","mart.gon@gmail.com","8541259H", "123456",true,centro1,rol2);
 		centro1.getUsuario().add(usuario2);
 		
 		//INSERTAMOS 
