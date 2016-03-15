@@ -142,5 +142,11 @@ public class AdminController {
 		return "redirect:/admin/empleados";
 	}
 	
+	@RequestMapping(value="/productos",method = RequestMethod.GET)
+	public String Productos(){
+		return "/admin/productos";
+	}
+	
+	
 	
 }

@@ -32,8 +32,14 @@
     		
     		<form:form action="login" name="login" method="POST" class="navbar-form navbar-right" role="search">
         		<div class="form-group">
-          			<input name="email" type="text" class="form-control" placeholder="Email"/>
-          			<input name="contrasena" type="password" class="form-control" placeholder="Contraseña"/>
+        			<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          				<input name="email" type="text" class="form-control" placeholder="Email"/>
+          			</div>
+          			<div class="input-group">
+          				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+          				<input name="contrasena" type="password" class="form-control" placeholder="Contraseña"/>
+        			</div>
         		</div>
         		<input type="submit" class="btn btn-primary" value="Aceptar">
         		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -73,7 +79,7 @@
               	<ul class="nav nav-stacked" id="sidebar">
                   <li><a href="/seguimientoPYMES/admin/centros">Centros</a></li>
                   <li><a href="/seguimientoPYMES/admin/empleados">Empleados</a></li>
-                  <li><a href="#sec3">Section 3</a></li>
+                  <li><a href="/seguimientoPYMES/admin/productos">Productos</a></li>
                   <li><a href="#sec4">Section 4</a></li>
               	</ul>
   				</div>

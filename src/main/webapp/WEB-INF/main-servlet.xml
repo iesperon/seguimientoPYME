@@ -139,6 +139,8 @@
  	 	<sec:intercept-url pattern="/" access="permitAll" />
  	 	<sec:intercept-url pattern="/admin/crearEmpleado" access="permitAll" />	
  	 	<sec:intercept-url pattern="/admin/editarCentro" access="permitAll" />		
+ 	 	<sec:intercept-url pattern="/admin/productos" access="permitAll" />		
+ 	 	
  	 		
 		
 		<sec:access-denied-handler error-page="/403" />

@@ -8,6 +8,7 @@
        
       		
      	<div class="col-md-9">
+     	    <img src="<c:url value="/resources/images/centros.png" />" class="center-block" alt="Empleados" width="800" height="200">
     		<h2> Centros </h2>
     			<table class="table table-hover">
     				<tr>
@@ -53,13 +54,12 @@
     		
     			
     			</table>
-    		
-    		
+ 		
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
     	$("#boton").click(function(){
-        	$("#oculto").show(1000);
+        	$("#oculto").slideToggle();
     	});
     	
 	});

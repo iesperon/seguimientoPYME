@@ -13,13 +13,7 @@
 				<div class="col-sm-12">
 				<div>
 					<h2>Registro de Empleados</h2>
-					
-					<p>${centro.idCentro}<p>
-					<p>${centro.nombre}<p>
-					<p>${centro.calle}<p>
-					<p>${centro.poblacion}<p>
-					
-					
+								
 						<div class="row">
 		
 						<div class="col-xs-3">
