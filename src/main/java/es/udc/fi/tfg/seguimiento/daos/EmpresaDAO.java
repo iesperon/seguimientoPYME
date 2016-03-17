@@ -2,6 +2,7 @@ package es.udc.fi.tfg.seguimiento.daos;
 
 import java.util.List;
 
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 

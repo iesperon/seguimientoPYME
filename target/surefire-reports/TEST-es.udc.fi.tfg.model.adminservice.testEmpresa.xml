@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="es.udc.fi.tfg.model.adminservice.testEmpresa" time="1.441" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="es.udc.fi.tfg.model.adminservice.testEmpresa" time="0.403" errors="1" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_40\jre\bin"/>
@@ -64,5 +64,308 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="es.udc.fi.tfg.model.adminservice.testEmpresa" name="test" time="1.441"/>
+  <testcase classname="es.udc.fi.tfg.model.adminservice.testEmpresa" name="test" time="0.403">
+    <error type="java.lang.NullPointerException">java.lang.NullPointerException
+	at es.udc.fi.tfg.seguimiento.services.UserServiceImpl.registroUsuario(UserServiceImpl.java:47)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:302)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:157)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:98)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:262)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:207)
+	at com.sun.proxy.$Proxy39.registroUsuario(Unknown Source)
+	at es.udc.fi.tfg.model.adminservice.testEmpresa.test(testEmpresa.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:254)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:89)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:193)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+</error>
+    <system-out>Hibernate: 
+    alter table CENTRO 
+        drop constraint FK_1qtwh9tvu1ftcf2bpkkqfxbw
+Hibernate: 
+    alter table EMPRESA 
+        drop constraint FK_9tiu66dww7rmsak0df6mkmf5p
+Hibernate: 
+    alter table PRODUCTO 
+        drop constraint FK_qhg4a0nkw9ftipk8l3495a1qr
+Hibernate: 
+    alter table PRODUCTO 
+        drop constraint FK_8i6uswbw9rqiadjcoh805d95j
+Hibernate: 
+    alter table USUARIOS 
+        drop constraint FK_12p7pusab8i2jbitswht44240
+Hibernate: 
+    alter table USUARIOS 
+        drop constraint FK_fxscmk1x6rj5aebvqfjj0isyp
+Hibernate: 
+    drop table if exists CENTRO cascade
+Hibernate: 
+    drop table if exists CIERRE cascade
+Hibernate: 
+    drop table if exists EMPRESA cascade
+Hibernate: 
+    drop table if exists IVA cascade
+Hibernate: 
+    drop table if exists PRODUCTO cascade
+Hibernate: 
+    drop table if exists ROL cascade
+Hibernate: 
+    drop table if exists USUARIOS cascade
+Hibernate: 
+    drop sequence id_centro_seq
+Hibernate: 
+    drop sequence id_cierre_seq
+Hibernate: 
+    drop sequence id_empresa_seq
+Hibernate: 
+    drop sequence id_iva_seq
+Hibernate: 
+    drop sequence id_producto_seq
+Hibernate: 
+    drop sequence id_rol_seq
+Hibernate: 
+    drop sequence id_usuario_seq
+Hibernate: 
+    create table CENTRO (
+        idCentro int8 not null,
+        calle varchar(255),
+        cp varchar(255),
+        email varchar(255),
+        nombre varchar(255) not null,
+        numero varchar(255),
+        pais varchar(255),
+        poblacion varchar(255),
+        provincia varchar(255),
+        telefono varchar(255),
+        idEmpresa int8 not null,
+        primary key (idCentro)
+    )
+Hibernate: 
+    create table CIERRE (
+        idCierre int8 not null,
+        caja float4,
+        diferencia float4,
+        efectivo float4,
+        fecha timestamp not null,
+        incidencias varchar(255),
+        tarjeta float4,
+        total float4,
+        primary key (idCierre)
+    )
+Hibernate: 
+    create table EMPRESA (
+        idEmpresa int8 not null,
+        cif varchar(255) not null,
+        descripcion varchar(255),
+        email varchar(255),
+        logo bytea,
+        nombre varchar(255) not null,
+        sector varchar(255),
+        idAdmin int8,
+        primary key (idEmpresa)
+    )
+Hibernate: 
+    create table IVA (
+        idIva int8 not null,
+        nombre varchar(255),
+        porcentaje int4 not null,
+        primary key (idIva)
+    )
+Hibernate: 
+    create table PRODUCTO (
+        idProducto int8 not null,
+        codProd varchar(255) not null,
+        descripcion varchar(255),
+        descuento float4,
+        foto bytea,
+        marca varchar(255),
+        nombre varchar(255),
+        precio float4,
+        idEmpresa int8 not null,
+        idIva int8 not null,
+        primary key (idProducto)
+    )
+Hibernate: 
+    create table ROL (
+        idRol int8 not null,
+        rol varchar(255),
+        primary key (idRol)
+    )
+Hibernate: 
+    create table USUARIOS (
+        idUsuario int8 not null,
+        apellido1 varchar(255),
+        apellido2 varchar(255),
+        contrasena varchar(255) not null,
+        dni varchar(255) not null,
+        email varchar(255) not null,
+        enabled boolean not null,
+        nombre varchar(255),
+        idCentro int8,
+        idRol int8,
+        primary key (idUsuario)
+    )
+Hibernate: 
+    alter table CIERRE 
+        add constraint UK_m7dydcfe9al5mtlvesm4678cc  unique (fecha)
+Hibernate: 
+    alter table EMPRESA 
+        add constraint UK_rc1kbahs03nhcj8roo92g0jta  unique (cif)
+Hibernate: 
+    alter table IVA 
+        add constraint UK_xkaj28wo06km6gq88by58h7y  unique (nombre)
+Hibernate: 
+    alter table IVA 
+        add constraint UK_7i5kdblyfrwd7nsaoixby94bu  unique (porcentaje)
+Hibernate: 
+    alter table PRODUCTO 
+        add constraint UK_370p1vlq7f1ciiybm9mj6exby  unique (codProd)
+Hibernate: 
+    alter table USUARIOS 
+        add constraint UK_oh419vfsmf9wujn4x0m1q69xj  unique (dni)
+Hibernate: 
+    alter table USUARIOS 
+        add constraint UK_e712h12jepnwbmosco0e6hpqk  unique (email)
+Hibernate: 
+    alter table CENTRO 
+        add constraint FK_1qtwh9tvu1ftcf2bpkkqfxbw 
+        foreign key (idEmpresa) 
+        references EMPRESA
+Hibernate: 
+    alter table EMPRESA 
+        add constraint FK_9tiu66dww7rmsak0df6mkmf5p 
+        foreign key (idAdmin) 
+        references USUARIOS
+Hibernate: 
+    alter table PRODUCTO 
+        add constraint FK_qhg4a0nkw9ftipk8l3495a1qr 
+        foreign key (idEmpresa) 
+        references EMPRESA
+Hibernate: 
+    alter table PRODUCTO 
+        add constraint FK_8i6uswbw9rqiadjcoh805d95j 
+        foreign key (idIva) 
+        references IVA
+Hibernate: 
+    alter table USUARIOS 
+        add constraint FK_12p7pusab8i2jbitswht44240 
+        foreign key (idCentro) 
+        references CENTRO
+Hibernate: 
+    alter table USUARIOS 
+        add constraint FK_fxscmk1x6rj5aebvqfjj0isyp 
+        foreign key (idRol) 
+        references ROL
+Hibernate: 
+    create sequence id_centro_seq
+Hibernate: 
+    create sequence id_cierre_seq
+Hibernate: 
+    create sequence id_empresa_seq
+Hibernate: 
+    create sequence id_iva_seq
+Hibernate: 
+    create sequence id_producto_seq
+Hibernate: 
+    create sequence id_rol_seq
+Hibernate: 
+    create sequence id_usuario_seq
+Hibernate: 
+    select
+        nextval (&apos;id_rol_seq&apos;)
+Hibernate: 
+    /* insert es.udc.fi.tfg.seguimiento.model.Rol
+        */ insert 
+        into
+            ROL
+            (rol, idRol) 
+        values
+            (?, ?)
+Hibernate: 
+    /* insert es.udc.fi.tfg.seguimiento.model.Rol
+        */ insert 
+        into
+            ROL
+            (rol, idRol) 
+        values
+            (?, ?)
+Hibernate: 
+    /* 
+from
+    Rol 
+where
+    rol LIKE :rol */ select
+        rol0_.idRol as idRol1_5_,
+        rol0_.rol as rol2_5_ 
+    from
+        ROL rol0_ 
+    where
+        rol0_.rol like ?
+Hibernate: 
+    select
+        nextval (&apos;id_usuario_seq&apos;)
+</system-out>
+    <system-err>SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+mar 17, 2016 1:17:35 PM org.hibernate.annotations.common.reflection.java.JavaReflectionManager &lt;clinit&gt;
+INFO: HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+mar 17, 2016 1:17:35 PM org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate Core {4.3.7.Final}
+mar 17, 2016 1:17:35 PM org.hibernate.cfg.Environment &lt;clinit&gt;
+INFO: HHH000206: hibernate.properties not found
+mar 17, 2016 1:17:35 PM org.hibernate.cfg.Environment buildBytecodeProvider
+INFO: HHH000021: Bytecode provider name : javassist
+mar 17, 2016 1:17:36 PM org.hibernate.dialect.Dialect &lt;init&gt;
+INFO: HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+mar 17, 2016 1:17:36 PM org.hibernate.engine.jdbc.internal.LobCreatorBuilder useContextualLobCreation
+INFO: HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+mar 17, 2016 1:17:36 PM org.hibernate.engine.transaction.internal.TransactionFactoryInitiator initiateService
+INFO: HHH000399: Using default transaction strategy (direct JDBC transactions)
+mar 17, 2016 1:17:36 PM org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory &lt;init&gt;
+INFO: HHH000397: Using ASTQueryTranslatorFactory
+mar 17, 2016 1:17:37 PM org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000227: Running hbm2ddl schema export
+mar 17, 2016 1:17:37 PM org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: HHH000230: Schema export complete
+</system-err>
+  </testcase>
 </testsuite>

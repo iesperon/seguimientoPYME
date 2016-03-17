@@ -44,16 +44,11 @@ public class testEmpresa {
 	public void test() {
 		
 		//ROLES
-		rol1 = new Rol("ADMIN_ROLE");
+		rol1 = new Rol("ROLE_ADMIN");
 		usuarioService.registroRol(rol1);
-		System.out.println("************************************* "+usuarioService.buscarRolPorRol("ADMIN_ROLE").getRol());
-		
-		System.out.println("********************************************************");
-		
-		rol2=new Rol("USER_ROLE");
-		usuarioService.registroRol(rol2);
-		
 	
+		rol2=new Rol("ROLE_USER");
+		usuarioService.registroRol(rol2);
 		
 		//USUARIO ADMINISTRADOR
 		
@@ -92,6 +87,8 @@ public class testEmpresa {
 		//**********CENTROS
 		centro1 = new Centro("T001", "C/ Sin nombre", "BAJO","36003","Pontevedra","Pontevedra","España","tienda@tienda.es","+34986105232",empresa1);
 		centro2 = new Centro("T002", "C/ Del Centro", "10","36005","Pontevedra","Pontevedra","España","tiendanueva@tienda.es","+34626268512",empresa1);
+		
+		//Buscar empresa por centro
 		
 		//Añadimos un centro
 		empresaService.registroCentro(centro1);

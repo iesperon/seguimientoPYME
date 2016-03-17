@@ -20,8 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.FormUser;
+import es.udc.fi.tfg.seguimiento.model.Iva;
+import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
+import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
 
 @Controller
@@ -33,6 +36,9 @@ public class AdminController {
 	
 	@Autowired 
 	private UserService usuarioService;
+	
+	@Autowired 
+	private ProductoService productoService;
 
 	@RequestMapping(value = "/centros", method = RequestMethod.GET)
 	public ModelAndView centros() {
@@ -143,8 +149,31 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/productos",method = RequestMethod.GET)
-	public String Productos(){
-		return "/admin/productos";
+	public ModelAndView Productos(){
+		ModelAndView model = new ModelAndView();
+		
+		model.addObject("myProducto", new Producto());
+		model.setViewName("productos");
+		return model;
+	}
+	
+	@RequestMapping(value = "/addProducto", method = RequestMethod.POST)
+	public String addProducto(Producto myProducto, BindingResult result, ModelAndView model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String login = auth.getName();
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		myProducto.setEmpresa(miempresa);
+
+		//************************Meto el IVA
+		Iva miiva = productoService.buscarIvaPorPorcentaje(21);
+		myProducto.setIva(miiva);
+		
+		productoService.registroProducto(myProducto);
+		
+		return "redirect:/admin/productos";
+		
 	}
 	
 	

@@ -24,6 +24,7 @@ public interface EmpresaService {
 		public List<Empresa> buscarEmpresaPorNombre(String minombre);
 		//Buscar empresa por empleado
 		public Empresa buscarEmpresaPorAdmin(Usuario miusuario);
+
 		
 		
 		
@@ -39,4 +40,5 @@ public interface EmpresaService {
 		public List<Centro> obtenerCentros(Empresa miempresa);
 		//Buscar centro por id
 		public Centro buscarCentroPorId(Long miid);
+		
 }

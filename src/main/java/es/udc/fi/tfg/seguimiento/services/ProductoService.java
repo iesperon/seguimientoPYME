@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.services;
 import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Iva;
+import es.udc.fi.tfg.seguimiento.model.Producto;
 
 public interface ProductoService {
 
@@ -18,4 +19,13 @@ public interface ProductoService {
 	public Iva buscarIvaPorPorcentaje (Integer miporcentaje);
 	//Obtener todos los IVAs
 	public List<Iva> obtenerTodosIva();
+
+	//**********PRODUCTO**************
+	//Registro del producto
+	public void registroProducto(Producto miproducto);
+	//Eliminar un producto
+	public void eliminarProducto(Producto miproducto);
+	//Actualizar los datos de un producto
+	public void actualizarProducto (Producto miproducto);
+
 }

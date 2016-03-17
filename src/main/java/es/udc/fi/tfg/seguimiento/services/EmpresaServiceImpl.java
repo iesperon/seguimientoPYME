@@ -68,6 +68,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 	public Empresa buscarEmpresaPorAdmin(Usuario miusuario) {
 		return empresaDAO.findByAdmin(miusuario);
 	}
+	
 
 	//**********CENTRO***********
 	public void registroCentro(Centro micentro) {

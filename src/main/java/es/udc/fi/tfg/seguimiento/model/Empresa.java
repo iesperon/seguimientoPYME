@@ -31,10 +31,10 @@ public class Empresa {
 	private String email;
 	private byte[] logo; 
 	private Set<Centro> centro = new HashSet<Centro>();
+	private Set<Producto> producto = new HashSet<Producto>();
 	private Usuario administrador;
 	
 
-	
 	public Empresa(){
 	}
 	
@@ -142,6 +142,16 @@ public class Empresa {
 
 	public void setAdministrador(Usuario administrador) {
 		this.administrador = administrador;
+	}
+	
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	public Set<Producto> getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Set<Producto> producto) {
+		this.producto = producto;
 	}
 
 	@Override
