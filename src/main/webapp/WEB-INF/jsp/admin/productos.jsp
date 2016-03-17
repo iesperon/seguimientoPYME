@@ -5,53 +5,29 @@
 
 
 	<div class="row">
-	
-      		
-     	<div class="col-md-9">
-  		
-  		 <div class="col-sm-6 col-md-4">
+		<div class="col-md-9">
+       
+       <c:forEach var="productos" items="${productoslist}" varStatus="status">
+        		 <div class="col-sm-6 col-md-4">
     		<div class="thumbnail">
     		  <img src="..." alt="...">
       		<div class="caption">
-      		  <h3>Thumbnail label</h3>
-     		   <p>...</p>
-    		    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+      		  <h3>${productos.nombre}</h3>
+     		   <p>${productos.descripcion}</p>
+     		   <p>${productos.precio}€</p>
+     		   <c:url var="productoUrl" value="eliminarProducto">
+					<c:param name="idProducto" value="${productos.idProducto}"/>
+				</c:url>
+				<c:url var="productoUrl2" value="editarProducto">
+					<c:param name="idProducto" value="${productos.idProducto}"/>
+				</c:url>
+    		    <p><a href='<c:out value="${productoUrl2}"/>' class="btn btn-default" role="button">Editar</a> <a href='<c:out value="${productoUrl}"/>' class="btn btn-danger" role="button">Eliminar</a></p>
    		   </div>
   		  </div>
 		  </div>	
 		  
-		   <div class="col-sm-6 col-md-4">
-    		<div class="thumbnail">
-    		  <img src="..." alt="...">
-      		<div class="caption">
-      		  <h3>Thumbnail label</h3>
-     		   <p>...</p>
-    		    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-   		   </div>
-  		  </div>
-		  </div>
+	  </c:forEach>
 		  
-		   <div class="col-sm-6 col-md-4">
-    		<div class="thumbnail">
-    		  <img src="..." alt="...">
-      		<div class="caption">
-      		  <h3>Thumbnail label</h3>
-     		   <p>...</p>
-    		    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-   		   </div>
-  		  </div>
-		  </div>
-		  
-		   <div class="col-sm-6 col-md-4">
-    		<div class="thumbnail">
-    		  <img src="..." alt="...">
-      		<div class="caption">
-      		  <h3>Thumbnail label</h3>
-     		   <p>...</p>
-    		    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-   		   </div>
-  		  </div>
-		  </div>
 		  
     	
     	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

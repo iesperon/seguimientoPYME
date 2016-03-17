@@ -13,5 +13,6 @@ public interface ProductoDAO {
 	public List<Producto> findAll();
 	public List<Producto> findByEmpresa(Empresa miempresa);
 	public Producto findByCod (Float micodprod);
+	public Producto findById(Long miid);
 	
 }

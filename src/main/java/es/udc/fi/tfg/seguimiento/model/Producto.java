@@ -1,5 +1,8 @@
 package es.udc.fi.tfg.seguimiento.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,6 +32,8 @@ public class Producto {
 	private Float descuento;
 	private Iva iva;
 	private Empresa empresa;
+	private Set<Stock> stock = new HashSet<Stock>();
+
 	
 	
 	public Producto(){
@@ -123,7 +129,6 @@ public class Producto {
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idIva")
-	@Cascade({CascadeType.SAVE_UPDATE})
 	public Iva getIva() {
 		return iva;
 	}
@@ -142,6 +147,22 @@ public class Producto {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
+
+	@OneToMany(mappedBy="producto")
+	public Set<Stock> getStock() {
+		return stock;
+	}
+
+	public void setStock(Set<Stock> stock) {
+		this.stock = stock;
+	}
+
+
+	
+
+
+	
+	
 	
 	
 }

@@ -36,7 +36,8 @@ public class Centro {
 	private String telefono;
 	private Empresa empresa;
 	private Set<Usuario> usuario = new HashSet<Usuario>();
-	
+	private Set<Stock> stock = new HashSet<Stock>();
+
 
 	public Centro(){
 	}
@@ -168,7 +169,15 @@ public class Centro {
 	public void setUsuario(Set<Usuario> usuario) {
 		this.usuario = usuario;
 	}
+	
+	@OneToMany(mappedBy="centro")
+	public Set<Stock> getStock() {
+		return stock;
+	}
 
+	public void setStock(Set<Stock> stock) {
+		this.stock = stock;
+	}
 
 	@Override
 	public String toString() {

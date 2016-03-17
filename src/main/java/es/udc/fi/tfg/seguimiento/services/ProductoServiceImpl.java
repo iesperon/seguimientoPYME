@@ -54,6 +54,8 @@ public class ProductoServiceImpl implements ProductoService{
 	//*************PRODUCTO****************
 		
 		public void registroProducto(Producto miproducto) {
+			Iva miiva = ivaDAO.findbyPorcentaje(21);
+			miproducto.setIva(miiva);
 			productoDAO.create(miproducto);
 		}
 
@@ -63,6 +65,10 @@ public class ProductoServiceImpl implements ProductoService{
 
 		public void actualizarProducto(Producto miproducto) {
 			productoDAO.update(miproducto);
+		}
+
+		public Producto buscarProductoPorId(Long miid) {
+			return productoDAO.findById(miid);
 		}
 	
 }

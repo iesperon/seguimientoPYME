@@ -3,7 +3,6 @@ package es.udc.fi.tfg.seguimiento.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.InstanceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,10 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
@@ -49,7 +46,6 @@ public class AdminController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		List<Centro> centros=new ArrayList<Centro>(miempresa.getCentro());
-		//List<Centro> centros = empresaService.obtenerCentros(miempresa);
 		
 		model.addObject("centroslist",centros);
 		model.addObject("myCentro", new Centro());
@@ -151,7 +147,16 @@ public class AdminController {
 	@RequestMapping(value="/productos",method = RequestMethod.GET)
 	public ModelAndView Productos(){
 		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
+		String login = auth.getName();
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Producto> misproductos = new ArrayList<Producto>(miempresa.getProducto());
+		List<Iva> ivas = productoService.obtenerTodosIva();
+		
+		model.addObject("ivas", ivas);
+		model.addObject("productoslist", misproductos);
 		model.addObject("myProducto", new Producto());
 		model.setViewName("productos");
 		return model;
@@ -166,14 +171,16 @@ public class AdminController {
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
 		myProducto.setEmpresa(miempresa);
 
-		//************************Meto el IVA
-		Iva miiva = productoService.buscarIvaPorPorcentaje(21);
-		myProducto.setIva(miiva);
-		
 		productoService.registroProducto(myProducto);
 		
 		return "redirect:/admin/productos";
 		
+	}
+	
+	@RequestMapping(value="/eliminarProducto",method = RequestMethod.GET)
+	public String eliminarProducto(Model model, Long idProducto){
+		productoService.eliminarProducto(productoService.buscarProductoPorId(idProducto));
+		return "redirect:/admin/productos";
 	}
 	
 	

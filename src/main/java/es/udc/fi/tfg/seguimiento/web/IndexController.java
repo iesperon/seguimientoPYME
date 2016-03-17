@@ -1,6 +1,8 @@
 package es.udc.fi.tfg.seguimiento.web;
 
 
+import javax.imageio.stream.ImageOutputStreamImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,21 +44,7 @@ public class IndexController {
 		return mav;
 		
 	}
-	
-	/*@RequestMapping(value="/login",method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error, 
-			@RequestParam(value = "logout", required = false) String logout) {
-		
-		ModelAndView mav = new ModelAndView();
-				
-		//mav.addObject("email",  new String());
-		//mav.addObject("contrasena",  new String());
-		
-		mav.setViewName("");
-		
-		return mav;
-	}*/
-	
+
 	@RequestMapping(value = "/403", method = RequestMethod.POST)
 	public ModelAndView notAllowed() {
 		ModelAndView mav = new ModelAndView();

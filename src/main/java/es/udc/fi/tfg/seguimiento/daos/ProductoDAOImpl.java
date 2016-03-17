@@ -39,14 +39,23 @@ public class ProductoDAOImpl implements ProductoDAO {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Producto order by nombre");
 		return (List<Producto>) q.list();
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	public List<Producto> findByEmpresa(Empresa miempresa) {
-		return null;
+		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where idEmpresa=:idEmpresa");
+		q.setParameter("idEmpresa", miempresa.getIdEmpresa());
+		return (List<Producto>) q.list();
 	}
 
 	public Producto findByCod(Float micodprod) {
-		Query q = sessionFactory.getCurrentSession().createQuery("from Empresa where codProd=:codProd");
+		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where codProd=:codProd");
 		q.setParameter("codProd", micodprod);
+		return (Producto) q.list().get(0);
+	}
+
+	public Producto findById(Long miid) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where idProducto=:idProducto");
+		q.setParameter("idProducto", miid);
 		return (Producto) q.list().get(0);
 	}
 

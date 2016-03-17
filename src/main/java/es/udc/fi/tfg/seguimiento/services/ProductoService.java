@@ -27,5 +27,7 @@ public interface ProductoService {
 	public void eliminarProducto(Producto miproducto);
 	//Actualizar los datos de un producto
 	public void actualizarProducto (Producto miproducto);
+	//Buscar un producto por ID
+	public Producto buscarProductoPorId(Long miid);
 
 }
