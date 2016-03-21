@@ -11,5 +11,6 @@ public interface IvaDAO {
 	public void delete (Iva miiva);
 	public Iva findbyPorcentaje (Integer miporcentaje);
 	public List<Iva> findAll();
+	public Iva findById(Long idIva);
 	
 }

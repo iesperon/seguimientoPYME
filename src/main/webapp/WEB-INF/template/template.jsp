@@ -23,9 +23,17 @@
 
 	<nav class="navbar navbar-inverse">
  		 <div class="container-fluid">
-    		<div class="navbar-header">
+ 		 <sec:authorize access="not isAuthenticated()">
+ 		 	<div class="navbar-header">
       			<a class="navbar-brand" href="<c:url value="/" />">MiPymeOnline</a>
     		</div>
+		</sec:authorize>
+		
+		<sec:authorize access="isAuthenticated()">
+ 		 	<div class="navbar-header">
+      			<a class="navbar-brand" href="<c:url value="/admin/centros" />">MiPymeOnline</a>
+    		</div>
+		</sec:authorize>
     		
     		
     	<sec:authorize access="not isAuthenticated()">

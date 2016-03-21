@@ -1,6 +1,7 @@
 package es.udc.fi.tfg.seguimiento.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,8 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.IvaDAO;
 import es.udc.fi.tfg.seguimiento.daos.ProductoDAO;
+import es.udc.fi.tfg.seguimiento.daos.StockDAO;
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.Producto;
+import es.udc.fi.tfg.seguimiento.model.Stock;
 
 @Service
 @Transactional
@@ -27,6 +31,14 @@ public class ProductoServiceImpl implements ProductoService{
 	
 	public void setProductoDAO (ProductoDAO productoDAO){
 		this.productoDAO = productoDAO;
+	}
+	
+	@Autowired
+	private StockDAO stockDAO = null;
+	private List<Stock> misStocks;
+	
+	public void setStockDAO (StockDAO stockDAO){
+		this.stockDAO = stockDAO;
 	}
 	
 	//**********IVA***********
@@ -50,12 +62,17 @@ public class ProductoServiceImpl implements ProductoService{
 		public List<Iva> obtenerTodosIva() {
 			return ivaDAO.findAll();
 		}
+		
+		public Iva buscarIvaPorId(Long idIva) {
+			return ivaDAO.findById(idIva);
+		}
+	
 
 	//*************PRODUCTO****************
 		
 		public void registroProducto(Producto miproducto) {
-			Iva miiva = ivaDAO.findbyPorcentaje(21);
-			miproducto.setIva(miiva);
+			//Iva miiva = ivaDAO.findbyPorcentaje(21);
+			//miproducto.setIva(miiva);
 			productoDAO.create(miproducto);
 		}
 
@@ -70,5 +87,17 @@ public class ProductoServiceImpl implements ProductoService{
 		public Producto buscarProductoPorId(Long miid) {
 			return productoDAO.findById(miid);
 		}
+		
+		//********STOCK*************
+
+		public List<Stock> buscarStockProductoCentro(List<Producto> misproductos, Centro micentro) {
+			misStocks = null;
+			for(Producto producto:misproductos){
+				Stock mistock = stockDAO.findByProductoCentro(producto, micentro);
+				misStocks.add(mistock);
+			}
+			return misStocks;
+		}
+
 	
 }

@@ -41,9 +41,20 @@
 						<c:url var="centroUrl3" value="editarCentro">
 							<c:param name="idCentro" value="${centro.idCentro}"/>
 						</c:url>
+						<c:url var="centroUrl4" value="stock">
+							<c:param name="idCentro" value="${centro.idCentro}"/>
+						</c:url>
 						
-						<td><a href='<c:out value="${centroUrl2}"/>'>Añadir</a></td>		
-						<td><a href='<c:out value="${centroUrl}"/>'>Eliminar </a> | <a href='<c:out value="${centroUrl3}"/>'>Editar</a></td>
+						<td><a href='<c:out value="${centroUrl2}"/>'>Añadir</a></td>
+						<td>
+							<select class="form-control">
+								<option>Accion</option>
+  								<option><a href='<c:out value="${centroUrl}"/>'>Eliminar </a></option>
+  								<option><a href='<c:out value="${centroUrl3}"/>'>Editar</a></option>
+  								<option><a href='<c:out value="${centroUrl4}"/>'>Stock</a></option>
+  							</select>
+						</td>		
+						<td><a href='<c:out value="${centroUrl}"/>'>Eliminar </a> | <a href='<c:out value="${centroUrl3}"/>'>Editar</a> | <a href='<c:out value="${centroUrl4}"/>'>Stock</a></td>
 					
 								
 						

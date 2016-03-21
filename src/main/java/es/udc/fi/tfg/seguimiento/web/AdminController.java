@@ -2,7 +2,7 @@ package es.udc.fi.tfg.seguimiento.web;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,9 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
-import es.udc.fi.tfg.seguimiento.model.FormUser;
+import es.udc.fi.tfg.seguimiento.model.Form;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.Producto;
+import es.udc.fi.tfg.seguimiento.model.Stock;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
@@ -89,19 +90,20 @@ public class AdminController {
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
-		List<Centro> centros = empresaService.obtenerCentros(miempresa);
+		
+		List<Centro> centros =new ArrayList<Centro> (miempresa.getCentro());
 		List <Usuario> usuarios = usuarioService.buscarUsuarioPorEmpresa(miempresa);
 		
 		model.addObject("usuarioslist", usuarios);
 		model.addObject("centroslist", centros);
-		model.addObject("myUsuario", new Usuario());
+		model.addObject("myForm", new Form());
 		model.setViewName("empleados");
 		return model;
 	}
 	
 	
 	@RequestMapping(value = "/addEmpleado", method = RequestMethod.POST)
-	public String addEmpleado(FormUser myForm, BindingResult result, ModelAndView model) {
+	public String addEmpleado(Form myForm, BindingResult result, ModelAndView model) {
 		Usuario usuario= myForm.getUsuario();
 		Long idCentro = myForm.getIdCentro();
 		Centro micentro = empresaService.buscarCentroPorId(idCentro);
@@ -116,7 +118,7 @@ public class AdminController {
 	@RequestMapping(value = "/crearEmpleado",method = RequestMethod.GET)
 	public ModelAndView crearEmpleado(Long idCentro, ModelAndView model) {
 		model.addObject("idCentro", idCentro);
-		model.addObject("myForm", new FormUser());
+		model.addObject("myForm", new Form());
 		model.setViewName("crearEmpleado");
 		return model;
 	}
@@ -152,29 +154,51 @@ public class AdminController {
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		
 		List<Producto> misproductos = new ArrayList<Producto>(miempresa.getProducto());
 		List<Iva> ivas = productoService.obtenerTodosIva();
 		
 		model.addObject("ivas", ivas);
 		model.addObject("productoslist", misproductos);
-		model.addObject("myProducto", new Producto());
+		model.addObject("myForm", new Form());
 		model.setViewName("productos");
 		return model;
 	}
 	
 	@RequestMapping(value = "/addProducto", method = RequestMethod.POST)
-	public String addProducto(Producto myProducto, BindingResult result, ModelAndView model) {
+	public String addProducto(Form myForm, BindingResult result, ModelAndView model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		myProducto.setEmpresa(miempresa);
+		
+		Producto producto = myForm.getProducto();
+		Long idIva = myForm.getIdIva();
+		Iva miIva = productoService.buscarIvaPorId(idIva);
+		producto.setIva(miIva);
+		producto.setEmpresa(miempresa);
 
-		productoService.registroProducto(myProducto);
+		productoService.registroProducto(producto);
 		
 		return "redirect:/admin/productos";
 		
+	}
+	
+	@RequestMapping(value="/editarProducto",method = RequestMethod.GET)
+	public ModelAndView editarProducto(ModelAndView model, Long idProducto){
+		Producto miproducto = productoService.buscarProductoPorId(idProducto);
+		model.addObject("idProducto",idProducto);
+		model.addObject("producto", miproducto);
+		model.setViewName("editarProducto");
+		return model;
+	}
+	
+	@RequestMapping(value="/confEdicProd",method = RequestMethod.POST)
+	public String confEdicProd(Model model, Producto miproducto, Long idProducto){
+		productoService.actualizarProducto(miproducto);
+		model.addAttribute("productoeditado", miproducto);
+		return "redirect:/admin/productos";
 	}
 	
 	@RequestMapping(value="/eliminarProducto",method = RequestMethod.GET)
@@ -183,6 +207,22 @@ public class AdminController {
 		return "redirect:/admin/productos";
 	}
 	
+	@RequestMapping(value="/stock",method = RequestMethod.GET)
+	public ModelAndView Stock(Long idCentro, ModelAndView model){
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		//String login = auth.getName();
+		//Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		//Empresa miempresa = miusuario.getCentro().getEmpresa();
+		Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		Empresa miempresa = micentro.getEmpresa();
+		List<Producto> misproductos = new ArrayList<Producto>(miempresa.getProducto());
+		//List<Stock> miStock = productoService.buscarStockProductoCentro(misproductos, micentro);
+		
+		model.addObject("productoslist", misproductos);
+		model.setViewName("stock");
+		return model;
+	}
 	
 	
 }

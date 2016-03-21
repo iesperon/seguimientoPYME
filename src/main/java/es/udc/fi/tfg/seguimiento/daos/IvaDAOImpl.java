@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.daos;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import es.udc.fi.tfg.seguimiento.model.Iva;
+import es.udc.fi.tfg.seguimiento.model.Producto;
 
 @Repository
 @EnableTransactionManagement
@@ -50,5 +52,13 @@ public class IvaDAOImpl implements IvaDAO{
 		}
 		return (Iva) criteria.list().get(0);
 	}
+
+	public Iva findById(Long idIva) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Iva where idIva=:idIva");
+		q.setParameter("idIva", idIva);
+		return (Iva) q.list().get(0);
+	}
+	
+	
 
 }

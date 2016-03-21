@@ -105,26 +105,28 @@
 					</div>
 					
 					<div class="col-xs-3">
-						<label for="descripcion">Descripcion</label>
-						<form:input class="form-control" path="empresa.descripcion" type="text"/>
-					</div>
-					
-					<div class="col-xs-3">
 						<label for="email">Email</label>
 						<form:input class="form-control" path="empresa.email"  type="text"/>
 					</div>
 					
-					<div class="col-xs-3">
+					<div class="col-xs-6">
+						<label for="descripcion">Descripcion</label>
+						<form:textarea class="form-control" rows="3" path="empresa.descripcion"/> 
+					</div>
+					
+					
+					<div class="col-xs-6">
 						<label for="logo">Logo</label>
 						<span class="btn btn-default btn-file">
 							<form:input path="empresa.logo"  type="file"/>
 						</span>
 					</div>
 					
+					
 				</div>
-				
+					<div class="col-xs-9"></div>
 					<div class="col-xs-3">
-						<input type="submit" value="Aceptar" class="btn btn-primary" onclick="submitForms()">
+						<input type="submit" value="Aceptar" class="btn btn-primary btn-lg" onclick="submitForms()">
 					</div>
 					
 				</div>

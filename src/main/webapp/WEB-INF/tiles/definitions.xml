@@ -24,7 +24,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/crearEmpleado.jsp"/>
 	</definition>
 	
-	<!-- Crear Empleados -->
+	<!-- Editar centro -->
 	<definition name="editarCentro" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/editarCentro.jsp"/>
 	</definition>
@@ -32,6 +32,16 @@
 	<!-- Productos -->
 	<definition name="productos" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/productos.jsp"/>
+	</definition>
+	
+	<!-- Stock -->
+	<definition name="stock" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/stock.jsp"/>
+	</definition>
+	
+	<!-- Editar producto -->
+	<definition name="editarProducto" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/editarProducto.jsp"/>
 	</definition>
 	
 	<!-- 403 -->

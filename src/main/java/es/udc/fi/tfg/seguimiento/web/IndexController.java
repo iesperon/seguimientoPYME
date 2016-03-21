@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
-import es.udc.fi.tfg.seguimiento.model.FormUser;
+import es.udc.fi.tfg.seguimiento.model.Form;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
@@ -34,7 +34,7 @@ public class IndexController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("myForm", new FormUser());
+		mav.addObject("myForm", new Form());
 		//mav.addObject("login",  new Login());
 		mav.addObject("email", new String());
 		mav.addObject("contrasena", new String());
@@ -53,7 +53,7 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(FormUser myForm, BindingResult result, Model model) {
+	public String addUser(Form myForm, BindingResult result, Model model) {
 		if(result.hasErrors()){
 			return "index";
 		}else{

@@ -2,8 +2,10 @@ package es.udc.fi.tfg.seguimiento.services;
 
 import java.util.List;
 
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.Producto;
+import es.udc.fi.tfg.seguimiento.model.Stock;
 
 public interface ProductoService {
 
@@ -19,6 +21,8 @@ public interface ProductoService {
 	public Iva buscarIvaPorPorcentaje (Integer miporcentaje);
 	//Obtener todos los IVAs
 	public List<Iva> obtenerTodosIva();
+	//Buscar IVA por ID
+	public Iva buscarIvaPorId(Long idIva);
 
 	//**********PRODUCTO**************
 	//Registro del producto
@@ -29,5 +33,8 @@ public interface ProductoService {
 	public void actualizarProducto (Producto miproducto);
 	//Buscar un producto por ID
 	public Producto buscarProductoPorId(Long miid);
-
+	
+	//*****************STOCK****************
+	public List<Stock> buscarStockProductoCentro(List<Producto> misproductos, Centro micentro);
+	
 }
