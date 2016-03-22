@@ -88,7 +88,7 @@
                   <li><a href="/seguimientoPYMES/admin/centros">Centros</a></li>
                   <li><a href="/seguimientoPYMES/admin/empleados">Empleados</a></li>
                   <li><a href="/seguimientoPYMES/admin/productos">Productos</a></li>
-                  <li><a href="#sec4">Section 4</a></li>
+                  <li><a href="/seguimientoPYMES/admin/gastos">Gastos</a></li>
               	</ul>
   				</div>
 

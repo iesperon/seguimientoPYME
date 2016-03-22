@@ -8,7 +8,7 @@ import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface EmpresaService {
 
-	//**********Empresa**************
+		//**********Empresa**************
 	
 		//Registro de una empresa
 		public void registroEmpresa(Empresa miempresa);

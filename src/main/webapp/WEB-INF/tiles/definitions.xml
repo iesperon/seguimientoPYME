@@ -44,6 +44,12 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/editarProducto.jsp"/>
 	</definition>
 	
+	<!-- Gastos -->
+	<definition name="gastos" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/gastos.jsp"/>
+	</definition>
+	
+	
 	<!-- 403 -->
 	<definition name="403" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/403.jsp"/>

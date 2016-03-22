@@ -13,7 +13,7 @@
 			<div>
 				<h2>Editar Producto</h2>
 					<div class="row">
-								<div class="col-xs-3">
+					<div class="col-xs-3">
 						<label for="nombre">Código de barras</label>
 						<form:input class="form-control" path="codProd" value="${producto.codProd}" type="text"/>
 					</div>

@@ -71,8 +71,6 @@ public class ProductoServiceImpl implements ProductoService{
 	//*************PRODUCTO****************
 		
 		public void registroProducto(Producto miproducto) {
-			//Iva miiva = ivaDAO.findbyPorcentaje(21);
-			//miproducto.setIva(miiva);
 			productoDAO.create(miproducto);
 		}
 

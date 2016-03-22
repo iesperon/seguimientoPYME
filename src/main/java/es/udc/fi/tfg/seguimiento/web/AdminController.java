@@ -17,10 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Form;
+import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
+import es.udc.fi.tfg.seguimiento.services.ContabilidadService;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
@@ -37,6 +39,9 @@ public class AdminController {
 	
 	@Autowired 
 	private ProductoService productoService;
+	
+	@Autowired
+	private ContabilidadService contabilidadService;
 
 	@RequestMapping(value = "/centros", method = RequestMethod.GET)
 	public ModelAndView centros() {
@@ -224,5 +229,48 @@ public class AdminController {
 		return model;
 	}
 	
+	
+	@RequestMapping(value = "/gastos", method = RequestMethod.GET)
+	public ModelAndView gastos() {
+		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Gasto> gastos =new ArrayList<Gasto> (miempresa.getGasto());
+		
+		model.addObject("gastoslist", gastos);
+		model.addObject("newGasto", new Gasto());
+		model.setViewName("gastos");
+		return model;
+	}
+	
+	@RequestMapping(value = "/addGasto", method = RequestMethod.POST)
+	public String addGasto(Gasto newGasto, BindingResult result, ModelAndView model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		
+		newGasto.setEmpresa(miempresa);
+		contabilidadService.registroGasto(newGasto);
+		
+		return "redirect:/admin/gastos";
+	}
+	
+	@RequestMapping(value="/editGasto",method = RequestMethod.POST)
+	public String editGasto(ModelAndView model, Gasto newGasto, BindingResult result){
+		contabilidadService.actualizarGasto(newGasto);
+		model.addObject("gastoeditado", newGasto);
+		return "redirect:/admin/gastos";
+	}
+	
+	@RequestMapping(value="/eliminarGasto",method = RequestMethod.GET)
+	public String eliminarGasto(ModelAndView model, Long idGasto){
+		contabilidadService.eliminarGasto(contabilidadService.buscarGastoPorId(idGasto));
+		return "redirect:/admin/gastos";
+	}
 	
 }

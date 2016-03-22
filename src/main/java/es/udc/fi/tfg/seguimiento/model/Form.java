@@ -6,6 +6,7 @@ public class Form {
 	private Empresa empresa;
 	private Centro centro;
 	private Producto producto;
+	private Stock stock;
 	private Long idCentro;
 	private Long idIva;
 	
@@ -29,6 +30,14 @@ public class Form {
 	}
 	
 	
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+
 	public Producto getProducto() {
 		return producto;
 	}

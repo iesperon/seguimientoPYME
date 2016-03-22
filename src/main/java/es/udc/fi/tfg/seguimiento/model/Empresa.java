@@ -32,6 +32,7 @@ public class Empresa {
 	private byte[] logo; 
 	private Set<Centro> centro = new HashSet<Centro>();
 	private Set<Producto> producto = new HashSet<Producto>();
+	private Set<Gasto> gasto =  new HashSet<Gasto>();
 	private Usuario administrador;
 	
 
@@ -134,6 +135,16 @@ public class Empresa {
 		this.centro = centro;
 	}
 	
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	public Set<Gasto> getGasto() {
+		return gasto;
+	}
+
+	public void setGasto(Set<Gasto> gasto) {
+		this.gasto = gasto;
+	}
+
 	@OneToOne
 	@JoinColumn(name="idAdmin")
 	public Usuario getAdministrador() {
