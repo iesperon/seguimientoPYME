@@ -12,11 +12,14 @@
     <title> MiPymeOnline </title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
- 	<style type="text/css">
-        <%@include file="../../resources/bootstrap/css/bootstrap.min.css" %>
-    </style>
-
+ 	<!-- JQUERY -->    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ 	<!-- BOOTSTRAP -->    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     
+ 	<!-- DATATABLES -->    
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.css"/>
+	<script src="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.js"></script> 
 </head>
 
 <body>
@@ -89,6 +92,8 @@
                   <li><a href="/seguimientoPYMES/admin/empleados">Empleados</a></li>
                   <li><a href="/seguimientoPYMES/admin/productos">Productos</a></li>
                   <li><a href="/seguimientoPYMES/admin/gastos">Gastos</a></li>
+                  <li><a href="/seguimientoPYMES/admin/caja">Caja</a></li>
+                  
               	</ul>
   				</div>
 

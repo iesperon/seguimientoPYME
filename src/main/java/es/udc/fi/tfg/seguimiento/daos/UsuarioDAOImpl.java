@@ -59,7 +59,16 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	}
 
 	public void update(Usuario miusuario) {
-		sessionFactory.getCurrentSession().update(miusuario);
+		Usuario usuarioMod = findById(miusuario.getIdUsuario());
+		usuarioMod.setNombre(miusuario.getNombre());
+		usuarioMod.setApellido1(miusuario.getApellido1());
+		usuarioMod.setApellido2(miusuario.getApellido2());
+		usuarioMod.setDni(miusuario.getDni());
+		usuarioMod.setEmail(miusuario.getEmail());
+		usuarioMod.setContrasena(miusuario.getContrasena());
+		usuarioMod.setCentro(miusuario.getCentro());		
+		
+		sessionFactory.getCurrentSession().update(usuarioMod);
 	}
 
 	public void remove(Usuario miusuario) {

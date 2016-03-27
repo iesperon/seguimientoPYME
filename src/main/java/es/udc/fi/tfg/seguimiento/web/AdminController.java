@@ -120,6 +120,22 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value="/editarEmpleado",method = RequestMethod.GET)
+	public ModelAndView editarEmpleado(ModelAndView model, Long idUsuario){
+		Usuario miusuario = usuarioService.buscarUsuarioPorId(idUsuario);
+		Form miForm = new Form();
+		miForm.setUsuario(miusuario);
+		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
+		List<Centro> centros =new ArrayList<Centro> (miempresa.getCentro());
+		
+		model.addObject("idUsuario",idUsuario);
+		//model.addObject("usuario", miusuario);
+		model.addObject("centroslist", centros);
+		model.addObject("myForm", miForm);
+		model.setViewName("editarEmpleado");
+		return model;
+	}
+	
 	@RequestMapping(value = "/crearEmpleado",method = RequestMethod.GET)
 	public ModelAndView crearEmpleado(Long idCentro, ModelAndView model) {
 		model.addObject("idCentro", idCentro);
@@ -273,4 +289,10 @@ public class AdminController {
 		return "redirect:/admin/gastos";
 	}
 	
+	@RequestMapping(value = "/caja", method = RequestMethod.GET)
+	public ModelAndView caja() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("caja");
+		return mav;
+	}	
 }
