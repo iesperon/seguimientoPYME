@@ -149,6 +149,7 @@ public class Producto {
 	}
 
 	@OneToMany(mappedBy="producto")
+	@Cascade({CascadeType.ALL})
 	public Set<Stock> getStock() {
 		return stock;
 	}

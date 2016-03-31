@@ -197,9 +197,10 @@ public class AdminController {
 		Producto producto = myForm.getProducto();
 		Long idIva = myForm.getIdIva();
 		Iva miIva = productoService.buscarIvaPorId(idIva);
+		
 		producto.setIva(miIva);
 		producto.setEmpresa(miempresa);
-
+		
 		productoService.registroProducto(producto);
 		
 		return "redirect:/admin/productos";
@@ -239,7 +240,9 @@ public class AdminController {
 		Empresa miempresa = micentro.getEmpresa();
 		List<Producto> misproductos = new ArrayList<Producto>(miempresa.getProducto());
 		//List<Stock> miStock = productoService.buscarStockProductoCentro(misproductos, micentro);
-		
+		//for (Producto miproducto : misproductos){
+		//	Stock mistock = productoService.buscarStockProductoCentro(miproducto, micentro);
+		//}
 		model.addObject("productoslist", misproductos);
 		model.setViewName("stock");
 		return model;

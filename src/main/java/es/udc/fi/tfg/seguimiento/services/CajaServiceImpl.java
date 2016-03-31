@@ -7,38 +7,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.udc.fi.tfg.seguimiento.daos.CierreDAO;
-import es.udc.fi.tfg.seguimiento.model.Cierre;
+import es.udc.fi.tfg.seguimiento.daos.CierreCajaDAO;
+import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 
 @Service
 @Transactional
 public class CajaServiceImpl implements CajaService{
 	
 	@Autowired
-	private CierreDAO cierreDAO = null;
+	private CierreCajaDAO cierreDAO = null;
 	
-	public void setCierreDAO (CierreDAO cierreDAO){
+	public void setCierreDAO (CierreCajaDAO cierreDAO){
 		this.cierreDAO = cierreDAO;
 	}
 	
 	//**********CIERRE***********
-		public void registroCierre(Cierre micierre) {
+		public void registroCierre(CierreCaja micierre) {
 			cierreDAO.create(micierre);		
 		}
 
-		public void eliminarCierre(Cierre micierre) {
+		public void eliminarCierre(CierreCaja micierre) {
 			cierreDAO.remove(micierre);
 		}
 
-		public void actualizarCierre(Cierre micierre) {
+		public void actualizarCierre(CierreCaja micierre) {
 			cierreDAO.update(micierre);
 		}
 
-		public Cierre buscarCierrePorFecha(Timestamp mifecha) {
+		public CierreCaja buscarCierrePorFecha(Timestamp mifecha) {
 			return cierreDAO.finByFecha(mifecha);
 		}
 
-		public List<Cierre> obtenerTodosCierres() {
+		public List<CierreCaja> obtenerTodosCierres() {
 			return cierreDAO.findAll();
 		}
 	

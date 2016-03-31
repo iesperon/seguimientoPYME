@@ -5,13 +5,35 @@
 
 
 	<div class="row">
-       
-      		
+    <script type="text/javascript" charset="utf-8"> 
+		$(document).ready(function() {
+			$('#centros').dataTable({
+			"language": {
+            	"lengthMenu": "Mostrar _MENU_ registros por página",
+           		"zeroRecords": "Ningún resultado encontrado",
+            	"info": "Mostrando página _PAGE_ de _PAGES_",
+            	"infoEmpty": "Ningún resultado encontrado",
+            	"infoFiltered": "(filtrados _MAX_ registros en total)",
+            	 "sSearch": "Buscar:",
+            	 "paginate": {
+        			"first":      "Primera",
+        			"last":       "Ultima",
+        			"next":       "Siguiente",
+        			"previous":   "Anterior"
+    			}
+        }
+			});
+		} );
+	</script> 
+	
+
      	<div class="col-md-9">
-     	    <img src="<c:url value="/resources/images/centros.png" />" class="center-block" alt="Empleados" width="800" height="200">
+     	
+    	    <img src="<c:url value="/resources/images/centros.png" />" class="center-block" alt="Empleados" width="800" height="200">
     		<h2> Centros </h2>
-    			<table class="table table-hover">
-    				<tr>
+    		<table class="table table-hover" id="centros">
+		<thead> 
+			<tr>
         				<th>Nombre</th>
         				<th>Calle</th>
         				<th>Poblacion</th>
@@ -19,10 +41,12 @@
         				<th>Pais</th>
         				<th>Email</th>
         				<th>Teléfono</th>
-        				<th>Empleados</th>
         				<th> </th>
-   					</tr>
-    			<c:forEach var="centro" items="${centroslist}" varStatus="status">
+   			</tr>
+		</thead> 
+		
+		<tbody> 
+		<c:forEach var="centro" items="${centroslist}" varStatus="status">
     				<tr>
     					<td>${centro.nombre}</td>
     					<td>${centro.calle}</td>
@@ -44,27 +68,29 @@
 						<c:url var="centroUrl4" value="stock">
 							<c:param name="idCentro" value="${centro.idCentro}"/>
 						</c:url>
+												<td> 
+							<div class="dropdown">
+  								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+    								Acciones
+    								<span class="caret"></span>
+  								</button>
+  								<ul class="dropdown-menu" aria-labelledby="dLabel">
+									<li> <a href='<c:out value="${centroUrl3}"/>'>Editar</a>	</li>
+									<li> <a href='<c:out value="${centroUrl4}"/>'>Stock</a> </li>
+									<li> <a href='<c:out value="${centroUrl2}"/>'>Añadir empleado</a> </li>
+									<li> <a href='<c:out value="${centroUrl}"/>'>Eliminar </a> </li> 								
+								</ul>
+							</div>
 						
-						<td><a href='<c:out value="${centroUrl2}"/>'>Añadir</a></td>
-						<td>
-							<select class="form-control">
-								<option>Accion</option>
-  								<option><a href='<c:out value="${centroUrl}"/>'>Eliminar </a></option>
-  								<option><a href='<c:out value="${centroUrl3}"/>'>Editar</a></option>
-  								<option><a href='<c:out value="${centroUrl4}"/>'>Stock</a></option>
-  							</select>
-						</td>		
-						<td><a href='<c:out value="${centroUrl}"/>'>Eliminar </a> | <a href='<c:out value="${centroUrl3}"/>'>Editar</a> | <a href='<c:out value="${centroUrl4}"/>'>Stock</a></td>
-					
+						
+						</td>					
 								
 						
-	   				</tr>    		
+	   				</tr>
     			</c:forEach>
-    		
-
-    		
-    			
-    			</table>
+		</tbody>
+	</table>	
+	
  		
 	<script>
 		$(document).ready(function(){

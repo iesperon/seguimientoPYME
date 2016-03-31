@@ -98,8 +98,7 @@
 							<label for="descripcion">Descripcion</label>
 							<form:textarea class="form-control" rows="3" path="producto.descripcion"/> 
 						</div>
-						
-											
+			
 						</div>
 						
 					<br>

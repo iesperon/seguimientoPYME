@@ -20,8 +20,8 @@ public class Stock {
 	private Long idStock;
 	private Centro centro;
 	private Producto producto;
-	private Integer stock_actual;
-	private Integer stock_min;
+	private Integer stockActual;
+	private Integer stockMin;
 	
 	public Stock(){
 		
@@ -42,7 +42,7 @@ public class Stock {
 
 
 	@ManyToOne
-	@Cascade({CascadeType.ALL})
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="idCentro")
 	public Centro getCentro() {
 		return centro;
@@ -53,7 +53,7 @@ public class Stock {
 	}
 
 	@ManyToOne
-	@Cascade({CascadeType.ALL})
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="idProducto")
 	public Producto getProducto() {
 		return producto;
@@ -63,20 +63,20 @@ public class Stock {
 		this.producto = producto;
 	}
 
-	public Integer getStock_actual() {
-		return stock_actual;
+	public Integer getStockActual() {
+		return stockActual;
 	}
 
-	public void setStock_actual(Integer stock_actual) {
-		this.stock_actual = stock_actual;
+	public void setStockActual(Integer stockActual) {
+		this.stockActual = stockActual;
 	}
 
-	public Integer getStock_min() {
-		return stock_min;
+	public Integer getStockMin() {
+		return stockMin;
 	}
 
-	public void setStock_min(Integer stock_min) {
-		this.stock_min = stock_min;
+	public void setStockMin(Integer stockMin) {
+		this.stockMin = stockMin;
 	}
 
 	

@@ -88,13 +88,12 @@ public class ProductoServiceImpl implements ProductoService{
 		
 		//********STOCK*************
 
-		public List<Stock> buscarStockProductoCentro(List<Producto> misproductos, Centro micentro) {
-			misStocks = null;
-			for(Producto producto:misproductos){
-				Stock mistock = stockDAO.findByProductoCentro(producto, micentro);
-				misStocks.add(mistock);
-			}
-			return misStocks;
+		public Stock buscarStockProductoCentro(Producto miproducto, Centro micentro) {
+			return stockDAO.findByProductoCentro(miproducto, micentro);
+		}
+		
+		public void registroStock (Stock mistock){
+			stockDAO.create(mistock);
 		}
 
 	

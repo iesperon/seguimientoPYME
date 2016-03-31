@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import es.udc.fi.tfg.seguimiento.model.Cierre;
+import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 
 @Repository
 @EnableTransactionManagement
-public class CierreDAOImpl implements CierreDAO {
+public class CierreCajaDAOImpl implements CierreCajaDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -24,7 +24,7 @@ public class CierreDAOImpl implements CierreDAO {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public Long create(Cierre micierre) {
+	public Long create(CierreCaja micierre) {
 		//El total es el efectivo + tarjeta
 		micierre.setTotal(new Float (micierre.getEfectivo()+micierre.getTarjeta()));
 		//La diferencia es lo que hay en caja - el total
@@ -32,11 +32,11 @@ public class CierreDAOImpl implements CierreDAO {
 		return (Long) sessionFactory.getCurrentSession().save(micierre);
 	}
 
-	public void remove(Cierre micierre) {
+	public void remove(CierreCaja micierre) {
 		sessionFactory.getCurrentSession().delete(micierre);
 	}
 
-	public void update(Cierre micierre) {
+	public void update(CierreCaja micierre) {
 		//El total es el efectivo + tarjeta
 		micierre.setTotal(new Float (micierre.getEfectivo()+micierre.getTarjeta()));
 		//La diferencia es lo que hay en caja - el total
@@ -45,18 +45,18 @@ public class CierreDAOImpl implements CierreDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Cierre> findAll() {
+	public List<CierreCaja> findAll() {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Cierre order by fecha");
-		return (List<Cierre>) q.list();
+		return (List<CierreCaja>) q.list();
 	}
 
-	public Cierre finByFecha(Timestamp mifecha) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Cierre.class);
+	public CierreCaja finByFecha(Timestamp mifecha) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(CierreCaja.class);
 		criteria.add(Restrictions.eq("fecha",mifecha));
 		if(criteria.list().isEmpty()){
 			return null;
 		}
-		return (Cierre) criteria.list().get(0);
+		return (CierreCaja) criteria.list().get(0);
 	}
 
 }

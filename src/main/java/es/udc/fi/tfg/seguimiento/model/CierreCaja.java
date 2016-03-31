@@ -15,7 +15,7 @@ import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name="CIERRE")
-public class Cierre {
+public class CierreCaja {
 
 	private Long idCierre;
 	private Timestamp fecha;
@@ -29,9 +29,9 @@ public class Cierre {
 	
 	
 
-	public Cierre(){}
+	public CierreCaja(){}
 	
-	public Cierre (Timestamp fecha, Float efectivo, Float tarjeta, String incidencias, Float caja){
+	public CierreCaja (Timestamp fecha, Float efectivo, Float tarjeta, String incidencias, Float caja){
 		this.fecha = fecha;
 		this.efectivo = efectivo;
 		this.tarjeta = tarjeta;
@@ -131,7 +131,7 @@ public class Cierre {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cierre other = (Cierre) obj;
+		CierreCaja other = (CierreCaja) obj;
 		if (fecha == null) {
 			if (other.fecha != null)
 				return false;

@@ -14,12 +14,17 @@
 
  	<!-- JQUERY -->    
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ 	
  	<!-- BOOTSTRAP -->    
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     
  	<!-- DATATABLES -->    
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.css"/>
 	<script src="https://cdn.datatables.net/t/bs/dt-1.10.11/datatables.min.js"></script> 
+	 
+	<!-- D3.js -->    
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -61,11 +66,12 @@
     		
     		<!-- LOGOUT -->
 				<!--Esta autorizado-->
-				<sec:authorize access="isAuthenticated()"> 
+				<sec:authorize access="isAuthenticated()">
+				
+				 
 				<form action=<c:url value="/logout"/> method="post" class="navbar-form navbar-right"  id="logoutForm">
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</form>
 
 					<script>
 						function formSubmit() {
@@ -73,9 +79,24 @@
 						}
 					</script>
 				
-				<div class="navbar-form navbar-right">
-					<a href="javascript:formSubmit()"class="btn btn-danger">Logout </a>
-				</div>	
+				<ul class="nav navbar-nav navbar-right">
+					
+					<li class="dropdown">
+  								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    								Mi cuenta, <sec:authentication property="principal.username" />
+    								<span class="caret"></span>
+  								</a>
+  								<ul class="dropdown-menu" aria-labelledby="dLabel">
+									<li> <a href=''>Mi empresa</a>	</li>
+									<li> <a href=''>Mi perfil</a> </li>
+									<li> <a href=''>Notificaciones Stock </a> </li>
+									<li> <a href=''>Notificaciones Caja </a> </li> 								
+								</ul>
+					
+					</li>
+					<li><a href="javascript:formSubmit()">Logout</a></li>
+					
+				</ul>	
 				</sec:authorize>		
     		
     		   		
@@ -93,6 +114,7 @@
                   <li><a href="/seguimientoPYMES/admin/productos">Productos</a></li>
                   <li><a href="/seguimientoPYMES/admin/gastos">Gastos</a></li>
                   <li><a href="/seguimientoPYMES/admin/caja">Caja</a></li>
+                  <li><a href="/seguimientoPYMES/admin/proveedores">Proveedores</a></li>
                   
               	</ul>
   				</div>

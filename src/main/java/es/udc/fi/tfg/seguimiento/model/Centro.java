@@ -171,6 +171,7 @@ public class Centro {
 	}
 	
 	@OneToMany(mappedBy="centro")
+	@Cascade({CascadeType.ALL})
 	public Set<Stock> getStock() {
 		return stock;
 	}

@@ -9,7 +9,9 @@ public class Form {
 	private Stock stock;
 	private Long idCentro;
 	private Long idIva;
+	private Integer stockMin;
 	
+
 	public Form(){ 
 		
 	}
@@ -29,7 +31,19 @@ public class Form {
 		this.idIva=idIva;
 	}
 	
+	public Form(Producto producto, Stock stock){
+		this.producto=producto;
+		this.stock=stock;
+	}
 	
+	public Integer getStockMin() {
+		return stockMin;
+	}
+
+	public void setStockMin(Integer stockMin) {
+		this.stockMin = stockMin;
+	}
+
 	public Stock getStock() {
 		return stock;
 	}

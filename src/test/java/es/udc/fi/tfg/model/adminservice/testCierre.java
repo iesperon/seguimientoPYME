@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import es.udc.fi.tfg.seguimiento.model.Cierre;
+import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.services.CajaService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,18 +21,18 @@ public class testCierre {
 	@Autowired
 	private CajaService cajaService;
 	
-	public Cierre cierre1;
+	public CierreCaja cierre1;
 
 	@Test
 	public void test() {
 		
-		cierre1 = new Cierre(new Timestamp(Calendar.getInstance().getTimeInMillis()), new Float(100.82) ,new Float(100.5), "Ninguna",new Float(210.00));
+		cierre1 = new CierreCaja(new Timestamp(Calendar.getInstance().getTimeInMillis()), new Float(100.82) ,new Float(100.5), "Ninguna",new Float(210.00));
 		
 		//Insertamos 1 registro
 		cajaService.registroCierre(cierre1);
 		
 		//Buscamos los cierres
-		List<Cierre> milista = cajaService.obtenerTodosCierres();
+		List<CierreCaja> milista = cajaService.obtenerTodosCierres();
 		assertEquals(1, milista.size());
 		
 		//Modificamos un cierre
