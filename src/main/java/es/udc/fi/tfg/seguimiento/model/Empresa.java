@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.JoinColumnOrFormula;
 
 @Entity
 @Table(name="EMPRESA")
@@ -136,7 +135,7 @@ public class Empresa {
 		this.centro = centro;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<Gasto> getGasto() {
 		return gasto;
@@ -146,7 +145,7 @@ public class Empresa {
 		this.gasto = gasto;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<Proveedor> getProveedor() {
 		return proveedor;

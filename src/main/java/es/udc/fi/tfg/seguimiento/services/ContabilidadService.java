@@ -2,7 +2,9 @@ package es.udc.fi.tfg.seguimiento.services;
 
 import java.util.List;
 
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
+import es.udc.fi.tfg.seguimiento.model.Proveedor;
 
 public interface ContabilidadService {
 
@@ -20,4 +22,16 @@ public interface ContabilidadService {
 	public List<Gasto> buscarGastoPorEstado(String miestado);
 	//Buscar gasto por concepto
 	public List<Gasto> buscarGastoPorConcepto (String miconcepto);
+	
+	
+	//******************* PROVEEDORES ***********************
+	
+	//Registrar un proveedor
+	public void registroProveedor (Proveedor miproveedor);
+	//Eliminar un proveedor
+	public void eliminarProveedor (Proveedor miproveedor);
+	//Actualizar un proveedor
+	public void actualizarProveedor (Proveedor miproveedor);
+	//Buscar todos los proveedores 
+	public List<Proveedor> buscarProveedorPorEmpresa (Empresa miempresa);
 }

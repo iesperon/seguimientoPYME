@@ -45,7 +45,7 @@ public class Proveedor {
 		this.idProveedor = idProveedor;
 	}
 
-	@Column(name="cif")
+	@Column(name="cif", unique = true)
 	public String getCif() {
 		return cif;
 	}

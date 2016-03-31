@@ -20,6 +20,7 @@ import es.udc.fi.tfg.seguimiento.model.Form;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.Producto;
+import es.udc.fi.tfg.seguimiento.model.Proveedor;
 import es.udc.fi.tfg.seguimiento.model.Stock;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.ContabilidadService;
@@ -298,4 +299,35 @@ public class AdminController {
 		mav.setViewName("caja");
 		return mav;
 	}	
+	
+	
+	@RequestMapping(value = "/proveedores", method = RequestMethod.GET)
+	public ModelAndView proveedores() {
+		ModelAndView mav = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Proveedor> proveedores = new ArrayList<Proveedor> (miempresa.getProveedor());
+		
+		mav.addObject("proveedorlist", proveedores);
+		mav.addObject("proveedor", new Proveedor());
+		mav.setViewName("proveedores");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/addProveedor", method = RequestMethod.POST)
+	public String addProveedor(Proveedor proveedor, BindingResult result, ModelAndView model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		
+		proveedor.setEmpresa(miempresa);
+		contabilidadService.registroProveedor(proveedor);
+		
+		return "redirect:/admin/proveedores";
+	}
 }

@@ -6,13 +6,13 @@
 <div class="row">
 <div class="col-md-9">
 	<img src="<c:url value="/resources/images/empleados.jpg" />" class="center-block" alt="Empleados" width="800" height="200">
-    <h2> Empleados </h2>
+    <h2> Empleados 
     		
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">
-	Registrar Usuario 
+	<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">
+	Registrar Empleado
 	</button>
-
+	</h2>
 	<!-- Modal -->
 	<form:form action="addEmpleado" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
 

@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.GastoDAO;
+import es.udc.fi.tfg.seguimiento.daos.ProveedorDAO;
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
+import es.udc.fi.tfg.seguimiento.model.Proveedor;
 
 @Service
 @Transactional
@@ -16,6 +19,10 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	@Autowired
 	private GastoDAO gastoDAO = null;
 	
+	@Autowired
+	private ProveedorDAO proveedorDAO = null;
+	
+	//*********************GASTOS************************
 	public void setGastoDAO (GastoDAO gastoDAO){
 		this.gastoDAO = gastoDAO;
 	}
@@ -44,4 +51,23 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		return gastoDAO.findByConcepto(miconcepto);
 	}
 
+	//*******************PROVEEDORES*********************
+
+	public void registroProveedor(Proveedor miproveedor) {
+		proveedorDAO.create(miproveedor);
+	}
+
+	public void eliminarProveedor(Proveedor miproveedor) {
+		proveedorDAO.remove(miproveedor);		
+	}
+
+	public void actualizarProveedor(Proveedor miproveedor) {
+		proveedorDAO.update(miproveedor);
+	}
+
+	public List<Proveedor> buscarProveedorPorEmpresa(Empresa miempresa) {
+		return proveedorDAO.findByEmpresa(miempresa);
+	}
+	
+	
 }

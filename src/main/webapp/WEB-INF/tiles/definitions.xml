@@ -54,6 +54,11 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/caja.jsp"/>
 	</definition>
 	
+	<!-- Proveedores -->
+	<definition name="proveedores" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/proveedores.jsp"/>
+	</definition>
+	
 	
 	<!-- 403 -->
 	<definition name="403" extends="defaultTemplate">
