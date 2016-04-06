@@ -344,11 +344,17 @@ public class AdminController {
 		return "redirect:/admin/proveedores";
 	}
 	
-	@RequestMapping(value="/miperfil",method = RequestMethod.GET)
-	public ModelAndView miperfil(){
+	@RequestMapping(value="/miempresa",method = RequestMethod.GET)
+	public ModelAndView miempresa(){
 		ModelAndView mav = new ModelAndView();
-
-		mav.setViewName("miperfil");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		
+		mav.addObject("empresa", miempresa);
+		mav.setViewName("miempresa");
 		return mav;
 	}
 	
@@ -367,4 +373,11 @@ public class AdminController {
 			model.addAttribute("gastoeditado", migasto);
 			return "redirect:/admin/gastos";
 	}
+
+	@RequestMapping(value="/editarEmpresa",method = RequestMethod.POST)
+	public String editarEmpresa(Model model, Empresa miempresa){
+		empresaService.actualizarEmpresa(miempresa);
+		model.addAttribute("empresaeditada", miempresa);
+		return "redirect:/admin/miempresa";
+}
 }

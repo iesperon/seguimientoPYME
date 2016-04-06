@@ -15,4 +15,5 @@ public interface EmpresaDAO {
 	public List<Empresa> findByNombre(String minombre);
 	public Empresa findByCif(String micif);
 	public Empresa findByAdmin(Usuario miusuario);
+	public Empresa findById (Long miid);
 }

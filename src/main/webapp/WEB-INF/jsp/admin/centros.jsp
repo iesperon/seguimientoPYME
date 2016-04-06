@@ -70,8 +70,10 @@
 						</c:url>
 						<td> 
 							<div class="dropdown">
-  								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-    								Acciones
+  								<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+    								<div class="input-group"> 
+    								<span class="glyphicon glyphicon-wrench"></span> Opciones
+    								</div>
     								<span class="caret"></span>
   								</button>
   								<ul class="dropdown-menu" aria-labelledby="dLabel">

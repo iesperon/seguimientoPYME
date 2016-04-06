@@ -64,6 +64,11 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/miperfil.jsp"/>
 	</definition>
 	
+			<!-- Mi Empresa -->
+	<definition name="miempresa" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/miempresa.jsp"/>
+	</definition>
+	
 		<!-- Editar Gasto -->
 	<definition name="editarGasto" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/editarGasto.jsp"/>

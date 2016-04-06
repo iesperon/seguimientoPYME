@@ -32,7 +32,15 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 	}
 
 	public void update(Empresa miempresa) {
-		sessionFactory.getCurrentSession().update(miempresa);
+		Empresa empresaMod = findById(miempresa.getIdEmpresa());
+		empresaMod.setNombre(miempresa.getNombre());
+		empresaMod.setCif(miempresa.getCif());
+		empresaMod.setSector(miempresa.getSector());
+		empresaMod.setEmail(miempresa.getEmail());
+		empresaMod.setDescripcion(miempresa.getDescripcion());
+		empresaMod.setLogo(miempresa.getLogo());
+				
+		sessionFactory.getCurrentSession().update(empresaMod);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -58,6 +66,12 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 	public Empresa findByAdmin(Usuario miusuario) {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Empresa where idadmin=:idadmin");
 		q.setParameter("idadmin", miusuario.getIdUsuario());
+		return (Empresa) q.list().get(0);
+	}
+
+	public Empresa findById(Long miid) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Empresa where idEmpresa=:idEmpresa");
+		q.setParameter("idEmpresa", miid);
 		return (Empresa) q.list().get(0);
 	}
 

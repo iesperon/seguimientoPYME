@@ -90,10 +90,8 @@
     								<span class="caret"></span>
   								</a>
   								<ul class="dropdown-menu" aria-labelledby="dLabel">
-									<li> <a href=''>Mi empresa</a>	</li>
+									<li> <a href='/seguimientoPYMES/admin/miempresa'>Mi empresa</a>	</li>
 									<li> <a href='/seguimientoPYMES/admin/miperfil'>Mi perfil</a> </li>
-									<li> <a href=''>Notificaciones Stock </a> </li>
-									<li> <a href=''>Notificaciones Caja </a> </li> 								
 								</ul>
 					
 					</li>
