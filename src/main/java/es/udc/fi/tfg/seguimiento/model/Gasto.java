@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name="GASTO")
@@ -22,7 +24,9 @@ public class Gasto {
 	private Long idGasto;
 	private String concepto;
 	private Float importe;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Timestamp fechaEmision;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Timestamp fechaPago;
 	private String estado;
 	private Empresa empresa;

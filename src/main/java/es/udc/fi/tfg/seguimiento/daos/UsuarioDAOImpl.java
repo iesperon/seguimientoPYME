@@ -24,11 +24,11 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Usuario> findByName(String minombre, Centro micentro) {
-		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where nombre LIKE :nombre and idCentro=:idCentro" );
+	public List<Usuario> findByName(String minombre, Empresa empresa) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where nombre LIKE :nombre" );
 		minombre = "%"+minombre+"%";
 		q.setParameter("nombre", minombre);
-		q.setParameter("idCentro", micentro.getIdCentro());
+		//q.setParameter("idCentro", micentro.getIdCentro());
 		return (List<Usuario>) q.list();		
 	}
 

@@ -12,7 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
@@ -105,6 +109,16 @@ public class AdminController {
 		model.addObject("myForm", new Form());
 		model.setViewName("empleados");
 		return model;
+	}
+	
+	@RequestMapping(value = "/empleados",params={"nombre"}, method = RequestMethod.GET)
+	public @ResponseBody List<Usuario> buscarEmpleadoPorNombre(@RequestParam(value = "nombre") String nombre) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
+		List<Usuario> u = usuarioService.buscarUsuarioPorNombre(nombre, miempresa);		
+		return u;
 	}
 	
 	
@@ -280,13 +294,6 @@ public class AdminController {
 		return "redirect:/admin/gastos";
 	}
 	
-	@RequestMapping(value="/editGasto",method = RequestMethod.POST)
-	public String editGasto(ModelAndView model, Gasto newGasto, BindingResult result){
-		contabilidadService.actualizarGasto(newGasto);
-		model.addObject("gastoeditado", newGasto);
-		return "redirect:/admin/gastos";
-	}
-	
 	@RequestMapping(value="/eliminarGasto",method = RequestMethod.GET)
 	public String eliminarGasto(ModelAndView model, Long idGasto){
 		contabilidadService.eliminarGasto(contabilidadService.buscarGastoPorId(idGasto));
@@ -329,5 +336,35 @@ public class AdminController {
 		contabilidadService.registroProveedor(proveedor);
 		
 		return "redirect:/admin/proveedores";
+	}
+	
+	@RequestMapping(value="/eliminarProveedor",method = RequestMethod.GET)
+	public String eliminarProveedor(Model model, Long idProveedor){
+		contabilidadService.eliminarProveedor(contabilidadService.buscarProveedorPorId(idProveedor));
+		return "redirect:/admin/proveedores";
+	}
+	
+	@RequestMapping(value="/miperfil",method = RequestMethod.GET)
+	public ModelAndView miperfil(){
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("miperfil");
+		return mav;
+	}
+	
+	@RequestMapping(value="/editarGasto",method = RequestMethod.GET)
+	public ModelAndView editarGasto(ModelAndView model, Long idGasto){
+		Gasto migasto = contabilidadService.buscarGastoPorId(idGasto);
+		model.addObject("idGasto", idGasto);
+		model.addObject("gasto", migasto);
+		model.setViewName("editarGasto");
+		return model;
+	}
+	
+	@RequestMapping(value="/confEdGasto",method = RequestMethod.POST)
+	public String confEdGasto(Model model, Gasto migasto, Long idGasto){
+			contabilidadService.actualizarGasto(migasto);
+			model.addAttribute("gastoeditado", migasto);
+			return "redirect:/admin/gastos";
 	}
 }

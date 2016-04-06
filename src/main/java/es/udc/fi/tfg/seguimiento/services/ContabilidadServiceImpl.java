@@ -68,6 +68,10 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	public List<Proveedor> buscarProveedorPorEmpresa(Empresa miempresa) {
 		return proveedorDAO.findByEmpresa(miempresa);
 	}
+
+	public Proveedor buscarProveedorPorId(Long miid) {
+		return proveedorDAO.findById(miid);
+	}
 	
 	
 }

@@ -74,6 +74,8 @@
 			<tr>
         				<th>Nombre</th>
         				<th>CIF</th>
+        				<th></th>
+        				
    			</tr>
 		</thead> 
 		
@@ -82,7 +84,13 @@
     				<tr>
     					<td>${proveedor.nombre}</td>
     					<td>${proveedor.cif}</td> 
-    				
+    				<c:url var="proveedorUrl" value="eliminarProveedor">
+							<c:param name="idProveedor" value="${proveedor.idProveedor}"/>
+					</c:url>
+					<c:url var="proveedorUrl2" value="addPedido">
+							<c:param name="idProveedor" value="${proveedor.idProveedor}"/>
+					</c:url>
+					<td><a href='<c:out value="${proveedorUrl}"/>'><i class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar proveedor"></i></a>   <a href='<c:out value="${proveedorUrl2}"/>'><i class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Añadir pedido"></i></a></td>
 	   				</tr>    		
     			</c:forEach>
 		</tbody>

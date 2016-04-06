@@ -8,7 +8,7 @@ import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface UsuarioDAO {
 
-	public List<Usuario> findByName (String minombre, Centro micentro);
+	public List<Usuario> findByName (String minombre, Empresa empresa);
 	public Usuario findByDni (String midni, Centro micentro);
 	public Usuario findByEmail (String miemail);
 	public List<Usuario> findByEmpresa(Empresa miempresa);

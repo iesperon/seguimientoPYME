@@ -59,6 +59,15 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/proveedores.jsp"/>
 	</definition>
 	
+		<!-- Mi Perfil -->
+	<definition name="miperfil" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/miperfil.jsp"/>
+	</definition>
+	
+		<!-- Editar Gasto -->
+	<definition name="editarGasto" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/editarGasto.jsp"/>
+	</definition>
 	
 	<!-- 403 -->
 	<definition name="403" extends="defaultTemplate">

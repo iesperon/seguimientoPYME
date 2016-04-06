@@ -14,6 +14,7 @@
 
  	<!-- JQUERY -->    
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.3.0.js"></script>
  	
  	<!-- BOOTSTRAP -->    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -25,6 +26,8 @@
 	 
 	<!-- D3.js -->    
 	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	
+	 <script src="<c:url value="/resources/bootstrap-typeahead.js" />"></script>
 </head>
 
 <body>
@@ -88,7 +91,7 @@
   								</a>
   								<ul class="dropdown-menu" aria-labelledby="dLabel">
 									<li> <a href=''>Mi empresa</a>	</li>
-									<li> <a href=''>Mi perfil</a> </li>
+									<li> <a href='/seguimientoPYMES/admin/miperfil'>Mi perfil</a> </li>
 									<li> <a href=''>Notificaciones Stock </a> </li>
 									<li> <a href=''>Notificaciones Caja </a> </li> 								
 								</ul>

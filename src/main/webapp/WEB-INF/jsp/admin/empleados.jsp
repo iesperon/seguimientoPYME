@@ -79,6 +79,10 @@
 </div>
 </form:form>
     
+    <input class="typeahead" type="text" data-provide="typeahead" autocomplete="off">
+
+
+     
     <script type="text/javascript" charset="utf-8"> 
 		$(document).ready(function() {
 			$('#empleados').dataTable({
@@ -97,6 +101,20 @@
     			}
         }
 			});
+			 $('input.typeahead').typeahead({
+          source: function (query, process) {
+            $.ajax({
+              url: 'empleados/',
+              type: 'GET',
+              dataType: 'JSON',
+              data: 'nombre=' + query.query,
+              success: function(data) {
+                console.log(data);
+                process(data);
+              }
+            });
+          }
+        });
 		} );
 	</script> 
 	
@@ -128,7 +146,8 @@
 							<c:param name="idUsuario" value="${usuario.idUsuario}"/>
 						</c:url>
 						
-						<td><a href='<c:out value="${usuarioUrl2}"/>'><i class="glyphicon glyphicon-pencil"></i></a>   <a href='<c:out value="${usuarioUrl}"/>'><i class="glyphicon glyphicon-remove"></i></a></td>
+						<td><a href='<c:out value="${usuarioUrl2}"/>' data-original-title="Editar empleado" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>   <a href='<c:out value="${usuarioUrl}"/>' data-original-title="Eliminar usuario" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> </td>
+						
 						
     					
     				

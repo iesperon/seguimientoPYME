@@ -68,7 +68,7 @@
 						<c:url var="centroUrl4" value="stock">
 							<c:param name="idCentro" value="${centro.idCentro}"/>
 						</c:url>
-												<td> 
+						<td> 
 							<div class="dropdown">
   								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
     								Acciones

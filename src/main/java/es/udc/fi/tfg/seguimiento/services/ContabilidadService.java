@@ -34,4 +34,6 @@ public interface ContabilidadService {
 	public void actualizarProveedor (Proveedor miproveedor);
 	//Buscar todos los proveedores 
 	public List<Proveedor> buscarProveedorPorEmpresa (Empresa miempresa);
+	//Buscar proveedor por ID
+	public Proveedor buscarProveedorPorId (Long miid);
 }

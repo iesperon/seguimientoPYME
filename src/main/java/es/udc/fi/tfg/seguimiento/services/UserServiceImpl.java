@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService{
 		usuarioDAO.update(miusuario);
 	}
 
-	public List<Usuario> buscarUsuarioPorNombre(String minombre, Centro micentro) {
-		return usuarioDAO.findByName(minombre, micentro);
+	public List<Usuario> buscarUsuarioPorNombre(String minombre, Empresa empresa) {
+		return usuarioDAO.findByName(minombre, empresa);
 	}
 
 	public Usuario buscarUsuarioPorDni(String midni, Centro micentro) {

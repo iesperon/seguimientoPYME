@@ -18,7 +18,7 @@ public interface UserService {
 	//Actualizar los datos de un usuario
 	public void actualizarUsuario(Usuario miusuario);
 	//Buscar usuario dentro de un centro por nombre
-	public List<Usuario> buscarUsuarioPorNombre (String minombre, Centro micentro);
+	public List<Usuario> buscarUsuarioPorNombre (String minombre, Empresa empresa);
 	//Buscar un usuario por su dni dentro de un centro 
 	public Usuario buscarUsuarioPorDni (String midni, Centro micentro);
 	//Buscar todos los usuarios de una empresa
