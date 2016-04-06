@@ -32,16 +32,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 	}
 
 	public void update(Producto miproducto) {
-		Producto productoMod = findById(miproducto.getIdProducto()); 
-		productoMod.setCodProd(miproducto.getCodProd());
-		productoMod.setDescripcion(miproducto.getDescripcion());
-		productoMod.setDescuento(miproducto.getDescuento());
-		productoMod.setFoto(miproducto.getFoto());
-		productoMod.setMarca(miproducto.getMarca());
-		productoMod.setNombre(miproducto.getNombre());
-		productoMod.setPrecio(miproducto.getPrecio());
-		
-		sessionFactory.getCurrentSession().update(productoMod);
+		sessionFactory.getCurrentSession().update(miproducto);
 	}
 
 	@SuppressWarnings("unchecked")

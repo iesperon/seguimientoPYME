@@ -11,7 +11,7 @@
    
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title"> ${empresa.nombre}</h3>
+              <h1 class="panel-title"> ${empresa.nombre}</h1>
             </div>
             <div class="panel-body">
               <div class="row">

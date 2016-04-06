@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.CentroDAO;
 import es.udc.fi.tfg.seguimiento.daos.EmpresaDAO;
-import es.udc.fi.tfg.seguimiento.daos.UsuarioDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
@@ -32,13 +31,6 @@ public class EmpresaServiceImpl implements EmpresaService{
 		this.centroDAO = centroDAO;
 	}
 	
-	@Autowired
-	private UsuarioDAO usuarioDAO = null;
-	
-	public void setUsuarioDAO (UsuarioDAO usuarioDAO){
-		this.usuarioDAO = usuarioDAO;
-	}
-
 	
 	//**********EMPRESA***********
 	public void registroEmpresa(Empresa miempresa) {
@@ -50,7 +42,15 @@ public class EmpresaServiceImpl implements EmpresaService{
 	}
 
 	public void actualizarEmpresa(Empresa miempresa) {
-		empresaDAO.update(miempresa);
+		Empresa empresaMod = empresaDAO.findById(miempresa.getIdEmpresa());
+		empresaMod.setNombre(miempresa.getNombre());
+		empresaMod.setCif(miempresa.getCif());
+		empresaMod.setSector(miempresa.getSector());
+		empresaMod.setEmail(miempresa.getEmail());
+		empresaMod.setDescripcion(miempresa.getDescripcion());
+		empresaMod.setLogo(miempresa.getLogo());
+		
+		empresaDAO.update(empresaMod);
 	}
 
 	public List<Empresa> obtenerTodasEmpresas() {
@@ -82,7 +82,18 @@ public class EmpresaServiceImpl implements EmpresaService{
 	}
 
 	public void actualizarCentro(Centro micentro) {
-		centroDAO.update(micentro);
+		Centro centroMod = centroDAO.findById(micentro.getIdCentro());
+		centroMod.setCalle(micentro.getCalle());
+		centroMod.setCp(micentro.getCp());
+		centroMod.setEmail(micentro.getEmail());
+		centroMod.setNombre(micentro.getNombre());
+		centroMod.setNumero(micentro.getNumero());
+		centroMod.setPoblacion(micentro.getPoblacion());
+		centroMod.setProvincia(micentro.getProvincia());
+		centroMod.setPais(micentro.getPais());
+		centroMod.setTelefono(micentro.getTelefono());
+		
+		centroDAO.update(centroMod);
 	}
 
 	public List<Centro> obtenerCentros(Empresa miempresa) {

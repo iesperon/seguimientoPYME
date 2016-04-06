@@ -79,7 +79,16 @@ public class ProductoServiceImpl implements ProductoService{
 		}
 
 		public void actualizarProducto(Producto miproducto) {
-			productoDAO.update(miproducto);
+			Producto productoMod = productoDAO.findById(miproducto.getIdProducto()); 
+			productoMod.setCodProd(miproducto.getCodProd());
+			productoMod.setDescripcion(miproducto.getDescripcion());
+			productoMod.setDescuento(miproducto.getDescuento());
+			productoMod.setFoto(miproducto.getFoto());
+			productoMod.setMarca(miproducto.getMarca());
+			productoMod.setNombre(miproducto.getNombre());
+			productoMod.setPrecio(miproducto.getPrecio());
+			
+			productoDAO.update(productoMod);
 		}
 
 		public Producto buscarProductoPorId(Long miid) {

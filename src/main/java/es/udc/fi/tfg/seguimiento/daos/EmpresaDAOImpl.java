@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 
@@ -32,15 +31,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 	}
 
 	public void update(Empresa miempresa) {
-		Empresa empresaMod = findById(miempresa.getIdEmpresa());
-		empresaMod.setNombre(miempresa.getNombre());
-		empresaMod.setCif(miempresa.getCif());
-		empresaMod.setSector(miempresa.getSector());
-		empresaMod.setEmail(miempresa.getEmail());
-		empresaMod.setDescripcion(miempresa.getDescripcion());
-		empresaMod.setLogo(miempresa.getLogo());
-				
-		sessionFactory.getCurrentSession().update(empresaMod);
+		sessionFactory.getCurrentSession().update(miempresa);
 	}
 	
 	@SuppressWarnings("unchecked")

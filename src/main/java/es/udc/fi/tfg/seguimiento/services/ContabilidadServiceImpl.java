@@ -36,7 +36,14 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	}
 
 	public void actualizarGasto(Gasto migasto) {
-		gastoDAO.update(migasto);
+		Gasto gastoMod = gastoDAO.findById(migasto.getIdGasto());
+		gastoMod.setConcepto(migasto.getConcepto());
+		gastoMod.setEstado(migasto.getEstado());
+		gastoMod.setFechaEmision(migasto.getFechaEmision());
+		gastoMod.setFechaPago(migasto.getFechaPago());
+		gastoMod.setImporte(migasto.getImporte());
+		
+		gastoDAO.update(gastoMod);
 	}
 
 	public Gasto buscarGastoPorId(Long miid) {
@@ -62,7 +69,11 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	}
 
 	public void actualizarProveedor(Proveedor miproveedor) {
-		proveedorDAO.update(miproveedor);
+		Proveedor proveedorMod = proveedorDAO.findById(miproveedor.getIdProveedor());
+		proveedorMod.setNombre(miproveedor.getNombre());
+		proveedorMod.setCif(miproveedor.getCif());
+		
+		proveedorDAO.update(proveedorMod);
 	}
 
 	public List<Proveedor> buscarProveedorPorEmpresa(Empresa miempresa) {

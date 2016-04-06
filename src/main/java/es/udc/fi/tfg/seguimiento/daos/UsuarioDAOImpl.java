@@ -28,7 +28,6 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		Query q = sessionFactory.getCurrentSession().createQuery("from Usuario where nombre LIKE :nombre" );
 		minombre = "%"+minombre+"%";
 		q.setParameter("nombre", minombre);
-		//q.setParameter("idCentro", micentro.getIdCentro());
 		return (List<Usuario>) q.list();		
 	}
 
@@ -59,16 +58,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	}
 
 	public void update(Usuario miusuario) {
-		Usuario usuarioMod = findById(miusuario.getIdUsuario());
-		usuarioMod.setNombre(miusuario.getNombre());
-		usuarioMod.setApellido1(miusuario.getApellido1());
-		usuarioMod.setApellido2(miusuario.getApellido2());
-		usuarioMod.setDni(miusuario.getDni());
-		usuarioMod.setEmail(miusuario.getEmail());
-		usuarioMod.setContrasena(miusuario.getContrasena());
-		usuarioMod.setCentro(miusuario.getCentro());		
-		
-		sessionFactory.getCurrentSession().update(usuarioMod);
+		sessionFactory.getCurrentSession().update(miusuario);
 	}
 
 	public void remove(Usuario miusuario) {

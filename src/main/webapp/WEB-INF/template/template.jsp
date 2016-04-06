@@ -110,12 +110,12 @@
               	
 				<div class="well"> 
               	<ul class="nav nav-stacked" id="sidebar">
-                  <li><a href="/seguimientoPYMES/admin/centros">Centros</a></li>
-                  <li><a href="/seguimientoPYMES/admin/empleados">Empleados</a></li>
-                  <li><a href="/seguimientoPYMES/admin/productos">Productos</a></li>
-                  <li><a href="/seguimientoPYMES/admin/gastos">Gastos</a></li>
-                  <li><a href="/seguimientoPYMES/admin/caja">Caja</a></li>
-                  <li><a href="/seguimientoPYMES/admin/proveedores">Proveedores</a></li>
+                  <li><a href="/seguimientoPYMES/admin/centros"><i class="glyphicon glyphicon-home"></i> Centros</a></li>
+                  <li><a href="/seguimientoPYMES/admin/empleados"><i class="glyphicon glyphicon-user"></i> Empleados</a></li>
+                  <li><a href="/seguimientoPYMES/admin/productos"><i class="glyphicon glyphicon-shopping-cart"></i> Productos</a></li>
+                  <li><a href="/seguimientoPYMES/admin/gastos"><i class="glyphicon glyphicon-euro"></i> Gastos</a></li>
+                  <li><a href="/seguimientoPYMES/admin/caja"><i class="glyphicon glyphicon-barcode"></i> Caja</a></li>
+                  <li><a href="/seguimientoPYMES/admin/proveedores"><i class="glyphicon glyphicon-briefcase"></i> Proveedores</a></li>
                   
               	</ul>
   				</div>

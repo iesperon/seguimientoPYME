@@ -26,14 +26,7 @@ public class GastoDAOImpl implements GastoDAO {
 	}
 
 	public void update(Gasto migasto) {
-		Gasto gastoMod = findById(migasto.getIdGasto());
-		gastoMod.setConcepto(migasto.getConcepto());
-		gastoMod.setEstado(migasto.getEstado());
-		gastoMod.setFechaEmision(migasto.getFechaEmision());
-		gastoMod.setFechaPago(migasto.getFechaPago());
-		gastoMod.setImporte(migasto.getImporte());
-		
-		sessionFactory.getCurrentSession().update(gastoMod);
+		sessionFactory.getCurrentSession().update(migasto);
 	}
 
 	public void remove(Gasto migasto) {

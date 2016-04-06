@@ -27,11 +27,7 @@ public class ProveedorDAOImpl implements ProveedorDAO {
 	}
 
 	public void update(Proveedor miproveedor) {
-		Proveedor proveedorMod = findById(miproveedor.getIdProveedor());
-		proveedorMod.setNombre(miproveedor.getNombre());
-		proveedorMod.setCif(miproveedor.getCif());
-		
-		sessionFactory.getCurrentSession().update(proveedorMod);
+		sessionFactory.getCurrentSession().update(miproveedor);
 		
 	}
 
