@@ -98,7 +98,7 @@
 				<form:input class="form-control" path="email" value="${empresa.email}" type="text"/>
 			</div>
 			
-			<div class="col-xs-3">
+			<div class="col-xs-6">
 				<label for="descripcion">Descripcion</label>
 				<form:textarea class="form-control" rows="3" path="descripcion" value="${empresa.descripcion}" type="text"/>
 			</div>

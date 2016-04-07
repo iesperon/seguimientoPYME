@@ -90,12 +90,14 @@
     								<span class="caret"></span>
   								</a>
   								<ul class="dropdown-menu" aria-labelledby="dLabel">
-									<li> <a href='/seguimientoPYMES/admin/miempresa'>Mi empresa</a>	</li>
-									<li> <a href='/seguimientoPYMES/admin/miperfil'>Mi perfil</a> </li>
+									<li> <a href='/seguimientoPYMES/admin/miempresa'><i class="glyphicon glyphicon-briefcase"></i> Mi empresa</a>	</li>
+									<li> <a href='/seguimientoPYMES/admin/miperfil'><i class="glyphicon glyphicon-user"></i> Mi perfil</a> </li>
+									<li class="divider"></li>
+									<li><a href="javascript:formSubmit()"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+									
 								</ul>
 					
 					</li>
-					<li><a href="javascript:formSubmit()">Logout</a></li>
 					
 				</ul>	
 				</sec:authorize>		

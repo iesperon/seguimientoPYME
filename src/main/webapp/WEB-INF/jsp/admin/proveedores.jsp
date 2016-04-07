@@ -12,7 +12,7 @@
 		Registrar Proveedor 
 		</button>      	
 	</h2>
-
+	<br>
 	<!-- Modal -->
 	<form:form action="addProveedor" method="POST" modelAttribute="proveedor" class="form-horizontal" role="form">
 
@@ -66,9 +66,54 @@
     			}
         }
 			});
+			$('#pedidos').dataTable({
+				"language": {
+	            	"lengthMenu": "Mostrar _MENU_ registros por página",
+	           		"zeroRecords": "Ningún resultado encontrado",
+	            	"info": "Mostrando página _PAGE_ de _PAGES_",
+	            	"infoEmpty": "Ningún resultado encontrado",
+	            	"infoFiltered": "(filtrados _MAX_ registros en total)",
+	            	 "sSearch": "Buscar:",
+	            	 "paginate": {
+	        			"first":      "Primera",
+	        			"last":       "Ultima",
+	        			"next":       "Siguiente",
+	        			"previous":   "Anterior"
+	    			}
+	        }
+				});
 		} );
 	</script> 
 	
+	<table class="table table-hover" id="pedidos">
+		<thead> 
+			<tr>
+        				<th>Nombre</th>
+        				<th>CIF</th>
+        				<th></th>
+        				
+   			</tr>
+		</thead> 
+		
+		<tbody> 
+			<c:forEach var="proveedor" items="${proveedorlist}" varStatus="status">
+    				<tr>
+    					<td>${proveedor.nombre}</td>
+    					<td>${proveedor.cif}</td> 
+    				<c:url var="proveedorUrl" value="eliminarProveedor">
+							<c:param name="idProveedor" value="${proveedor.idProveedor}"/>
+					</c:url>
+					<c:url var="proveedorUrl2" value="addPedido">
+							<c:param name="idProveedor" value="${proveedor.idProveedor}"/>
+					</c:url>
+					<td><a href='<c:out value="${proveedorUrl}"/>'><i class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Eliminar proveedor"></i></a>   <a href='<c:out value="${proveedorUrl2}"/>'><i class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="top" title="Añadir pedido"></i></a></td>
+	   				</tr>    		
+    			</c:forEach>
+		</tbody>
+	</table>
+	
+	<h2>Pedidos</h2>
+	<br>
 	<table class="table table-hover" id="proveedores">
 		<thead> 
 			<tr>

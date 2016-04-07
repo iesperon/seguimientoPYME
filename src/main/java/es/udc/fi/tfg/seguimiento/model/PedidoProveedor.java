@@ -24,7 +24,7 @@ public class PedidoProveedor {
 	private Timestamp fechaCompra;
 	private Timestamp fechaVencimiento;
 	private Float importe;
-	private String pagado;
+	private String estado;
 	private Empresa empresa;
 	private Proveedor proveedor;
 	
@@ -33,13 +33,13 @@ public class PedidoProveedor {
 	}
 	
 	
-	public PedidoProveedor(Timestamp fechaCompra, Timestamp fechaVencimiento, Float importe, String pagado,
+	public PedidoProveedor(Timestamp fechaCompra, Timestamp fechaVencimiento, Float importe, String estado,
 			Empresa empresa, Proveedor proveedor) {
 		super();
 		this.fechaCompra = fechaCompra;
 		this.fechaVencimiento = fechaVencimiento;
 		this.importe = importe;
-		this.pagado = pagado;
+		this.estado = estado;
 		this.empresa = empresa;
 		this.proveedor = proveedor;
 	}
@@ -57,22 +57,20 @@ public class PedidoProveedor {
 		this.idPedidoProveedor = idPedidoProveedor;
 	}
 
-
+	@Column (name="fechaCompra")
 	public Timestamp getFechaCompra() {
 		return fechaCompra;
 	}
 
-	@Column (name="fechaCompra")
 	public void setFechaCompra(Timestamp fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 
-
+	@Column (name="fechaVencimiento")
 	public Timestamp getFechaVencimiento() {
 		return fechaVencimiento;
 	}
 
-	@Column (name="fechaVencimiento")
 	public void setFechaVencimiento(Timestamp fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
@@ -87,14 +85,14 @@ public class PedidoProveedor {
 		this.importe = importe;
 	}
 
-	@Column (name="pagado")
-	public String getPagado() {
-		return pagado;
+	@Column (name="estado")
+	public String getEstado() {
+		return estado;
 	}
 
 
-	public void setPagado(String pagado) {
-		this.pagado = pagado;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	@ManyToOne(fetch=FetchType.EAGER)

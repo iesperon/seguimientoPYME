@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -24,9 +27,7 @@ public class Gasto {
 	private Long idGasto;
 	private String concepto;
 	private Float importe;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Timestamp fechaEmision;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Timestamp fechaPago;
 	private String estado;
 	private Empresa empresa;

@@ -167,4 +167,13 @@
 			</sec:authentication-provider>
 	</sec:authentication-manager> 
 	
+	<bean name="miServletFileUpload" class="org.apache.commons.fileupload.servlet.ServletFileUpload">
+    	<constructor-arg index="0">
+        	<ref bean="miDiskFileItemFactory" />
+    	</constructor-arg>
+    	<property name="sizeMax" value="4194304" />
+	</bean>
+	
+	<bean id="miDiskFileItemFactory" class="org.apache.commons.fileupload.disk.DiskFileItemFactory" />
+	
 </beans>

@@ -246,22 +246,18 @@ public class AdminController {
 	
 	@RequestMapping(value="/stock",method = RequestMethod.GET)
 	public ModelAndView Stock(Long idCentro, ModelAndView model){
-		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		//String login = auth.getName();
-		//Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
-		//Empresa miempresa = miusuario.getCentro().getEmpresa();
 		Centro micentro = empresaService.buscarCentroPorId(idCentro);
 		Empresa miempresa = micentro.getEmpresa();
 		List<Producto> misproductos = new ArrayList<Producto>(miempresa.getProducto());
-		//List<Stock> miStock = productoService.buscarStockProductoCentro(misproductos, micentro);
-		//for (Producto miproducto : misproductos){
-		//	Stock mistock = productoService.buscarStockProductoCentro(miproducto, micentro);
-		//}
+		//List<Stock> stockCentro =  new ArrayList<Stock>(micentro.getStock());
+		//model.addObject("stocklist",stockCentro);
+		model.addObject("centroNombre", micentro.getNombre());
 		model.addObject("productoslist", misproductos);
 		model.setViewName("stock");
 		return model;
 	}
+	
+	
 	
 	
 	@RequestMapping(value = "/gastos", method = RequestMethod.GET)
