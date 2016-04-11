@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 @Repository
 @EnableTransactionManagement
@@ -50,6 +51,12 @@ public class StockDAOImpl implements StockDAO {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Stock where idProducto=:idProducto and idCentro=:idCentro");
 		q.setParameter("idProducto", miproducto.getIdProducto());
 		q.setParameter("idCentro", micentro.getIdCentro());
+		return (Stock) q.list().get(0);
+	}
+
+	public Stock findById(Long miid) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Stock where idStock=:idStock");
+		q.setParameter("idStock", miid);
 		return (Stock) q.list().get(0);
 	}
 	

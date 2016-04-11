@@ -14,4 +14,5 @@ public interface StockDAO {
 	public List<Stock> findAll();
 	public Stock findByProducto(Producto miproducto);
 	public Stock findByProductoCentro (Producto miproducto, Centro micentro);
+	public Stock findById(Long miid);
 }

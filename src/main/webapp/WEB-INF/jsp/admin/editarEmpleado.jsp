@@ -12,7 +12,7 @@
 <form:form action="confEdicEmpl" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
 				<div class="col-sm-12">
 				<div>
-					<h2>Registrar Empleado</h2>
+					<h2>Editar Empleado</h2>
 						<div class="row">
 		
 						<div class="col-xs-3">

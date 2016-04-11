@@ -272,6 +272,25 @@ public class AdminController {
 		return model;
 	}
 	
+	@RequestMapping(value="/editarStock",method = RequestMethod.GET)
+	public ModelAndView editarStock(ModelAndView model, Long idStock){
+		Stock mistock = productoService.buscarStockPorId(idStock);
+		model.addObject("stock", mistock);
+		//Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		model.addObject("idStock",idStock);
+		//model.addObject("centro", micentro);
+		model.setViewName("editarStock");
+		return model;
+	}
+	
+	@RequestMapping(value="/confEditStock",method = RequestMethod.POST)
+	public String confEditStock(Model model, Stock stock, Long idStock){
+		productoService.actualizarStock(stock);
+		//Long idCentro = stock.getCentro().getIdCentro();
+		model.addAttribute("stockeditado", stock);
+		return "redirect:/admin/centros";
+	}
+	
 	
 	
 	

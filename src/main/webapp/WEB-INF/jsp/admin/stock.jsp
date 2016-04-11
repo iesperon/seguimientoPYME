@@ -37,6 +37,7 @@
         				<th>Precio</th>
         				<th>Stock Actual</th>
         				<th>Stock Mínimo </th>
+        				<th> </th>
    			</tr>
 		</thead> 
 		
@@ -49,6 +50,10 @@
     					<td>${stock.producto.precio}</td>
     					<td>${stock.stockActual}</td>
 						<td>${stock.stockMin}</td>
+						<c:url var="stockUrl" value="editarStock">
+							<c:param name="idStock" value="${stock.idStock}"/>
+						</c:url>
+						<td><a href='<c:out value="${stockUrl}"/>' title="Editar Stock" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a></td>
 	   				</tr>
     	</c:forEach>
 		</tbody>

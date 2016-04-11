@@ -37,4 +37,7 @@ public interface ProductoService {
 	//*****************STOCK****************
 	public Stock buscarStockProductoCentro(Producto miproducto, Centro micentro);
 	public void registroStock(Stock mistock);
+	public Stock buscarStockPorId(Long miid);
+	public void actualizarStock(Stock mistock);
+
 }

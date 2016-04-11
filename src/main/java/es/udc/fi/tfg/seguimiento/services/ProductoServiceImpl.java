@@ -107,6 +107,20 @@ public class ProductoServiceImpl implements ProductoService{
 		public void registroStock (Stock mistock){
 			stockDAO.create(mistock);
 		}
+		
+		public Stock buscarStockPorId(Long miid) {
+			return stockDAO.findById(miid);
+		}
+
+		public void actualizarStock(Stock mistock) {
+			Stock stockMod = stockDAO.findById(mistock.getIdStock());
+			stockMod.setStockActual(mistock.getStockActual());
+			stockMod.setStockMin(mistock.getStockMin());
+			
+			stockDAO.update(stockMod);
+			
+			
+		}
 
 	
 }
