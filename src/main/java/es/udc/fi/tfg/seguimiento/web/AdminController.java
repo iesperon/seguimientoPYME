@@ -432,4 +432,11 @@ public class AdminController {
 		contabilidadService.registroPedido(pedido);
 		return "redirect:/admin/proveedores";
 	}
+	
+	@RequestMapping(value="/eliminarPedido",method = RequestMethod.GET)
+	public String eliminarPedido(Model model, Long idPedido){
+		contabilidadService.eliminarPedido(contabilidadService.buscarPedidoPorId(idPedido));
+		return "redirect:/admin/proveedores";
+	}
+	
 }

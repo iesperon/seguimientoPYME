@@ -150,6 +150,7 @@
 						<th>Fecha de vencimiento</th>
 						<th>Importe</th>
 						<th>Estado</th>
+						<th></th>
 
 					</tr>
 				</thead>
@@ -163,6 +164,13 @@
 							<td>${pedido.fechaVencimiento}</td>
 							<td>${pedido.importe}</td>
 							<td>${pedido.estado}</td>
+							<c:url var="pedidoUrl" value="editarPedido">
+								<c:param name="idPedido" value="${pedido.idPedidoProveedor}" />
+							</c:url>
+							<c:url var="pedidoUrl2" value="eliminarPedido">
+								<c:param name="idPedido" value="${pedido.idPedidoProveedor}" />
+							</c:url>
+							<td><a href='<c:out value="${pedidoUrl}"/>' title="Editar Pedido" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>  <a href='<c:out value="${pedidoUrl2}"/>' data-original-title="Eliminar pedido" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

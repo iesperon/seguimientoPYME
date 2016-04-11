@@ -108,6 +108,10 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		
 		pedidoDAO.update(pedidoMod);
 	}
+
+	public PedidoProveedor buscarPedidoPorId(Long miid) {
+		return pedidoDAO.findById(miid);
+	}
 	
 	
 }

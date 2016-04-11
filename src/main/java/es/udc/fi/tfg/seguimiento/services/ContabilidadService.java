@@ -47,6 +47,7 @@ public interface ContabilidadService {
 	//Actualizar un pedido 
 	public void actualizarPedido (PedidoProveedor mipedido);
 	//Buscar todos los pedidos
+	public PedidoProveedor buscarPedidoPorId (Long miid);
 	
 	
 }
