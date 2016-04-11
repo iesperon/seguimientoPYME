@@ -75,6 +75,9 @@ public class ProductoServiceImpl implements ProductoService{
 		}
 
 		public void eliminarProducto(Producto miproducto) {
+			for(Stock mistock : miproducto.getStock()){	
+				stockDAO.delete(mistock);
+			}
 			productoDAO.remove(miproducto);
 		}
 

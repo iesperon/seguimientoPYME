@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.CentroDAO;
 import es.udc.fi.tfg.seguimiento.daos.EmpresaDAO;
+import es.udc.fi.tfg.seguimiento.daos.StockDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Stock;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 
@@ -29,6 +31,13 @@ public class EmpresaServiceImpl implements EmpresaService{
 	
 	public void setCentroDAO (CentroDAO centroDAO){
 		this.centroDAO = centroDAO;
+	}
+	
+	@Autowired
+	private StockDAO stockDAO = null;
+	
+	public void setStockDAO (StockDAO stockDAO){
+		this.stockDAO = stockDAO;
 	}
 	
 	
@@ -77,6 +86,9 @@ public class EmpresaServiceImpl implements EmpresaService{
 	}
 
 	public void eliminarCentro(Centro micentro) {
+		for (Stock mistock : micentro.getStock()){
+			stockDAO.delete(mistock);
+		}
 		centroDAO.remove(micentro);
 		micentro.getEmpresa().getCentro().remove(micentro);
 	}

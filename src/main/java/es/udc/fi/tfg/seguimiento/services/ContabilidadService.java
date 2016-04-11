@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
+import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
 
 public interface ContabilidadService {
@@ -36,4 +37,16 @@ public interface ContabilidadService {
 	public List<Proveedor> buscarProveedorPorEmpresa (Empresa miempresa);
 	//Buscar proveedor por ID
 	public Proveedor buscarProveedorPorId (Long miid);
+	
+	//******************PEDIDOS*****************************
+	
+	//Registrar un pedido
+	public void registroPedido (PedidoProveedor mipedido);
+	//Eliminar un pedido 
+	public void eliminarPedido (PedidoProveedor mipedido);
+	//Actualizar un pedido 
+	public void actualizarPedido (PedidoProveedor mipedido);
+	//Buscar todos los pedidos
+	
+	
 }

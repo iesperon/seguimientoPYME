@@ -148,7 +148,7 @@ public class Producto {
 		this.empresa = empresa;
 	}
 
-	@OneToMany(mappedBy="producto")
+	@OneToMany(mappedBy="producto", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<Stock> getStock() {
 		return stock;

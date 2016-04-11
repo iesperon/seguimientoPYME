@@ -13,7 +13,6 @@ import es.udc.fi.tfg.seguimiento.model.Gasto;
 @Repository
 @EnableTransactionManagement
 public class GastoDAOImpl implements GastoDAO {
-
 	@Autowired
 	private SessionFactory sessionFactory;
 

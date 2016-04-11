@@ -1,12 +1,17 @@
 package es.udc.fi.tfg.seguimiento.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,6 +26,7 @@ public class Proveedor {
 	private String cif;
 	private String nombre;
 	private Empresa empresa;
+	private Set<PedidoProveedor> pedido = new HashSet<PedidoProveedor>();;
 	
 	public Proveedor(){
 		
@@ -72,6 +78,16 @@ public class Proveedor {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+	
+	@OneToMany(mappedBy="proveedor", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE})
+	public Set<PedidoProveedor> getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Set<PedidoProveedor> pedido) {
+		this.pedido = pedido;
 	}
 	
 	

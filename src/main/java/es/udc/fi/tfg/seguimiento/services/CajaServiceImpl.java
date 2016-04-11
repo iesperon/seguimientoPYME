@@ -12,34 +12,39 @@ import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 
 @Service
 @Transactional
-public class CajaServiceImpl implements CajaService{
-	
+public class CajaServiceImpl implements CajaService {
+
 	@Autowired
-	private CierreCajaDAO cierreDAO = null;
+	private CierreCajaDAO cierreCajaDAO = null;
 	
-	public void setCierreDAO (CierreCajaDAO cierreDAO){
-		this.cierreDAO = cierreDAO;
+
+	public CierreCajaDAO getCierreCajaDAO() {
+		return cierreCajaDAO;
 	}
-	
-	//**********CIERRE***********
-		public void registroCierre(CierreCaja micierre) {
-			cierreDAO.create(micierre);		
-		}
 
-		public void eliminarCierre(CierreCaja micierre) {
-			cierreDAO.remove(micierre);
-		}
+	public void setCierreCajaDAO(CierreCajaDAO cierreCajaDAO) {
+		this.cierreCajaDAO = cierreCajaDAO;
+	}
 
-		public void actualizarCierre(CierreCaja micierre) {
-			cierreDAO.update(micierre);
-		}
+	// **********CIERRE***********
+	public void registroCierre(CierreCaja micierre) {
+		cierreCajaDAO.create(micierre);
+	}
 
-		public CierreCaja buscarCierrePorFecha(Timestamp mifecha) {
-			return cierreDAO.finByFecha(mifecha);
-		}
+	public void eliminarCierre(CierreCaja micierre) {
+		cierreCajaDAO.remove(micierre);
+	}
 
-		public List<CierreCaja> obtenerTodosCierres() {
-			return cierreDAO.findAll();
-		}
-	
+	public void actualizarCierre(CierreCaja micierre) {
+		cierreCajaDAO.update(micierre);
+	}
+
+	public CierreCaja buscarCierrePorFecha(Timestamp mifecha) {
+		return cierreCajaDAO.finByFecha(mifecha);
+	}
+
+	public List<CierreCaja> obtenerTodosCierres() {
+		return cierreCajaDAO.findAll();
+	}
+
 }

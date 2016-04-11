@@ -34,23 +34,12 @@
 		<property name="password" value="1234" />
 	</bean>
 	
-	    <!--  SESSIONFACTORY BEAN   -->
-    
-    <!-- 
-       En Spring, a interface "AbstractSessionFactoryBean" encapsula a tecnoloxía utilizada para a conexión coa BD
-	   Nós queremos usar Hibernate 4, así que debemos usar a implementacion "hibernate4.LocalSessionFactoryBean"
-	   A factoría creará (e devolverá) un bean "SessionFactory" de Hibernate
-	   Ese é o xeito de compartir unha session factory con Spring (e de proporcionarllela, por exemplo, aos DAOS) mediante inxeccion de dependencias
-	   Aforramos a típica clase "Utils"
-	   Se quixeramos cambiar de DAOS, usariamos outra factoría de conexions
-	  -->     
-    
-    <bean id="tfgSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="tfgSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="tfgDataSource"/>
         <property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-	        	<prop key="hibernate.show_sql">true</prop>
+	        	<prop key="hibernate.show_sql">false</prop>
 	        	<prop key="hibernate.format_sql">true</prop>
 	        	<prop key="hibernate.use_sql_comments">true</prop>	        	
 	        	<!-- <prop key="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</prop>  -->
@@ -75,18 +64,35 @@
         <!--  Usamos anotacións de Hibernate: hai que dicirlle ónde buscalas -->
         <property name="packagesToScan" value="es.udc.fi.tfg.seguimiento.model" />
     </bean>
-
+    
+	<!-- Transaction Management -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name = "sessionFactory" ref = "tfgSessionFactory" />
+	</bean>
+	
+	
+	
 	<!-- JBDC Template -->
 	<bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg ref="tfgDataSource" />
 	</bean>
 
-	<!-- Transaction Management -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name = "sessionFactory" ref = "tfgSessionFactory" />
-	</bean>
+	
+	
+	    <!--  SESSIONFACTORY BEAN   -->
+    
+    <!-- 
+       En Spring, a interface "AbstractSessionFactoryBean" encapsula a tecnoloxía utilizada para a conexión coa BD
+	   Nós queremos usar Hibernate 4, así que debemos usar a implementacion "hibernate4.LocalSessionFactoryBean"
+	   A factoría creará (e devolverá) un bean "SessionFactory" de Hibernate
+	   Ese é o xeito de compartir unha session factory con Spring (e de proporcionarllela, por exemplo, aos DAOS) mediante inxeccion de dependencias
+	   Aforramos a típica clase "Utils"
+	   Se quixeramos cambiar de DAOS, usariamos outra factoría de conexions
+	  -->     
+    
+    
 
 	<!-- Tiles configuration -->
 	
@@ -99,6 +105,7 @@
 			</list>
 		</property>
 	</bean>
+	
 	
 	
 	<!-- View Resolver -->

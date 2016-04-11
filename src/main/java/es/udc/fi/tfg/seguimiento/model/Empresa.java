@@ -33,6 +33,7 @@ public class Empresa {
 	private Set<Producto> producto = new HashSet<Producto>();
 	private Set<Gasto> gasto =  new HashSet<Gasto>();
 	private Set<Proveedor> proveedor = new HashSet<Proveedor>();
+	private Set<PedidoProveedor> pedido = new HashSet<PedidoProveedor>();
 	private Usuario administrador;
 	
 
@@ -153,6 +154,16 @@ public class Empresa {
 
 	public void setProveedor(Set<Proveedor> proveedor) {
 		this.proveedor = proveedor;
+	}
+	
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	public Set<PedidoProveedor> getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Set<PedidoProveedor> pedido) {
+		this.pedido = pedido;
 	}
 
 	@OneToOne

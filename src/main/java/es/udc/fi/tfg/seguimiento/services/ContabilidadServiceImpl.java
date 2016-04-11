@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.GastoDAO;
+import es.udc.fi.tfg.seguimiento.daos.PedidoProveedorDAO;
 import es.udc.fi.tfg.seguimiento.daos.ProveedorDAO;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
+import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
 
 @Service
@@ -21,6 +23,9 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	
 	@Autowired
 	private ProveedorDAO proveedorDAO = null;
+	
+	@Autowired
+	private PedidoProveedorDAO pedidoDAO = null;
 	
 	//*********************GASTOS************************
 	public void setGastoDAO (GastoDAO gastoDAO){
@@ -82,6 +87,26 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 
 	public Proveedor buscarProveedorPorId(Long miid) {
 		return proveedorDAO.findById(miid);
+	}
+
+	//******************************PEDIDOS**********************
+
+	public void registroPedido(PedidoProveedor mipedido) {
+		pedidoDAO.create(mipedido);
+	}
+
+	public void eliminarPedido(PedidoProveedor mipedido) {
+		pedidoDAO.remove(mipedido);
+	}
+
+	public void actualizarPedido(PedidoProveedor mipedido) {
+		PedidoProveedor pedidoMod = pedidoDAO.findById(mipedido.getIdPedidoProveedor());
+		pedidoMod.setEstado(mipedido.getEstado());
+		pedidoMod.setFechaCompra(mipedido.getFechaCompra());
+		pedidoMod.setFechaVencimiento(mipedido.getFechaVencimiento());
+		pedidoMod.setImporte(mipedido.getImporte());
+		
+		pedidoDAO.update(pedidoMod);
 	}
 	
 	

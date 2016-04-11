@@ -16,7 +16,6 @@ import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 @Repository
 @EnableTransactionManagement
 public class CierreCajaDAOImpl implements CierreCajaDAO {
-
 	@Autowired
 	private SessionFactory sessionFactory;
 

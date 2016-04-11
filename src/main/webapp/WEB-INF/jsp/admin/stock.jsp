@@ -41,14 +41,14 @@
 		</thead> 
 		
 		<tbody> 
-		<c:forEach var="productos" items="${productoslist}" varStatus="status">
+		<c:forEach var="stock" items="${stockList}" varStatus="status">
     				<tr>
-    					<td>${productos.codProd}</td>
-    					<td>${productos.nombre} </td>
-    					<td>${productos.marca}</td>
-    					<td>${productos.precio}</td>
-    					<td></td>
-						<td></td>
+    					<td>${stock.producto.codProd}</td>
+    					<td>${stock.producto.nombre} </td>
+    					<td>${stock.producto.marca}</td>
+    					<td>${stock.producto.precio}</td>
+    					<td>${stock.stockActual}</td>
+						<td>${stock.stockMin}</td>
 	   				</tr>
     	</c:forEach>
 		</tbody>

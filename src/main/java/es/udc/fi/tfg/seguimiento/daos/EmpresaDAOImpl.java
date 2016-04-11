@@ -14,7 +14,6 @@ import es.udc.fi.tfg.seguimiento.model.Usuario;
 @Repository
 @EnableTransactionManagement
 public class EmpresaDAOImpl implements EmpresaDAO {
-
 	@Autowired
 	private SessionFactory sessionFactory;
 

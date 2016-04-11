@@ -170,7 +170,7 @@ public class Centro {
 		this.usuario = usuario;
 	}
 	
-	@OneToMany(mappedBy="centro")
+	@OneToMany(mappedBy="centro", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<Stock> getStock() {
 		return stock;

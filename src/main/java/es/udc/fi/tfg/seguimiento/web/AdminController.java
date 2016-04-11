@@ -2,7 +2,7 @@ package es.udc.fi.tfg.seguimiento.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Stack;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Form;
+import es.udc.fi.tfg.seguimiento.model.FormProveedorPedido;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
+import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
 import es.udc.fi.tfg.seguimiento.model.Stock;
@@ -79,6 +79,14 @@ public class AdminController {
 			if (miusuario.getCentro()==null){
 				miusuario.setCentro(centro);
 				usuarioService.actualizarUsuario(miusuario);
+			}
+			for(Producto miproducto : miempresa.getProducto()){
+				Stock mistock = new Stock();
+				mistock.setCentro(centro);
+				mistock.setProducto(miproducto);
+				mistock.setStockActual(0);
+				mistock.setStockMin(0);
+				productoService.registroStock(mistock);
 			}
 		
 			return "redirect:/admin/centros";
@@ -216,7 +224,16 @@ public class AdminController {
 		producto.setIva(miIva);
 		producto.setEmpresa(miempresa);
 		
+
 		productoService.registroProducto(producto);
+		for (Centro centro : miempresa.getCentro()) {
+			Stock stock = new Stock();
+			stock.setCentro(centro);
+			stock.setProducto(producto);
+			stock.setStockActual(0);
+			stock.setStockMin(0);
+			productoService.registroStock(stock);
+		}
 		
 		return "redirect:/admin/productos";
 		
@@ -247,12 +264,10 @@ public class AdminController {
 	@RequestMapping(value="/stock",method = RequestMethod.GET)
 	public ModelAndView Stock(Long idCentro, ModelAndView model){
 		Centro micentro = empresaService.buscarCentroPorId(idCentro);
-		Empresa miempresa = micentro.getEmpresa();
-		List<Producto> misproductos = new ArrayList<Producto>(miempresa.getProducto());
-		//List<Stock> stockCentro =  new ArrayList<Stock>(micentro.getStock());
-		//model.addObject("stocklist",stockCentro);
+	
 		model.addObject("centroNombre", micentro.getNombre());
-		model.addObject("productoslist", misproductos);
+		model.addObject("stockList", micentro.getStock());
+
 		model.setViewName("stock");
 		return model;
 	}
@@ -313,7 +328,9 @@ public class AdminController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
 		List<Proveedor> proveedores = new ArrayList<Proveedor> (miempresa.getProveedor());
+		List<PedidoProveedor> pedidos = new ArrayList<PedidoProveedor>(miempresa.getPedido());
 		
+		mav.addObject("pedidoslist", pedidos);
 		mav.addObject("proveedorlist", proveedores);
 		mav.addObject("proveedor", new Proveedor());
 		mav.setViewName("proveedores");
@@ -345,9 +362,9 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String login = auth.getName();
-		
+
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
-		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		
 		mav.addObject("empresa", miempresa);
 		mav.setViewName("miempresa");
@@ -375,5 +392,25 @@ public class AdminController {
 		empresaService.actualizarEmpresa(miempresa);
 		model.addAttribute("empresaeditada", miempresa);
 		return "redirect:/admin/miempresa";
-}
+	}
+	
+	@RequestMapping(value = "/crearPedido", method = RequestMethod.GET)
+	public ModelAndView crearPedido(Long idProveedor, ModelAndView model) {
+		model.addObject("idProveedor", idProveedor);
+		model.addObject("pedido", new FormProveedorPedido());
+		model.setViewName("crearPedido");
+		return model;
+	}
+	
+	@RequestMapping(value = "/addPedido", method = RequestMethod.POST)
+	public String addPedido(FormProveedorPedido form, BindingResult result, ModelAndView model) {
+		
+		PedidoProveedor pedido = form.getPedido();
+		Proveedor proveedor = contabilidadService.buscarProveedorPorId(form.getIdProveedor());
+		
+		pedido.setProveedor(proveedor);
+		pedido.setEmpresa(proveedor.getEmpresa());
+		contabilidadService.registroPedido(pedido);
+		return "redirect:/admin/proveedores";
+	}
 }

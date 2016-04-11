@@ -16,7 +16,6 @@ import es.udc.fi.tfg.seguimiento.model.Producto;
 @Repository
 @EnableTransactionManagement
 public class IvaDAOImpl implements IvaDAO{
-	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
