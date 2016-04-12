@@ -439,4 +439,14 @@ public class AdminController {
 		return "redirect:/admin/proveedores";
 	}
 	
+	@RequestMapping(value="/notificacionStock",method = RequestMethod.GET)
+	public ModelAndView notificacionStock(){
+		ModelAndView model = new ModelAndView();
+		List<Stock> stocks = productoService.buscarStocksMinimos();
+		
+		model.addObject("stockList",stocks);
+		model.setViewName("notificacionStock");
+		return model;
+	}
+	
 }

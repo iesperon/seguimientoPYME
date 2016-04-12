@@ -9,18 +9,7 @@
 		$(document).ready(function() {
 			$('#centros').dataTable({
 			"language": {
-            	"lengthMenu": "Mostrar _MENU_ registros por página",
-           		"zeroRecords": "Ningún resultado encontrado",
-            	"info": "Mostrando página _PAGE_ de _PAGES_",
-            	"infoEmpty": "Ningún resultado encontrado",
-            	"infoFiltered": "(filtrados _MAX_ registros en total)",
-            	 "sSearch": "Buscar:",
-            	 "paginate": {
-        			"first":      "Primera",
-        			"last":       "Ultima",
-        			"next":       "Siguiente",
-        			"previous":   "Anterior"
-    			}
+				url:'https://cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json'
         }
 			});
 		} );

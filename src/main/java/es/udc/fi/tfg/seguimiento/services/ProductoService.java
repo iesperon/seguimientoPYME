@@ -39,5 +39,6 @@ public interface ProductoService {
 	public void registroStock(Stock mistock);
 	public Stock buscarStockPorId(Long miid);
 	public void actualizarStock(Stock mistock);
+	public List<Stock> buscarStocksMinimos();
 
 }

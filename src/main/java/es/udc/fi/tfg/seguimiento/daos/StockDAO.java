@@ -15,4 +15,5 @@ public interface StockDAO {
 	public Stock findByProducto(Producto miproducto);
 	public Stock findByProductoCentro (Producto miproducto, Centro micentro);
 	public Stock findById(Long miid);
+	public List<Stock> findStockMin();
 }

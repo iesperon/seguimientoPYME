@@ -42,7 +42,7 @@
                     </tbody>
                   </table>
                   <a href="#" class="btn btn-primary">Contabilidad</a>
-                  <a href="#" class="btn btn-primary">Avisos Stock</a>
+                  <a href="/seguimientoPYMES/admin/notificacionStock" class="btn btn-primary">Avisos Stock</a>
                   <a href="#" class="btn btn-primary">Cierres de Caja</a>
                 </div>
               </div>

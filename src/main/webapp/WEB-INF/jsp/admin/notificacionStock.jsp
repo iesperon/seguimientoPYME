@@ -15,11 +15,14 @@
 	
 <div class="row">
 <div class="col-md-9">
-<h2>Stock del centro ${centroNombre}</h2>
+<h2>Avisos de Stock </h2>
 <br>
 	<table class="table table-hover" id="stock">
 		<thead> 
 			<tr>
+						<th>Centro</th>
+						<th>Calle</th>
+						<th>Poblacion</th>
         				<th>Referencia</th>
         				<th>Nombre</th>
         				<th>Marca</th>
@@ -33,6 +36,9 @@
 		<tbody> 
 		<c:forEach var="stock" items="${stockList}" varStatus="status">
     				<tr>
+    					<td>${stock.centro.nombre}</td>
+    					<td>${stock.centro.calle}</td>
+    					<td>${stock.centro.poblacion}</td>
     					<td>${stock.producto.codProd}</td>
     					<td>${stock.producto.nombre} </td>
     					<td>${stock.producto.marca}</td>

@@ -35,7 +35,6 @@ public class ProductoServiceImpl implements ProductoService{
 	
 	@Autowired
 	private StockDAO stockDAO = null;
-	private List<Stock> misStocks;
 	
 	public void setStockDAO (StockDAO stockDAO){
 		this.stockDAO = stockDAO;
@@ -120,6 +119,10 @@ public class ProductoServiceImpl implements ProductoService{
 			stockDAO.update(stockMod);
 			
 			
+		}
+
+		public List<Stock> buscarStocksMinimos() {
+			return stockDAO.findStockMin();
 		}
 
 	

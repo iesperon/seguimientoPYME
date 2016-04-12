@@ -60,6 +60,12 @@ public class StockDAOImpl implements StockDAO {
 		return (Stock) q.list().get(0);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Stock> findStockMin() {
+		return (List<Stock>) sessionFactory.getCurrentSession().createQuery("from Stock where stockMin>stockActual").list();
+
+	}
+	
 	
 
 }
