@@ -28,6 +28,8 @@
 	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	
 	 <script src="<c:url value="/resources/bootstrap-typeahead.js" />"></script>
+	 <script src="<c:url value="/resources/jquery.scrollIntoView.min.js" />"></script>
+	 
 </head>
 
 <body>

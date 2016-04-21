@@ -1,6 +1,8 @@
 package es.udc.fi.tfg.seguimiento.model;
 
-import java.sql.Timestamp;
+
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,14 +17,21 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name="PEDIDOPROVEEDOR")
 public class PedidoProveedor {
 	
 	private Long idPedidoProveedor;
-	private Timestamp fechaCompra;
-	private Timestamp fechaVencimiento;
+	@DateTimeFormat(iso = ISO.DATE)
+	@Type(type="org.joda.time.contrib.hibernate.PersistentYearMonthDay")
+	private Date fechaCompra;
+	@DateTimeFormat(iso = ISO.DATE)
+	@Type(type="org.joda.time.contrib.hibernate.PersistentYearMonthDay")
+    private Date fechaVencimiento;
 	private Float importe;
 	private String estado;
 	private Empresa empresa;
@@ -33,7 +42,7 @@ public class PedidoProveedor {
 	}
 	
 	
-	public PedidoProveedor(Timestamp fechaCompra, Timestamp fechaVencimiento, Float importe, String estado,
+	public PedidoProveedor(Date fechaCompra, Date fechaVencimiento, Float importe, String estado,
 			Empresa empresa, Proveedor proveedor) {
 		super();
 		this.fechaCompra = fechaCompra;
@@ -58,20 +67,20 @@ public class PedidoProveedor {
 	}
 
 	@Column (name="fechaCompra")
-	public Timestamp getFechaCompra() {
+	public Date getFechaCompra() {
 		return fechaCompra;
 	}
 
-	public void setFechaCompra(Timestamp fechaCompra) {
+	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 
 	@Column (name="fechaVencimiento")
-	public Timestamp getFechaVencimiento() {
+	public Date getFechaVencimiento() {
 		return fechaVencimiento;
 	}
 
-	public void setFechaVencimiento(Timestamp fechaVencimiento) {
+	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
 

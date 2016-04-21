@@ -1,4 +1,10 @@
-package es.udc.fi.tfg.seguimiento.model;
+package es.udc.fi.tfg.seguimiento.utils;
+
+import es.udc.fi.tfg.seguimiento.model.Centro;
+import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Producto;
+import es.udc.fi.tfg.seguimiento.model.Stock;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public class Form {
 

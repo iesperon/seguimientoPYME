@@ -1,7 +1,6 @@
 package es.udc.fi.tfg.seguimiento.web;
 
 
-import javax.imageio.stream.ImageOutputStreamImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
-import es.udc.fi.tfg.seguimiento.model.Form;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
+import es.udc.fi.tfg.seguimiento.utils.Form;
 
 @Controller
 public class IndexController {

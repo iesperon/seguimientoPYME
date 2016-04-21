@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
-import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 @Repository
 @EnableTransactionManagement

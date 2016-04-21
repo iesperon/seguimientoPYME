@@ -26,7 +26,7 @@ public class testCierre {
 	@Test
 	public void test() {
 		
-		cierre1 = new CierreCaja(new Timestamp(Calendar.getInstance().getTimeInMillis()), new Float(100.82) ,new Float(100.5), "Ninguna",new Float(210.00));
+		/*cierre1 = new CierreCaja(new Timestamp(Calendar.getInstance().getTimeInMillis()), new Float(100.82) ,new Float(100.5), "Ninguna",new Float(210.00));
 		
 		//Insertamos 1 registro
 		cajaService.registroCierre(cierre1);
@@ -40,7 +40,7 @@ public class testCierre {
 		cajaService.actualizarCierre(cierre1);
 		
 		//Borramos datos 
-		cajaService.eliminarCierre(cierre1);
+		cajaService.eliminarCierre(cierre1);*/
 	
 		
 	}

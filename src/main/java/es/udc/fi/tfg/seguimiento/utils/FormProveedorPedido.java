@@ -1,4 +1,6 @@
-package es.udc.fi.tfg.seguimiento.model;
+package es.udc.fi.tfg.seguimiento.utils;
+
+import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
 
 public class FormProveedorPedido {
 

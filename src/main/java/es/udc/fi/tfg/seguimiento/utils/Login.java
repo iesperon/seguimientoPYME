@@ -1,4 +1,4 @@
-package es.udc.fi.tfg.seguimiento.model;
+package es.udc.fi.tfg.seguimiento.utils;
 
 public class Login {
 

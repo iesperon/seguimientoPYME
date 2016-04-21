@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import es.udc.fi.tfg.seguimiento.model.Iva;
-import es.udc.fi.tfg.seguimiento.model.Producto;
 
 @Repository
 @EnableTransactionManagement

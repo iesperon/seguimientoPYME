@@ -2,7 +2,6 @@ package es.udc.fi.tfg.seguimiento.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
-import es.udc.fi.tfg.seguimiento.model.Form;
-import es.udc.fi.tfg.seguimiento.model.FormProveedorPedido;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
@@ -31,6 +28,8 @@ import es.udc.fi.tfg.seguimiento.services.ContabilidadService;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
+import es.udc.fi.tfg.seguimiento.utils.Form;
+import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -333,6 +332,14 @@ public class AdminController {
 	@RequestMapping(value = "/caja", method = RequestMethod.GET)
 	public ModelAndView caja() {
 		ModelAndView mav = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Centro> centros = new ArrayList<Centro>(miempresa.getCentro());
+
+		mav.addObject("centros", centros);
 		mav.setViewName("caja");
 		return mav;
 	}	
@@ -445,6 +452,15 @@ public class AdminController {
 		List<Stock> stocks = productoService.buscarStocksMinimos();
 		
 		model.addObject("stockList",stocks);
+		model.setViewName("notificacionStock");
+		return model;
+	}
+	
+	@RequestMapping(value="/cajaCentro",method = RequestMethod.GET)
+	public ModelAndView cajaCentro(Long idCentro,BindingResult result, ModelAndView model ){
+		//List<Stock> stocks = productoService.buscarStocksMinimos();
+		//Ticket miticket = new Ticket();
+		//model.addObject("stockList",stocks);
 		model.setViewName("notificacionStock");
 		return model;
 	}

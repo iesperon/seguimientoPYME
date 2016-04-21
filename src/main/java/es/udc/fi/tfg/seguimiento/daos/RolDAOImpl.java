@@ -1,7 +1,6 @@
 package es.udc.fi.tfg.seguimiento.daos;
 
 
-import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import es.udc.fi.tfg.seguimiento.model.Rol;
-import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 @Repository
 @EnableTransactionManagement

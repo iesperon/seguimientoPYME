@@ -33,6 +33,7 @@ public class Producto {
 	private Iva iva;
 	private Empresa empresa;
 	private Set<Stock> stock = new HashSet<Stock>();
+	private Set<LineaTicket> lineaTicket = new HashSet<LineaTicket>();
 
 	
 	
@@ -156,6 +157,16 @@ public class Producto {
 
 	public void setStock(Set<Stock> stock) {
 		this.stock = stock;
+	}
+	
+	@OneToMany(mappedBy="producto", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	public Set<LineaTicket> getLineaTicket() {
+		return lineaTicket;
+	}
+
+	public void setLineaTicket(Set<LineaTicket> lineaTicket) {
+		this.lineaTicket = lineaTicket;
 	}
 
 

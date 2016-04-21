@@ -2,14 +2,21 @@ package es.udc.fi.tfg.seguimiento.model;
 
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 
 @Entity
@@ -24,21 +31,33 @@ public class CierreCaja {
 	private String incidencias;
 	private Float caja;
 	private Float diferencia;
+	private Set<Ticket> ticket = new HashSet<Ticket>();
 	
 	
 	
 
-	public CierreCaja(){}
+	public CierreCaja(){
+		
+	}
 	
-	public CierreCaja (Timestamp fecha, Float efectivo, Float tarjeta, String incidencias, Float caja){
+	
+	public CierreCaja(Long idCierre, Timestamp fecha, Float efectivo, Float tarjeta, Float total, String incidencias,
+			Float caja, Float diferencia, Set<Ticket> ticket) {
+		super();
+		this.idCierre = idCierre;
 		this.fecha = fecha;
 		this.efectivo = efectivo;
 		this.tarjeta = tarjeta;
+		this.total = total;
 		this.incidencias = incidencias;
 		this.caja = caja;
+		this.diferencia = diferencia;
+		this.ticket = ticket;
 	}
 
-	
+
+
+
 	@Id
 	@SequenceGenerator(name="cierreId",sequenceName = "id_cierre_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="cierreId")
@@ -113,6 +132,18 @@ public class CierreCaja {
 	public void setDiferencia(Float diferencia) {
 		this.diferencia = diferencia;
 	}
+	
+	@OneToMany(mappedBy="cierreCaja", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	public Set<Ticket> getTicket() {
+		return ticket;
+	}
+
+
+	public void setTicket(Set<Ticket> ticket) {
+		this.ticket = ticket;
+	}
+
 
 	@Override
 	public int hashCode() {

@@ -110,7 +110,7 @@
               data: 'nombre=' + query.query,
               success: function(data) {
                 console.log(data);
-                process(data);
+                return process(data);
               }
             });
           }
