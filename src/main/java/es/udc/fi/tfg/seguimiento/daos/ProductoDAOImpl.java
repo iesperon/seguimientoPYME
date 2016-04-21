@@ -47,7 +47,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 		return (List<Producto>) q.list();
 	}
 
-	public Producto findByCod(Float micodprod) {
+	public Producto findByCod(String micodprod) {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where codProd=:codProd");
 		q.setParameter("codProd", micodprod);
 		return (Producto) q.list().get(0);

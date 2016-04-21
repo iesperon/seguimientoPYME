@@ -118,7 +118,7 @@
                   <li><a href="/seguimientoPYMES/admin/empleados"><i class="glyphicon glyphicon-user"></i> Empleados</a></li>
                   <li><a href="/seguimientoPYMES/admin/productos"><i class="glyphicon glyphicon-shopping-cart"></i> Productos</a></li>
                   <li><a href="/seguimientoPYMES/admin/gastos"><i class="glyphicon glyphicon-euro"></i> Gastos</a></li>
-                  <li><a href="/seguimientoPYMES/admin/caja"><i class="glyphicon glyphicon-barcode"></i> Caja</a></li>
+                  <li><a href="/seguimientoPYMES/admin/cajaCentro"><i class="glyphicon glyphicon-barcode"></i> Caja</a></li>
                   <li><a href="/seguimientoPYMES/admin/proveedores"><i class="glyphicon glyphicon-briefcase"></i> Proveedores</a></li>
                   
               	</ul>

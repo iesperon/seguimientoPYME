@@ -9,27 +9,34 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
+import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
 import es.udc.fi.tfg.seguimiento.model.Stock;
+import es.udc.fi.tfg.seguimiento.model.Ticket;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
+import es.udc.fi.tfg.seguimiento.services.CajaService;
 import es.udc.fi.tfg.seguimiento.services.ContabilidadService;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
 import es.udc.fi.tfg.seguimiento.utils.Form;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
+import es.udc.fi.tfg.seguimiento.utils.FormTicketLinea;
+import es.udc.fi.tfg.seguimiento.utils.FormTicketProducto;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -46,6 +53,9 @@ public class AdminController {
 	
 	@Autowired
 	private ContabilidadService contabilidadService;
+	
+	@Autowired
+	private CajaService cajaService;
 
 	@RequestMapping(value = "/centros", method = RequestMethod.GET)
 	public ModelAndView centros() {
@@ -329,8 +339,8 @@ public class AdminController {
 		return "redirect:/admin/gastos";
 	}
 	
-	@RequestMapping(value = "/caja", method = RequestMethod.GET)
-	public ModelAndView caja() {
+	@RequestMapping(value = "/cajaCentro", method = RequestMethod.GET)
+	public ModelAndView cajaCentro() {
 		ModelAndView mav = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String login = auth.getName();
@@ -340,7 +350,7 @@ public class AdminController {
 		List<Centro> centros = new ArrayList<Centro>(miempresa.getCentro());
 
 		mav.addObject("centros", centros);
-		mav.setViewName("caja");
+		mav.setViewName("cajaCentro");
 		return mav;
 	}	
 	
@@ -456,13 +466,75 @@ public class AdminController {
 		return model;
 	}
 	
-	@RequestMapping(value="/cajaCentro",method = RequestMethod.GET)
-	public ModelAndView cajaCentro(Long idCentro,BindingResult result, ModelAndView model ){
-		//List<Stock> stocks = productoService.buscarStocksMinimos();
-		//Ticket miticket = new Ticket();
-		//model.addObject("stockList",stocks);
-		model.setViewName("notificacionStock");
+	@RequestMapping(value="/caja",method = RequestMethod.GET)
+	public ModelAndView caja(@ModelAttribute("ticket") Ticket ticket ,BindingResult result, ModelAndView model ){
+		System.out.println("****************************"+ticket.getIdTicket());
+		//Ticket ticket = cajaService.buscarTicketPorId(myForm.getIdTicket());
+		List<LineaTicket> lineas = new ArrayList<LineaTicket> (ticket.getLineaTicket());
+		FormTicketProducto myForm = new FormTicketProducto();
+		//myForm.setIdTicket(idTicket);
+		myForm.setTicket(ticket);
+		//LineaTicket linea = new LineaTicket();
+		//linea.setTicket(ticket);
+		//model.addObject("linea", linea);
+		model.addObject("myForm", myForm);
+		model.addObject("lineas", lineas);
+		model.setViewName("caja");
 		return model;
 	}
+	
+	@RequestMapping(value = "/addTicket", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView addTicket(Long idCentro, final RedirectAttributes redirectAttributes) {
+		ModelAndView model = new ModelAndView();
+		Ticket miticket = new Ticket();
+		miticket.setCentro(empresaService.buscarCentroPorId(idCentro));
+		cajaService.registroTicket(miticket);
+		
+		//FormTicketProducto myForm = new FormTicketProducto();
+		//myForm.setIdTicket(miticket.getIdTicket());
+		System.out.println("-----------------------------"+miticket.getIdTicket());
+		//redirectAttributes.addFlashAttribute("myForm", myForm);
+		redirectAttributes.addFlashAttribute("ticket", miticket);
+		//model.addObject("myForm", myForm);
+		model.setViewName("redirect:/admin/caja");
+		//model.setViewName("caja");
+		return model; 
+	}
+	
+	@RequestMapping(value = "/addLinea", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView addLinea(@ModelAttribute("myForm") FormTicketProducto myForm, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+myForm.getTicket().getIdTicket());
+		Producto miproducto = productoService.buscarProductoPorCodigo(myForm.getCodProd());
+		Long idTicket = myForm.getTicket().getIdTicket();
+		Ticket ticket = cajaService.buscarTicketPorId(idTicket);
+		LineaTicket linea = new LineaTicket();
+		System.out.println("PRUEBAAAAAAAAAAA"+ticket.getIdTicket());
+		linea.setProducto(miproducto);
+		//linea.setTicket(ticket);
+		linea.setCantidad(1);
+		linea.setIva(miproducto.getIva().getPorcentaje());
+		linea.setPrecio(miproducto.getPrecio());
+		cajaService.registroLineaTicket(linea);
+		
+		//FormTicketProducto myNewForm = new FormTicketProducto();
+		//myForm.setIdTicket(ticket.getIdTicket());
+		
+		//redirectAttributes.addFlashAttribute("myForm", myNewForm);
+		redirectAttributes.addFlashAttribute("ticket", ticket);
+		model.setViewName("redirect:/admin/caja");
+		return model;
+	}
+	
+	@RequestMapping(value = "/editLinea", method = RequestMethod.POST)
+	public ModelAndView editLinea(LineaTicket linea, BindingResult result, ModelAndView model) {
+		cajaService.actualizarLineaTicket(linea);
+		Ticket ticket = linea.getTicket();
+		model.addObject("ticket", ticket);
+		model.setViewName("caja");
+		return model;
+	}
+	
+	
+	
 	
 }

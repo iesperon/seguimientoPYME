@@ -33,6 +33,8 @@ public interface ProductoService {
 	public void actualizarProducto (Producto miproducto);
 	//Buscar un producto por ID
 	public Producto buscarProductoPorId(Long miid);
+	//Buscar producto por codigo
+	public Producto buscarProductoPorCodigo(String micodigo);
 	
 	//*****************STOCK****************
 	public Stock buscarStockProductoCentro(Producto miproducto, Centro micentro);

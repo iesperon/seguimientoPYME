@@ -3,26 +3,77 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
 <div class="row">
 <div class="col-md-9">
+<div class="col-md-12">
+	<h2>Buscar Producto</h2>
+		<form:form action="addLinea" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
+			<div class="col-xs-2">
+				<form:input class="form-control" id="codProd" path="codProd"  type="text"/>
+			</div>
+			<div class="col-xs-3">
+				<form:input class="form-control" path="ticket.idTicket" value="${ticket.idTicket}" type="text"/>
+			</div> 
+		<div class="col-xs-1">
+			<input type="submit" value="Buscar" class="btn btn-primary btn-sm">
+		</div>	
+		</form:form>
 
-	<h2>Seleccione el centro</h2>
-	<br>
-	<br>
-    <c:forEach var="centros" items="${centros}" varStatus="status">
-    	<c:url var="centroUrl" value="cajaCentro">
-			<c:param name="idCentro" value="${centros.idCentro}"/>
-		</c:url>
-		<a href='<c:out value="${centroUrl}"/>'  data-toggle="tooltip" type="button" class="btn btn-primary btn-lg btn-block">${centros.nombre}, ${centros.poblacion}, ${centros.calle} </a>
-    </c:forEach>
+</div>
+
+<div class="col-md-12">
+	<h2>Ticket</h2>
+	<div class="col-xs-3">
+		<label for="producto">Producto</label>
+	</div>
+	<div class="col-xs-1">
+		<label for="cantidad">Cantidad</label>
+	</div>
+	<div class="col-xs-2">
+		<label for="iva">IVA</label>
+	</div>
+	<div class="col-xs-2">
+		<label for="precio">Precio Unitario</label>
+	</div>
+	
+	<c:forEach var="lineas" items="${lineas}" varStatus="status">
+		<div class="col-xs-3">
+			<input class="form-control" id="producto" value="${lineas.producto.nombre}" type="text" readonly/>
+		</div>
+		<form:form action="editLinea" method="POST" modelAttribute="linea" class="form-horizontal" role="form">
+			<div class="col-xs-1">
+				<form:input class="form-control" id="cantidad" path="cantidad" value="${lineas.cantidad}" type="text"/>
+			</div>
+			
+			<div class="col-xs-2">
+				<form:input class="form-control" id="iva" path="iva" value="${lineas.iva}" type="text"/>
+			</div>
+			
+			<div class="col-xs-2">
+				<form:input class="form-control" id="precio" path="precio" value="${lineas.precio}" type="text"/>
+			</div>
+
+			
+			<form:input class="form-control" path="idLineaTicket" value="${lineas.idLineaTicket}" type="hidden"/>
+			
+			<c:url var="lineaUrl" value="eliminarLinea">
+				<c:param name="idLineaTicket" value="${lineas.idLineaTicket}"/>
+			</c:url>
 
 
-
-
-
-
-
+		<div class="col-xs-1">
+			<input type="submit" value="Editar" class="btn btn-primary btn-sm">
+			
+		</div>	
+		<div class="col-xs-1">
+			<a href='<c:out value="${lineaUrl}"/>' class="btn btn-danger btn-sm">Eliminar </a>
+		</div>	
+			
+		</form:form>
+		
+	</c:forEach>
+	
+</div>
 
 
 

@@ -95,6 +95,11 @@ public class ProductoServiceImpl implements ProductoService{
 		public Producto buscarProductoPorId(Long miid) {
 			return productoDAO.findById(miid);
 		}
+
+
+		public Producto buscarProductoPorCodigo(String micodigo) {
+			return productoDAO.findByCod(micodigo);
+		}
 		
 		//********STOCK*************
 
@@ -123,6 +128,7 @@ public class ProductoServiceImpl implements ProductoService{
 		public List<Stock> buscarStocksMinimos() {
 			return stockDAO.findStockMin();
 		}
+
 
 	
 }

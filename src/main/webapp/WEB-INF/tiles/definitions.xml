@@ -49,9 +49,9 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/gastos.jsp"/>
 	</definition>
 	
-	<!-- Gastos -->
-	<definition name="caja" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/caja.jsp"/>
+	<!-- Caja -->
+	<definition name="cajaCentro" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/cajaCentro.jsp"/>
 	</definition>
 	
 	<!-- Proveedores -->
@@ -92,6 +92,11 @@
 	<!-- Notificacion Stock -->
 	<definition name="notificacionStock" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/notificacionStock.jsp"/>
+	</definition>
+	
+	<!-- Caja -->
+	<definition name="caja" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/caja.jsp"/>
 	</definition>
 	
 	<!-- 403 -->

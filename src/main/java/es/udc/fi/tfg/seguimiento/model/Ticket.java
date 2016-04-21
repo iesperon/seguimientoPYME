@@ -130,7 +130,7 @@ public class Ticket {
 	}
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idCentro", nullable = false)
+	@JoinColumn(name="idCentro")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	public Centro getCentro() {
 		return centro;

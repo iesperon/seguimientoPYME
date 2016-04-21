@@ -21,7 +21,7 @@ public class LineaTicket {
 	private Long idLineaTicket;
 	private Integer cantidad;
 	private Float precio;
-	private Float iva;
+	private Integer iva;
 	private Producto producto;
 	private Ticket ticket;
 	
@@ -29,7 +29,7 @@ public class LineaTicket {
 		
 	}
 	
-	public LineaTicket(Integer cantidad, Float precio, Float iva, Producto producto, Ticket ticket) {
+	public LineaTicket(Integer cantidad, Float precio, Integer iva, Producto producto, Ticket ticket) {
 		super();
 		this.cantidad = cantidad;
 		this.precio = precio;
@@ -69,11 +69,11 @@ public class LineaTicket {
 	}
 
 	@Column (name="iva")
-	public Float getIva() {
+	public Integer getIva() {
 		return iva;
 	}
 
-	public void setIva(Float iva) {
+	public void setIva(Integer iva) {
 		this.iva = iva;
 	}
 
