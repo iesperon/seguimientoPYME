@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,6 +31,7 @@ public class Envio {
 	private String numSeguimiento;
 	private String estado;
 	private Centro centro;
+	private Ticket ticket;
 	
 	public Envio(){
 		
@@ -173,7 +175,18 @@ public class Envio {
 	public void setCentro(Centro centro) {
 		this.centro = centro;
 	}
+	
+	@OneToOne
+	@JoinColumn(name="idTicket")
+	public Ticket getTicket() {
+		return ticket;
+	}
 
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+
+	
 	
 	
 }

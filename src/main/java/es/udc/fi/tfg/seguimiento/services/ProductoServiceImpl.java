@@ -128,6 +128,12 @@ public class ProductoServiceImpl implements ProductoService{
 		public List<Stock> buscarStocksMinimos() {
 			return stockDAO.findStockMin();
 		}
+		
+		public void stockBajo(Stock mistock){
+			if(mistock.getStockActual()<=mistock.getStockMin()){
+				
+			}
+		}
 
 
 	

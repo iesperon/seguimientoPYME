@@ -99,6 +99,10 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/caja.jsp"/>
 	</definition>
 	
+	<!-- Tickets -->
+	<definition name="tickets" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/tickets.jsp"/>
+	</definition>
 	<!-- 403 -->
 	<definition name="403" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/403.jsp"/>

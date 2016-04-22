@@ -38,6 +38,7 @@ public class Centro {
 	private Set<Usuario> usuario = new HashSet<Usuario>();
 	private Set<Stock> stock = new HashSet<Stock>();
 	private Set<Ticket> ticket = new HashSet<Ticket>();
+	private Set<Envio> envio = new HashSet<Envio>();
 
 
 	public Centro(){
@@ -187,9 +188,18 @@ public class Centro {
 		return ticket;
 	}
 
-
 	public void setTicket(Set<Ticket> ticket) {
 		this.ticket = ticket;
+	}
+	
+	@OneToMany(mappedBy="centro", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	public Set<Envio> getEnvio() {
+		return envio;
+	}
+
+	public void setEnvio(Set<Envio> envio) {
+		this.envio = envio;
 	}
 
 	@Override

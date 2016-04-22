@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <div class="row">
@@ -161,8 +161,8 @@
 						<tr>
 							<td>${pedido.proveedor.nombre}</td>
 							<td>${pedido.proveedor.cif}</td>
-							<td>${pedido.fechaCompra}</td>
-							<td>${pedido.fechaVencimiento}</td>
+							<td><fmt:formatDate value="${pedido.fechaCompra}" pattern="dd-MM-yyyy" /></td>
+							<td><fmt:formatDate value="${pedido.fechaVencimiento}" pattern="dd-MM-yyyy" /></td>
 							<td>${pedido.importe}</td>
 							<td>${pedido.estado}</td>
 							<c:url var="pedidoUrl" value="editarPedido">

@@ -23,6 +23,7 @@ public class TicketDAOImpl implements TicketDAO {
 
 	public Long create(Ticket miticket) {
 		return (Long) sessionFactory.getCurrentSession().save(miticket);
+		
 	}
 
 	public void remove(Ticket miticket) {

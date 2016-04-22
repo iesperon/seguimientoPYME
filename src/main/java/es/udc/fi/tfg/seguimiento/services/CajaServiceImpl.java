@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.CierreCajaDAO;
+import es.udc.fi.tfg.seguimiento.daos.EnvioDAO;
 import es.udc.fi.tfg.seguimiento.daos.LineaTicketDAO;
 import es.udc.fi.tfg.seguimiento.daos.TicketDAO;
 import es.udc.fi.tfg.seguimiento.model.CierreCaja;
+import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
 
@@ -50,6 +52,17 @@ public class CajaServiceImpl implements CajaService {
 
 	public void setLineaTicketDAO(LineaTicketDAO lineaTicketDAO) {
 		this.lineaTicketDAO = lineaTicketDAO;
+	}
+
+	@Autowired
+	private EnvioDAO envioDAO = null;
+	
+	public EnvioDAO getEnvioDAO() {
+		return envioDAO;
+	}
+
+	public void setEnvioDAO(EnvioDAO envioDAO) {
+		this.envioDAO = envioDAO;
 	}
 
 	// **********CIERRE***********
@@ -134,5 +147,45 @@ public class CajaServiceImpl implements CajaService {
 	public LineaTicket buscarLineaTicketPorId(Long miid) {
 		return lineaTicketDAO.findById(miid);
 	}
+
+	//************************* ENVIOS *************************
+
+	public void registroEnvio(Envio mienvio) {
+		envioDAO.create(mienvio);
+	}
+
+	public void eliminarEnvio(Envio mienvio) {
+		envioDAO.remove(mienvio);
+	}
+
+	public void actualizarEnvio(Envio mienvio) {
+		Envio envioMod = envioDAO.findById(mienvio.getIdEnvio());
+		envioMod.setCalle(mienvio.getCalle());
+		envioMod.setCp(mienvio.getCp());
+		envioMod.setEmpresa(mienvio.getEmpresa());
+		envioMod.setEstado(mienvio.getEstado());
+		envioMod.setNombre(mienvio.getNombre());
+		envioMod.setNumero(mienvio.getNumero());
+		envioMod.setNumSeguimiento(mienvio.getNumSeguimiento());
+		envioMod.setPais(mienvio.getPais());
+		envioMod.setPoblacion(mienvio.getPoblacion());
+		envioMod.setProvincia(mienvio.getProvincia());
+		envioMod.setPuerta(mienvio.getPuerta());
+		
+		envioDAO.update(envioMod);
+	}
+
+	public List<Envio> obtenerEnvios() {
+		return envioDAO.findAll();
+	}
+
+	public Envio buscarEnvioPorId(Long miid) {
+		return envioDAO.findById(miid);
+	}
+
+	public Envio buscarEnvioPorTicket(Ticket miticket) {
+		return envioDAO.findByTicket(miticket);
+	}
+		
 
 }

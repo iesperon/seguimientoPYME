@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
@@ -505,12 +507,13 @@ public class AdminController {
 	public ModelAndView addLinea(@ModelAttribute("myForm") FormTicketProducto myForm, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
 		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+myForm.getTicket().getIdTicket());
 		Producto miproducto = productoService.buscarProductoPorCodigo(myForm.getCodProd());
-		Long idTicket = myForm.getTicket().getIdTicket();
-		Ticket ticket = cajaService.buscarTicketPorId(idTicket);
+		//Long idTicket = myForm.getTicket().getIdTicket();
+		Ticket ticket = cajaService.buscarTicketPorId(myForm.getTicket().getIdTicket());
 		LineaTicket linea = new LineaTicket();
-		System.out.println("PRUEBAAAAAAAAAAA"+ticket.getIdTicket());
+		System.out.println("PRUEBAAAAAAAAAAA"+ticket.getCentro().getIdCentro());
+		//ticket.getLineaTicket().add(linea);
+		linea.setTicket(ticket);
 		linea.setProducto(miproducto);
-		//linea.setTicket(ticket);
 		linea.setCantidad(1);
 		linea.setIva(miproducto.getIva().getPorcentaje());
 		linea.setPrecio(miproducto.getPrecio());
@@ -533,6 +536,40 @@ public class AdminController {
 		model.setViewName("caja");
 		return model;
 	}
+	
+		
+	@RequestMapping(value = "/tickets", method = RequestMethod.GET)
+	public ModelAndView tickets() {
+		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Centro> centros = new ArrayList<Centro>(miempresa.getCentro());
+		List<Ticket> tickets = new ArrayList<Ticket>();
+		for(Centro centro:centros){
+			for(Ticket ticket:centro.getTicket()){
+				tickets.add(ticket);
+			}
+		}
+		model.addObject("tickets", tickets);
+		model.setViewName("tickets");
+		return model;
+	}
+	
+	@RequestMapping(value = "/verTicket", method = RequestMethod.GET)
+	public ModelAndView verTicket(Long idTicket, BindingResult result, ModelAndView model ) {
+		Ticket ticket = cajaService.buscarTicketPorId(idTicket);
+		List<LineaTicket> lineas = new ArrayList<LineaTicket>(ticket.getLineaTicket());
+		
+		Envio envio = cajaService.buscarEnvioPorTicket(ticket);
+		model.addObject("lineas", lineas);
+		model.addObject("ticket", ticket);
+		model.setViewName("tickets");
+		return model;
+	}
+	
 	
 	
 	

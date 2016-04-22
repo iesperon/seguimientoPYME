@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.CierreCaja;
+import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
 
@@ -46,4 +47,12 @@ public interface CajaService {
 	public List<LineaTicket> obtenerLineaTickets();
 	//Buscar linea de ticket por id
 	public LineaTicket buscarLineaTicketPorId(Long miid);
+	
+	//**************** ENVIOS *************************
+	public void registroEnvio (Envio mienvio);
+	public void eliminarEnvio (Envio mienvio);
+	public void actualizarEnvio (Envio mienvio);
+	public List<Envio> obtenerEnvios();
+	public Envio buscarEnvioPorId (Long miid);
+	public Envio buscarEnvioPorTicket (Ticket miticket);
 }
