@@ -1,8 +1,11 @@
 package es.udc.fi.tfg.seguimiento.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.context.ServletContextAware;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
@@ -221,7 +225,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/addProducto", method = RequestMethod.POST)
-	public String addProducto(Form myForm, BindingResult result, ModelAndView model) {
+	public String addProducto(Form myForm, BindingResult result, ModelAndView model, @RequestParam(value = "producto.foto", required = false) MultipartFile image) throws RuntimeException, IOException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		String login = auth.getName();
@@ -232,6 +236,7 @@ public class AdminController {
 		Long idIva = myForm.getIdIva();
 		Iva miIva = productoService.buscarIvaPorId(idIva);
 		
+		saveImage(producto.getCodProd()+".jpg", image);
 		producto.setIva(miIva);
 		producto.setEmpresa(miempresa);
 		
@@ -559,19 +564,36 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/verTicket", method = RequestMethod.GET)
-	public ModelAndView verTicket(Long idTicket, BindingResult result, ModelAndView model ) {
+	public ModelAndView verTicket(Long idTicket, ModelAndView model ) {
 		Ticket ticket = cajaService.buscarTicketPorId(idTicket);
 		List<LineaTicket> lineas = new ArrayList<LineaTicket>(ticket.getLineaTicket());
+		//Envio envio = cajaService.buscarEnvioPorTicket(ticket);
 		
-		Envio envio = cajaService.buscarEnvioPorTicket(ticket);
+		//model.addObject("envio", envio);
 		model.addObject("lineas", lineas);
 		model.addObject("ticket", ticket);
-		model.setViewName("tickets");
+		model.setViewName("verTicket");
 		return model;
 	}
+
+	private void validateImage(MultipartFile image) {
+		if (!image.getContentType().equals("image/jpeg")) {
+		throw new RuntimeException("Only JPG images are accepted");
+		}
+		}
 	
-	
-	
+	private void saveImage(String filename, MultipartFile image)
+	throws RuntimeException, IOException {
+	try {
+		File file = new File("C:/Users/iesperon/Desktop/" + filename);
+			 
+			FileUtils.writeByteArrayToFile(file, image.getBytes());
+			System.out.println("Go to the location:  " + file.toString()
+			+ " on your computer and verify that the image has been stored.");
+	} catch (IOException e) {
+		throw e;
+	}
+	}
 	
 	
 }

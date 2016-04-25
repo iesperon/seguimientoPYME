@@ -78,7 +78,7 @@
 
 						<div class="col-xs-3">
 							<label for="cp">Imagen</label>
-							<form:input class="form-control" name="image" path="producto.foto" type="file"/>
+							<form:input class="form-control"  path="producto.foto" type="file"/>
 						</div>
 						
 						<div class="col-xs-3">
