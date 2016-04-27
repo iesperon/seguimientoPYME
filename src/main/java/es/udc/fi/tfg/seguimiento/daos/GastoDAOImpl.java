@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 
 @Repository
@@ -51,6 +52,13 @@ public class GastoDAOImpl implements GastoDAO {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Gasto where concepto LIKE :concepto");
 		miconcepto = "%"+miconcepto+"%";
 		q.setParameter("concepto", miconcepto);
+		return (List<Gasto>) q.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Gasto> findByEmpresa(Empresa miempresa) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Gasto where idEmpresa=:idEmpresa");
+		q.setParameter("idEmpresa", miempresa.getIdEmpresa());
 		return (List<Gasto>) q.list();
 	}
 

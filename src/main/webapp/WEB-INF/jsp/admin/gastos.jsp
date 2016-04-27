@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- cdn for modernizr, if you haven't included it already -->
 <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
@@ -50,8 +51,8 @@
     				<tr>
     					<td>${gastos.concepto}</td>
     					<td>${gastos.importe} €</td>
-    					<td>${gastos.fechaEmision}</td>
-    					<td>${gastos.fechaPago}</td>
+    					<td><fmt:formatDate value="${gastos.fechaEmision}" pattern="dd-MM-yyyy" /></td>
+    					<td><fmt:formatDate value="${gastos.fechaPago}" pattern="dd-MM-yyyy" /></td>
     					<td>${gastos.estado}</td>
     					
 						<c:url var="gastoUrl" value="eliminarGasto">

@@ -2,6 +2,7 @@ package es.udc.fi.tfg.seguimiento.daos;
 
 import java.util.List;
 
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 
 public interface GastoDAO {
@@ -11,5 +12,6 @@ public interface GastoDAO {
 	public void remove (Gasto migasto);
 	public Gasto findById (Long miid);
 	public List<Gasto> findByEstado (String miestado);
+	public List<Gasto> findByEmpresa (Empresa miempresa);
 	public List<Gasto> findByConcepto (String miconcepto);
 }

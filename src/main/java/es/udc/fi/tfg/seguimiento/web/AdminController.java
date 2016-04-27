@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.context.ServletContextAware;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
-import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
@@ -41,12 +39,13 @@ import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
 import es.udc.fi.tfg.seguimiento.utils.Form;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
-import es.udc.fi.tfg.seguimiento.utils.FormTicketLinea;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketProducto;
 
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
+	
+	private static String UPLOAD_LOCATION = "C:/Users/iesperon/Desktop/";
 	
 	@Autowired
 	private EmpresaService empresaService;
@@ -71,7 +70,7 @@ public class AdminController {
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
-		List<Centro> centros=new ArrayList<Centro>(miempresa.getCentro());
+		List<Centro> centros=empresaService.buscarCentroPorEmpresa(miempresa);
 		
 		model.addObject("centroslist",centros);
 		model.addObject("myCentro", new Centro());
@@ -124,7 +123,7 @@ public class AdminController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		
-		List<Centro> centros =new ArrayList<Centro> (miempresa.getCentro());
+		List<Centro> centros =empresaService.buscarCentroPorEmpresa(miempresa);
 		List <Usuario> usuarios = usuarioService.buscarUsuarioPorEmpresa(miempresa);
 		
 		model.addObject("usuarioslist", usuarios);
@@ -135,13 +134,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/empleados",params={"nombre"}, method = RequestMethod.GET)
-	public @ResponseBody List<Usuario> buscarEmpleadoPorNombre(@RequestParam(value = "nombre") String nombre) {
+	public @ResponseBody List<String> buscarEmpleadoPorNombre(@RequestParam(value = "nombre") String nombre) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		List<Usuario> u = usuarioService.buscarUsuarioPorNombre(nombre, miempresa);		
-		return u;
+		Usuario u1 = u.get(0);
+		u1.setCentro(null);
+		List<String> u2 = new ArrayList<>();
+		u2.add(u1.getNombre()+" "+u1.getApellido1());
+		return u2;
 	}
 	
 	
@@ -214,7 +217,7 @@ public class AdminController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
 		
-		List<Producto> misproductos = new ArrayList<Producto>(miempresa.getProducto());
+		List<Producto> misproductos = productoService.buscarProductoPorEmpresa(miempresa);
 		List<Iva> ivas = productoService.obtenerTodosIva();
 		
 		model.addObject("ivas", ivas);
@@ -225,7 +228,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/addProducto", method = RequestMethod.POST)
-	public String addProducto(Form myForm, BindingResult result, ModelAndView model, @RequestParam(value = "producto.foto", required = false) MultipartFile image) throws RuntimeException, IOException {
+	public String addProducto(Form myForm, BindingResult result, ModelAndView model) throws IOException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		String login = auth.getName();
@@ -236,13 +239,17 @@ public class AdminController {
 		Long idIva = myForm.getIdIva();
 		Iva miIva = productoService.buscarIvaPorId(idIva);
 		
-		saveImage(producto.getCodProd()+".jpg", image);
 		producto.setIva(miIva);
 		producto.setEmpresa(miempresa);
 		
+		//MultipartFile multipartFile = myForm.getFile();
+		
+		//FileCopyUtils.copy(myForm.getFile().getBytes(), new File(UPLOAD_LOCATION + myForm.getFile().getOriginalFilename()));
+		//String fileName = multipartFile.getOriginalFilename();
 
 		productoService.registroProducto(producto);
-		for (Centro centro : miempresa.getCentro()) {
+		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+		for (Centro centro : centros) {
 			Stock stock = new Stock();
 			stock.setCentro(centro);
 			stock.setProducto(producto);
@@ -318,7 +325,7 @@ public class AdminController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Gasto> gastos =new ArrayList<Gasto> (miempresa.getGasto());
+		List<Gasto> gastos = contabilidadService.buscarGastosPorEmpresa(miempresa);
 		
 		model.addObject("gastoslist", gastos);
 		model.addObject("newGasto", new Gasto());
@@ -354,7 +361,7 @@ public class AdminController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Centro> centros = new ArrayList<Centro>(miempresa.getCentro());
+		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
 
 		mav.addObject("centros", centros);
 		mav.setViewName("cajaCentro");
@@ -370,8 +377,14 @@ public class AdminController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Proveedor> proveedores = new ArrayList<Proveedor> (miempresa.getProveedor());
-		List<PedidoProveedor> pedidos = new ArrayList<PedidoProveedor>(miempresa.getPedido());
+		List<Proveedor> proveedores = contabilidadService.buscarProveedorPorEmpresa(miempresa);
+		List<PedidoProveedor> pedidos = new ArrayList<>();
+		for (Proveedor proveedor:proveedores){
+			for (PedidoProveedor pedido : proveedor.getPedido()){
+				pedidos.add(pedido);
+			}
+		}
+		//List<PedidoProveedor> pedidos = new ArrayList<PedidoProveedor>(miempresa.getPedido());
 		
 		mav.addObject("pedidoslist", pedidos);
 		mav.addObject("proveedorlist", proveedores);
@@ -475,17 +488,17 @@ public class AdminController {
 	
 	@RequestMapping(value="/caja",method = RequestMethod.GET)
 	public ModelAndView caja(@ModelAttribute("ticket") Ticket ticket ,BindingResult result, ModelAndView model ){
-		System.out.println("****************************"+ticket.getIdTicket());
-		//Ticket ticket = cajaService.buscarTicketPorId(myForm.getIdTicket());
-		List<LineaTicket> lineas = new ArrayList<LineaTicket> (ticket.getLineaTicket());
+		Ticket miticket = cajaService.buscarTicketPorId(ticket.getIdTicket());
+		List<LineaTicket> lineas = cajaService.buscarLineaPorTicket(miticket);
 		FormTicketProducto myForm = new FormTicketProducto();
 		//myForm.setIdTicket(idTicket);
-		myForm.setTicket(ticket);
+		myForm.setTicket(miticket);
 		//LineaTicket linea = new LineaTicket();
 		//linea.setTicket(ticket);
 		//model.addObject("linea", linea);
 		model.addObject("myForm", myForm);
 		model.addObject("lineas", lineas);
+		model.addObject("linea", new LineaTicket());
 		model.setViewName("caja");
 		return model;
 	}
@@ -497,48 +510,36 @@ public class AdminController {
 		miticket.setCentro(empresaService.buscarCentroPorId(idCentro));
 		cajaService.registroTicket(miticket);
 		
-		//FormTicketProducto myForm = new FormTicketProducto();
-		//myForm.setIdTicket(miticket.getIdTicket());
-		System.out.println("-----------------------------"+miticket.getIdTicket());
-		//redirectAttributes.addFlashAttribute("myForm", myForm);
 		redirectAttributes.addFlashAttribute("ticket", miticket);
-		//model.addObject("myForm", myForm);
 		model.setViewName("redirect:/admin/caja");
-		//model.setViewName("caja");
 		return model; 
 	}
 	
-	@RequestMapping(value = "/addLinea", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/addLinea", method =RequestMethod.POST )
 	public ModelAndView addLinea(@ModelAttribute("myForm") FormTicketProducto myForm, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+myForm.getTicket().getIdTicket());
 		Producto miproducto = productoService.buscarProductoPorCodigo(myForm.getCodProd());
-		//Long idTicket = myForm.getTicket().getIdTicket();
 		Ticket ticket = cajaService.buscarTicketPorId(myForm.getTicket().getIdTicket());
 		LineaTicket linea = new LineaTicket();
-		System.out.println("PRUEBAAAAAAAAAAA"+ticket.getCentro().getIdCentro());
-		//ticket.getLineaTicket().add(linea);
+
 		linea.setTicket(ticket);
 		linea.setProducto(miproducto);
 		linea.setCantidad(1);
 		linea.setIva(miproducto.getIva().getPorcentaje());
 		linea.setPrecio(miproducto.getPrecio());
+		
 		cajaService.registroLineaTicket(linea);
-		
-		//FormTicketProducto myNewForm = new FormTicketProducto();
-		//myForm.setIdTicket(ticket.getIdTicket());
-		
-		//redirectAttributes.addFlashAttribute("myForm", myNewForm);
+
 		redirectAttributes.addFlashAttribute("ticket", ticket);
 		model.setViewName("redirect:/admin/caja");
 		return model;
 	}
 	
 	@RequestMapping(value = "/editLinea", method = RequestMethod.POST)
-	public ModelAndView editLinea(LineaTicket linea, BindingResult result, ModelAndView model) {
+	public ModelAndView editLinea(LineaTicket linea, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
 		cajaService.actualizarLineaTicket(linea);
-		Ticket ticket = linea.getTicket();
-		model.addObject("ticket", ticket);
-		model.setViewName("caja");
+		Ticket ticket = cajaService.buscarTicketPorId(linea.getTicket().getIdTicket());
+		redirectAttributes.addFlashAttribute("ticket", ticket);
+		model.setViewName("redirect:/admin/caja");
 		return model;
 	}
 	
@@ -551,7 +552,7 @@ public class AdminController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Centro> centros = new ArrayList<Centro>(miempresa.getCentro());
+		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
 		List<Ticket> tickets = new ArrayList<Ticket>();
 		for(Centro centro:centros){
 			for(Ticket ticket:centro.getTicket()){
@@ -576,24 +577,7 @@ public class AdminController {
 		return model;
 	}
 
-	private void validateImage(MultipartFile image) {
-		if (!image.getContentType().equals("image/jpeg")) {
-		throw new RuntimeException("Only JPG images are accepted");
-		}
-		}
-	
-	private void saveImage(String filename, MultipartFile image)
-	throws RuntimeException, IOException {
-	try {
-		File file = new File("C:/Users/iesperon/Desktop/" + filename);
-			 
-			FileUtils.writeByteArrayToFile(file, image.getBytes());
-			System.out.println("Go to the location:  " + file.toString()
-			+ " on your computer and verify that the image has been stored.");
-	} catch (IOException e) {
-		throw e;
-	}
-	}
+
 	
 	
 }

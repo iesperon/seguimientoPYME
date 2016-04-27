@@ -1,5 +1,8 @@
 package es.udc.fi.tfg.seguimiento.utils;
 
+
+import org.springframework.web.multipart.MultipartFile;
+
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Producto;
@@ -16,6 +19,7 @@ public class Form {
 	private Long idCentro;
 	private Long idIva;
 	private Integer stockMin;
+	private MultipartFile file;
 	
 
 	public Form(){ 
@@ -102,5 +106,15 @@ public class Form {
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	
+	
 	
 }

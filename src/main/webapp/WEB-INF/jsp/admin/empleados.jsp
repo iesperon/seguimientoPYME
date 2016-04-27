@@ -102,20 +102,27 @@
         }
 			});
 			 $('input.typeahead').typeahead({
-          source: function (query, process) {
-            $.ajax({
-              url: 'empleados/',
-              type: 'GET',
-              dataType: 'JSON',
-              data: 'nombre=' + query.query,
-              success: function(data) {
-                console.log(data);
-                return process(data);
-              }
-            });
-          }
-        });
+		          source: function (typeahead, query) {
+		            $.ajax({
+		              url: 'empleados/',
+		              type: 'GET',
+		              dataType: 'JSON',
+		              data: 'nombre=' + query,
+		              success: function(data) {
+		                console.log(data);
+		                
+		                return  typeahead(data);
+		              }
+		            });
+		          },
+		          itemSelected: displayResult
+        	});
 		} );
+
+		function displayResult(item, val, text) {
+		    console.log(item);
+		    $('.alert').show().html('You selected <strong>' + val + '</strong>: <strong>' + text + '</strong>');
+		}
 	</script> 
 	
 	<table class="table table-hover" id="empleados">

@@ -47,6 +47,7 @@ public interface CajaService {
 	public List<LineaTicket> obtenerLineaTickets();
 	//Buscar linea de ticket por id
 	public LineaTicket buscarLineaTicketPorId(Long miid);
+	public List<LineaTicket> buscarLineaPorTicket (Ticket miticket);
 	
 	//**************** ENVIOS *************************
 	public void registroEnvio (Envio mienvio);

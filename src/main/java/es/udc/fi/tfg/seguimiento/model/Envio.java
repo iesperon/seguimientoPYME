@@ -167,7 +167,7 @@ public class Envio {
 
 	@ManyToOne
 	@JoinColumn(name="idCentro")
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Centro getCentro() {
 		return centro;
 	}

@@ -161,6 +161,8 @@ public class Ticket {
 	public void setLineaTicket(Set<LineaTicket> lineaTicket) {
 		this.lineaTicket = lineaTicket;
 	}
+
+
 	
 	
 	

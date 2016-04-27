@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.services;
 import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
@@ -35,6 +36,7 @@ public interface ProductoService {
 	public Producto buscarProductoPorId(Long miid);
 	//Buscar producto por codigo
 	public Producto buscarProductoPorCodigo(String micodigo);
+	public List<Producto> buscarProductoPorEmpresa(Empresa miempresa);
 	
 	//*****************STOCK****************
 	public Stock buscarStockProductoCentro(Producto miproducto, Centro micentro);

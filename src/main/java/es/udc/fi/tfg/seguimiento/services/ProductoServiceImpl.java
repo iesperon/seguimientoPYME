@@ -10,6 +10,7 @@ import es.udc.fi.tfg.seguimiento.daos.IvaDAO;
 import es.udc.fi.tfg.seguimiento.daos.ProductoDAO;
 import es.udc.fi.tfg.seguimiento.daos.StockDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
@@ -71,7 +72,7 @@ public class ProductoServiceImpl implements ProductoService{
 		public void registroProducto(Producto miproducto) {
 			productoDAO.create(miproducto);
 		}
-
+		
 		public void eliminarProducto(Producto miproducto) {
 			for(Stock mistock : miproducto.getStock()){	
 				stockDAO.delete(mistock);
@@ -101,6 +102,9 @@ public class ProductoServiceImpl implements ProductoService{
 			return productoDAO.findByCod(micodigo);
 		}
 		
+		public List<Producto> buscarProductoPorEmpresa(Empresa miempresa) {
+			return productoDAO.findByEmpresa(miempresa);
+		}
 		//********STOCK*************
 
 		public Stock buscarStockProductoCentro(Producto miproducto, Centro micentro) {
@@ -134,6 +138,8 @@ public class ProductoServiceImpl implements ProductoService{
 				
 			}
 		}
+
+
 
 
 	

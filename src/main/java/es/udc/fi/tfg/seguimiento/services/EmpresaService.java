@@ -40,5 +40,6 @@ public interface EmpresaService {
 		public List<Centro> obtenerCentros(Empresa miempresa);
 		//Buscar centro por id
 		public Centro buscarCentroPorId(Long miid);
+		public List<Centro> buscarCentroPorEmpresa (Empresa miempresa);
 		
 }

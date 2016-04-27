@@ -99,7 +99,6 @@ public class CajaServiceImpl implements CajaService {
 	public void actualizarTicket(Ticket miticket) {
 		Ticket ticketMod = ticketDAO.findById(miticket.getIdTicket());
 		ticketMod.setCambio(miticket.getCambio());
-		ticketMod.setCentro(miticket.getCentro());
 		ticketMod.setCierreCaja(miticket.getCierreCaja());
 		ticketMod.setEntregado(miticket.getEntregado());
 		ticketMod.setFecha(miticket.getFecha());
@@ -134,8 +133,8 @@ public class CajaServiceImpl implements CajaService {
 		lineaMod.setCantidad(milineaticket.getCantidad());
 		lineaMod.setIva(milineaticket.getIva());
 		lineaMod.setPrecio(milineaticket.getPrecio());
-		lineaMod.setProducto(milineaticket.getProducto());
-		lineaMod.setTicket(milineaticket.getTicket());
+		//lineaMod.setProducto(milineaticket.getProducto());
+		//lineaMod.setTicket(milineaticket.getTicket());
 		
 		lineaTicketDAO.update(lineaMod);
 	}
@@ -146,6 +145,11 @@ public class CajaServiceImpl implements CajaService {
 
 	public LineaTicket buscarLineaTicketPorId(Long miid) {
 		return lineaTicketDAO.findById(miid);
+	}
+	
+	@Override
+	public List<LineaTicket> buscarLineaPorTicket(Ticket miticket) {
+		return lineaTicketDAO.findByTicket(miticket);
 	}
 
 	//************************* ENVIOS *************************
@@ -186,6 +190,8 @@ public class CajaServiceImpl implements CajaService {
 	public Envio buscarEnvioPorTicket(Ticket miticket) {
 		return envioDAO.findByTicket(miticket);
 	}
+
+
 		
 
 }

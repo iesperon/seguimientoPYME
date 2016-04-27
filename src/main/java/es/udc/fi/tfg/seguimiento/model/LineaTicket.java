@@ -79,7 +79,7 @@ public class LineaTicket {
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idProducto")
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Producto getProducto() {
 		return producto;
 	}
@@ -88,9 +88,9 @@ public class LineaTicket {
 		this.producto = producto;
 	}
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idTicket")
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Ticket getTicket() {
 		return ticket;
 	}
@@ -98,7 +98,8 @@ public class LineaTicket {
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
-	
+
+
 	
 	
 	

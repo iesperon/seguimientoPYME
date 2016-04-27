@@ -39,11 +39,12 @@ public class StockDAOImpl implements StockDAO {
 	public List<Stock> findAll() {
 		return (List<Stock>) sessionFactory.getCurrentSession().createQuery("from Stock").list();
 	}
-
-	public Stock findByProducto(Producto miproducto) {
+	
+	@SuppressWarnings("unchecked")
+	public List<Stock> findByProducto(Producto miproducto) {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Stock where idProducto=:idProducto");
 		q.setParameter("idProducto", miproducto.getIdProducto());
-		return (Stock) q.list().get(0);
+		return (List<Stock>) q.list();
 	}
 
 	public Stock findByProductoCentro(Producto miproducto, Centro micentro) {

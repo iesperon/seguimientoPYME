@@ -163,7 +163,7 @@
 							<td>${pedido.proveedor.cif}</td>
 							<td><fmt:formatDate value="${pedido.fechaCompra}" pattern="dd-MM-yyyy" /></td>
 							<td><fmt:formatDate value="${pedido.fechaVencimiento}" pattern="dd-MM-yyyy" /></td>
-							<td>${pedido.importe}</td>
+							<td>${pedido.importe} €</td>
 							<td>${pedido.estado}</td>
 							<c:url var="pedidoUrl" value="editarPedido">
 								<c:param name="idPedido" value="${pedido.idPedidoProveedor}" />

@@ -3,12 +3,14 @@ package es.udc.fi.tfg.seguimiento.daos;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
+import es.udc.fi.tfg.seguimiento.model.Ticket;
 
 @Repository
 @EnableTransactionManagement
@@ -22,7 +24,9 @@ public class LineaTicketDAOImpl implements LineaTicketDAO {
 	}
 
 	public Long create(LineaTicket milineaticket) {
-		return (Long) sessionFactory.getCurrentSession().save(milineaticket);
+		Long id = (Long) sessionFactory.getCurrentSession().save(milineaticket);
+		return id;
+
 	}
 
 	public void remove(LineaTicket milineaticket) {
@@ -43,5 +47,12 @@ public class LineaTicketDAOImpl implements LineaTicketDAO {
 		Query q = sessionFactory.getCurrentSession().createQuery("from LineaTicket where idLineaTicket=:idLineaTicket");
 		q.setParameter("idLineaTicket", miid);
 		return (LineaTicket) q.list().get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<LineaTicket> findByTicket(Ticket miticket) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from LineaTicket where idTicket=:idTicket");
+		q.setParameter("idTicket", miticket.getIdTicket());
+		return (List<LineaTicket>) q.list();
 	}
 }

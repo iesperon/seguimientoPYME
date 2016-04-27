@@ -151,9 +151,9 @@ public class Centro {
 		this.telefono = telefono;
 	}
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idEmpresa", nullable = false)
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Empresa getEmpresa() {
 		return empresa;
 	}
@@ -192,7 +192,7 @@ public class Centro {
 		this.ticket = ticket;
 	}
 	
-	@OneToMany(mappedBy="centro", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="centro", fetch=FetchType.LAZY)
 	@Cascade({CascadeType.ALL})
 	public Set<Envio> getEnvio() {
 		return envio;

@@ -104,9 +104,9 @@ public class PedidoProveedor {
 		this.estado = estado;
 	}
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idEmpresa", nullable = false)
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Empresa getEmpresa() {
 		return empresa;
 	}
@@ -116,9 +116,9 @@ public class PedidoProveedor {
 		this.empresa = empresa;
 	}
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idProveedor", nullable = false)
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Proveedor getProveedor() {
 		return proveedor;
 	}

@@ -12,7 +12,7 @@ public interface StockDAO {
 	public void update (Stock mistock);
 	public void delete (Stock mistock);
 	public List<Stock> findAll();
-	public Stock findByProducto(Producto miproducto);
+	public List<Stock> findByProducto(Producto miproducto);
 	public Stock findByProductoCentro (Producto miproducto, Centro micentro);
 	public Stock findById(Long miid);
 	public List<Stock> findStockMin();

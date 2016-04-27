@@ -33,7 +33,7 @@ public class Empresa {
 	private Set<Producto> producto = new HashSet<Producto>();
 	private Set<Gasto> gasto =  new HashSet<Gasto>();
 	private Set<Proveedor> proveedor = new HashSet<Proveedor>();
-	private Set<PedidoProveedor> pedido = new HashSet<PedidoProveedor>();
+	//private Set<PedidoProveedor> pedido = new HashSet<PedidoProveedor>();
 	private Usuario administrador;
 	
 
@@ -126,7 +126,7 @@ public class Empresa {
 		this.logo = logo;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
 	@Cascade({CascadeType.ALL})
 	public Set<Centro> getCentro() {
 		return centro;
@@ -136,7 +136,7 @@ public class Empresa {
 		this.centro = centro;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
 	@Cascade({CascadeType.ALL})
 	public Set<Gasto> getGasto() {
 		return gasto;
@@ -146,7 +146,7 @@ public class Empresa {
 		this.gasto = gasto;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
 	@Cascade({CascadeType.ALL})
 	public Set<Proveedor> getProveedor() {
 		return proveedor;
@@ -156,7 +156,7 @@ public class Empresa {
 		this.proveedor = proveedor;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+/*	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<PedidoProveedor> getPedido() {
 		return pedido;
@@ -164,7 +164,7 @@ public class Empresa {
 
 	public void setPedido(Set<PedidoProveedor> pedido) {
 		this.pedido = pedido;
-	}
+	}*/
 
 	@OneToOne
 	@JoinColumn(name="idAdmin")
@@ -176,7 +176,7 @@ public class Empresa {
 		this.administrador = administrador;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
 	@Cascade({CascadeType.ALL})
 	public Set<Producto> getProducto() {
 		return producto;

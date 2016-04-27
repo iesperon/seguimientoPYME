@@ -63,6 +63,11 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		return gastoDAO.findByConcepto(miconcepto);
 	}
 
+	
+	public List<Gasto> buscarGastosPorEmpresa(Empresa miempresa) {
+		return gastoDAO.findByEmpresa(miempresa);
+	}
+	
 	//*******************PROVEEDORES*********************
 
 	public void registroProveedor(Proveedor miproveedor) {
@@ -97,6 +102,8 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 
 	public void eliminarPedido(PedidoProveedor mipedido) {
 		pedidoDAO.remove(mipedido);
+		mipedido.getProveedor().getPedido().remove(mipedido);
+
 	}
 
 	public void actualizarPedido(PedidoProveedor mipedido) {
@@ -112,6 +119,7 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	public PedidoProveedor buscarPedidoPorId(Long miid) {
 		return pedidoDAO.findById(miid);
 	}
-	
+
+
 	
 }

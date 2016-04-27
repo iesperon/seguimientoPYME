@@ -38,11 +38,12 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\GastoDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\LineaTicket.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Usuario.java
-C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FileUpload.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormProveedorPedido.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Rol.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\EmailAPI.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\AdminController.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\UserService.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\MultiFileBucket.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\ProveedorDAO.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\ContabilidadServiceImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormTicketProducto.java

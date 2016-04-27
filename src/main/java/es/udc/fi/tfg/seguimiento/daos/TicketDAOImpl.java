@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.daos;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,8 +23,9 @@ public class TicketDAOImpl implements TicketDAO {
 	}
 
 	public Long create(Ticket miticket) {
-		return (Long) sessionFactory.getCurrentSession().save(miticket);
-		
+		//Session session = sessionFactory.getCurrentSession();
+		Long id = (Long) sessionFactory.getCurrentSession().save(miticket);
+		return id;
 	}
 
 	public void remove(Ticket miticket) {

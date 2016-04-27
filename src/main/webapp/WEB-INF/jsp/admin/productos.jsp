@@ -50,7 +50,7 @@
     		<button id="boton" onclick="mostrar()" class="btn btn-primary btn-lg btn-block" >Registrar Productos</button>
     		
     		<div id="oculto" style="display: none;">
-    		<form:form action="addProducto" method="POST" modelAttribute="myForm" class="form-horizontal" role="form" onkeypress="return anular(event)" enctype="multipart/form-data">
+    		<form:form action="addProducto" method="POST" modelAttribute="myForm" class="form-horizontal" role="form" onkeypress="return anular(event)">
 				<div class="col-sm-12">
 				<div>
 					<h2>Registro de Productos</h2>
@@ -78,7 +78,7 @@
 
 						<div class="col-xs-3">
 							<label for="cp">Imagen</label>
-							<form:input class="form-control"  path="producto.foto" type="file"/>
+							<form:input class="form-control" path="producto.foto" type="file"/>
 						</div>
 						
 						<div class="col-xs-3">
@@ -115,9 +115,3 @@
           </div>
       
       </div>
-
-    
-   
-
-
-

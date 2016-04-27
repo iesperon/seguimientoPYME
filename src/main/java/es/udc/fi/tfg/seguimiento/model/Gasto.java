@@ -1,6 +1,6 @@
 package es.udc.fi.tfg.seguimiento.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +15,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name="GASTO")
@@ -23,8 +26,12 @@ public class Gasto {
 	private Long idGasto;
 	private String concepto;
 	private Float importe;
-	private Timestamp fechaEmision;
-	private Timestamp fechaPago;
+	@DateTimeFormat(iso = ISO.DATE)
+	@Type(type="org.joda.time.contrib.hibernate.PersistentYearMonthDay")
+	private Date fechaEmision;
+	@DateTimeFormat(iso = ISO.DATE)
+	@Type(type="org.joda.time.contrib.hibernate.PersistentYearMonthDay")
+	private Date fechaPago;
 	private String estado;
 	private Empresa empresa;
 	
@@ -32,7 +39,7 @@ public class Gasto {
 		
 	}
 	
-	public Gasto(String concepto, Float importe, Timestamp fechaEmision, Timestamp fechaPago, String estado, Empresa empresa){
+	public Gasto(String concepto, Float importe, Date fechaEmision, Date fechaPago, String estado, Empresa empresa){
 		this.concepto=concepto;
 		this.empresa=empresa;
 		this.estado=estado;
@@ -72,20 +79,20 @@ public class Gasto {
 	}
 
 	@Column(name="fechaEmision")
-	public Timestamp getFechaEmision() {
+	public Date getFechaEmision() {
 		return fechaEmision;
 	}
 
-	public void setFechaEmision(Timestamp fechaEmision) {
+	public void setFechaEmision(Date fechaEmision) {
 		this.fechaEmision = fechaEmision;
 	}
 
 	@Column(name="fechaPago")
-	public Timestamp getFechaPago() {
+	public Date getFechaPago() {
 		return fechaPago;
 	}
 
-	public void setFechaPago(Timestamp fechaPago) {
+	public void setFechaPago(Date fechaPago) {
 		this.fechaPago = fechaPago;
 	}
 
@@ -100,7 +107,7 @@ public class Gasto {
 
 	@ManyToOne
 	@JoinColumn(name="idEmpresa")
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Empresa getEmpresa() {
 		return empresa;
 	}

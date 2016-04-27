@@ -23,6 +23,7 @@ public interface ContabilidadService {
 	public List<Gasto> buscarGastoPorEstado(String miestado);
 	//Buscar gasto por concepto
 	public List<Gasto> buscarGastoPorConcepto (String miconcepto);
+	public List<Gasto> buscarGastosPorEmpresa (Empresa miempresa);
 	
 	
 	//******************* PROVEEDORES ***********************

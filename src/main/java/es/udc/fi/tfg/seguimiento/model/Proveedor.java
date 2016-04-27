@@ -71,7 +71,7 @@ public class Proveedor {
 	
 	@ManyToOne
 	@JoinColumn(name="idEmpresa")
-	@Cascade({CascadeType.SAVE_UPDATE})
+	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Empresa getEmpresa() {
 		return empresa;
 	}
