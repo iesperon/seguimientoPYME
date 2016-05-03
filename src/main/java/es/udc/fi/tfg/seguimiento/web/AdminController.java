@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.web;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,11 @@ import es.udc.fi.tfg.seguimiento.services.ContabilidadService;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
+import es.udc.fi.tfg.seguimiento.utils.CalcularTicket;
 import es.udc.fi.tfg.seguimiento.utils.Form;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketProducto;
+import es.udc.fi.tfg.seguimiento.utils.SaveImage;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -226,9 +229,9 @@ public class AdminController {
 		model.setViewName("productos");
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/addProducto", method = RequestMethod.POST)
-	public String addProducto(Form myForm, BindingResult result, ModelAndView model) throws IOException {
+	public String addProducto(Form myForm, BindingResult result, ModelAndView model, @RequestParam(value="image", required=false)MultipartFile image) throws IOException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		String login = auth.getName();
@@ -241,6 +244,12 @@ public class AdminController {
 		
 		producto.setIva(miIva);
 		producto.setEmpresa(miempresa);
+		
+		if(!image.isEmpty()){
+			SaveImage save = new SaveImage();
+			save.validateImage(image);
+			save.saveImage(producto.getCodProd() + ".jpg", image);
+		}
 		
 		//MultipartFile multipartFile = myForm.getFile();
 		
@@ -496,7 +505,12 @@ public class AdminController {
 		//LineaTicket linea = new LineaTicket();
 		//linea.setTicket(ticket);
 		//model.addObject("linea", linea);
+		CalcularTicket calculos = new CalcularTicket();
+		model.addObject("iva", calculos.calcularIVA(lineas));
+		model.addObject("subtotal", calculos.calcularSubtotal(lineas));
+		model.addObject("total", calculos.calcularTotal(lineas));
 		model.addObject("myForm", myForm);
+		model.addObject("ticket", miticket);
 		model.addObject("lineas", lineas);
 		model.addObject("linea", new LineaTicket());
 		model.setViewName("caja");
@@ -577,6 +591,17 @@ public class AdminController {
 		return model;
 	}
 
+	@RequestMapping(value = "/cerrarTicket", method = RequestMethod.POST)
+	public ModelAndView cerrarTicket(Ticket ticket, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+		Date date = new Date();
+		ticket.setFecha(date);
+		Double cambio = ticket.getEntregado() - ticket.getTotal();
+		ticket.setCambio(cambio);
+		cajaService.actualizarTicket(ticket);
+		redirectAttributes.addFlashAttribute("ticket", ticket);
+		model.setViewName("redirect:/admin/caja");
+		return model;
+	}
 
 	
 	

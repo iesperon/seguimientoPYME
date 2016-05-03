@@ -30,10 +30,11 @@ public class Ticket {
 	@DateTimeFormat(iso = ISO.DATE)
 	@Type(type="org.joda.time.contrib.hibernate.PersistentYearMonthDay")
     private Date fecha;
-	private Float subtotal;
-	private Float total;
-	private Float entregado;
-	private Float cambio;
+	private Double subtotal;
+	private Double iva;
+	private Double total;
+	private Double entregado;
+	private Double cambio;
 	private String formaPago;
 	private Centro centro;
 	private CierreCaja cierreCaja;
@@ -46,7 +47,7 @@ public class Ticket {
 	
 
 
-	public Ticket(Long idTicket, Date fecha, Float subtotal, Float total, Float entregado, Float cambio,
+	public Ticket(Long idTicket, Date fecha, Double subtotal, Double total, Double entregado, Double cambio,
 			String formaPago, Centro centro, CierreCaja cierreCaja) {
 		super();
 		this.idTicket = idTicket;
@@ -84,29 +85,29 @@ public class Ticket {
 	}
 
 	@Column (name="subtotal")
-	public Float getSubtotal() {
+	public Double getSubtotal() {
 		return subtotal;
 	}
 
-	public void setSubtotal(Float subtotal) {
+	public void setSubtotal(Double subtotal) {
 		this.subtotal = subtotal;
 	}
 
 	@Column (name="total")
-	public Float getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Float total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 
 	@Column (name="cambio")
-	public Float getCambio() {
+	public Double getCambio() {
 		return cambio;
 	}
 
-	public void setCambio(Float cambio) {
+	public void setCambio(Double cambio) {
 		this.cambio = cambio;
 	}
 
@@ -120,12 +121,12 @@ public class Ticket {
 	}
 
 	@Column (name="entregado")
-	public Float getEntregado() {
+	public Double getEntregado() {
 		return entregado;
 	}
 
 
-	public void setEntregado(Float entregado) {
+	public void setEntregado(Double entregado) {
 		this.entregado = entregado;
 	}
 
@@ -160,6 +161,15 @@ public class Ticket {
 
 	public void setLineaTicket(Set<LineaTicket> lineaTicket) {
 		this.lineaTicket = lineaTicket;
+	}
+	
+	@Column (name="iva")
+	public Double getIva() {
+		return iva;
+	}
+
+	public void setIva(Double iva) {
+		this.iva = iva;
 	}
 
 

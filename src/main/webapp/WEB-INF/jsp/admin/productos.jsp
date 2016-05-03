@@ -50,7 +50,7 @@
     		<button id="boton" onclick="mostrar()" class="btn btn-primary btn-lg btn-block" >Registrar Productos</button>
     		
     		<div id="oculto" style="display: none;">
-    		<form:form action="addProducto" method="POST" modelAttribute="myForm" class="form-horizontal" role="form" onkeypress="return anular(event)">
+    		<form:form action="addProducto" method="POST" modelAttribute="myForm" class="form-horizontal" role="form" onkeypress="return anular(event)" enctype="multipart/form-data">
 				<div class="col-sm-12">
 				<div>
 					<h2>Registro de Productos</h2>

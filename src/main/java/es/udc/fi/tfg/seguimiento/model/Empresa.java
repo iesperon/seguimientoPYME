@@ -126,7 +126,7 @@ public class Empresa {
 		this.logo = logo;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<Centro> getCentro() {
 		return centro;
@@ -176,7 +176,7 @@ public class Empresa {
 		this.administrador = administrador;
 	}
 	
-	@OneToMany(mappedBy="empresa", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="empresa", fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL})
 	public Set<Producto> getProducto() {
 		return producto;

@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 
@@ -40,9 +41,9 @@
     				<tr>
     				   	<td>${tickets.idTicket}</td>
     				    <td>${tickets.centro.nombre}</td>
-    					<td>${tickets.fecha}</td>
-    					<td>${tickets.subtotal}</td>
-    					<td>${tickets.total}</td>
+    					<td><fmt:formatDate value="${tickets.fecha}" type="both" dateStyle="short" timeStyle="short" /></td>
+    					<td><fmt:formatNumber value="${tickets.subtotal}" maxFractionDigits="2"/> €</td>
+    					<td><fmt:formatNumber value="${tickets.total}" maxFractionDigits="2"/> €</td>
     					<td>${tickets.formaPago}</td>
 						<c:url var="ticketUrl" value="verTicket">
 							<c:param name="idTicket" value="${tickets.idTicket}"/>

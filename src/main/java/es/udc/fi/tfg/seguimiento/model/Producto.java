@@ -25,11 +25,11 @@ public class Producto {
 	private Long idProducto;
 	private String codProd;
 	private String nombre;
-	private Float precio;
+	private Double precio;
 	private String marca;
 	private String descripcion;
 	private byte[] foto;
-	private Float descuento;
+	private Double descuento;
 	private Iva iva;
 	private Empresa empresa;
 	private Set<Stock> stock = new HashSet<Stock>();
@@ -40,7 +40,7 @@ public class Producto {
 		
 	}
 	
-	public Producto(String codProd, String nombre, Float precio, String marca, String descripcion, byte[] foto, Float descuento, Iva iva, Empresa empresa){
+	public Producto(String codProd, String nombre, Double precio, String marca, String descripcion, byte[] foto, Double descuento, Iva iva, Empresa empresa){
 		this.codProd=codProd;
 		this.nombre=nombre;
 		this.precio=precio;
@@ -83,11 +83,11 @@ public class Producto {
 	}
 
 	@Column (name="precio")
-	public Float getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Float precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 
@@ -119,11 +119,11 @@ public class Producto {
 	}
 
 	@Column (name="descuento")
-	public Float getDescuento() {
+	public Double getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(Float descuento) {
+	public void setDescuento(Double descuento) {
 		this.descuento = descuento;
 	}
 
