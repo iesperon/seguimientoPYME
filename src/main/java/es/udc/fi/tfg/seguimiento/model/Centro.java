@@ -39,6 +39,7 @@ public class Centro {
 	private Set<Stock> stock = new HashSet<Stock>();
 	private Set<Ticket> ticket = new HashSet<Ticket>();
 	private Set<Envio> envio = new HashSet<Envio>();
+	private Set<CierreCaja> cierre = new HashSet<CierreCaja>();
 
 
 	public Centro(){
@@ -187,11 +188,21 @@ public class Centro {
 	public Set<Ticket> getTicket() {
 		return ticket;
 	}
-
+	
 	public void setTicket(Set<Ticket> ticket) {
 		this.ticket = ticket;
 	}
 	
+	@OneToMany(mappedBy="centro", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	public Set<CierreCaja> getCierre() {
+		return cierre;
+	}
+
+	public void setCierre(Set<CierreCaja> cierre) {
+		this.cierre = cierre;
+	}
+
 	@OneToMany(mappedBy="centro", fetch=FetchType.LAZY)
 	@Cascade({CascadeType.ALL})
 	public Set<Envio> getEnvio() {

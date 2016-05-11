@@ -24,10 +24,6 @@ public class CierreCajaDAOImpl implements CierreCajaDAO {
 	}
 	
 	public Long create(CierreCaja micierre) {
-		//El total es el efectivo + tarjeta
-		micierre.setTotal(new Float (micierre.getEfectivo()+micierre.getTarjeta()));
-		//La diferencia es lo que hay en caja - el total
-		micierre.setDiferencia(new Float(micierre.getCaja()-(micierre.getEfectivo()+micierre.getTarjeta())));
 		return (Long) sessionFactory.getCurrentSession().save(micierre);
 	}
 
@@ -36,10 +32,6 @@ public class CierreCajaDAOImpl implements CierreCajaDAO {
 	}
 
 	public void update(CierreCaja micierre) {
-		//El total es el efectivo + tarjeta
-		micierre.setTotal(new Float (micierre.getEfectivo()+micierre.getTarjeta()));
-		//La diferencia es lo que hay en caja - el total
-		micierre.setDiferencia(new Float(micierre.getCaja()-(micierre.getEfectivo()+micierre.getTarjeta())));
 		sessionFactory.getCurrentSession().update(micierre);
 	}
 	

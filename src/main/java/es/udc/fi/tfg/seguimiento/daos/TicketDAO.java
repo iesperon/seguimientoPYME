@@ -11,5 +11,6 @@ public interface TicketDAO {
 	public void update(Ticket miticket);
 	public List<Ticket> findAll();
 	public Ticket findById(Long miid);
+	public List<Ticket> findByFormaPago(String formaPago);
 	
 }

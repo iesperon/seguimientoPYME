@@ -47,4 +47,11 @@ public class TicketDAOImpl implements TicketDAO {
 		q.setParameter("idTicket", miid);
 		return (Ticket) q.list().get(0);
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Ticket> findByFormaPago(String formaPago) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Ticket where formaPago=:formaPago");
+		q.setParameter("formaPago", formaPago);
+		return (List<Ticket>) q.list();
+	}
 }

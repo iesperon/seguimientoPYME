@@ -1,7 +1,7 @@
 package es.udc.fi.tfg.seguimiento.model;
 
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,12 +11,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 
 @Entity
@@ -24,15 +29,18 @@ import org.hibernate.annotations.CascadeType;
 public class CierreCaja {
 
 	private Long idCierre;
-	private Timestamp fecha;
-	private Float efectivo;
-	private Float tarjeta;
-	private Float total;
+	@DateTimeFormat(iso = ISO.DATE)
+	@Type(type="org.joda.time.contrib.hibernate.PersistentYearMonthDay")
+	private Date fecha;
+	private Double efectivo;
+	private Double tarjeta;
+	private Double total;
 	private String incidencias;
-	private Float caja;
-	private Float diferencia;
+	private Double caja;
+	private Double diferencia;
 	private Set<Ticket> ticket = new HashSet<Ticket>();
-	
+	private Centro centro;
+
 	
 	
 
@@ -41,8 +49,8 @@ public class CierreCaja {
 	}
 	
 	
-	public CierreCaja(Long idCierre, Timestamp fecha, Float efectivo, Float tarjeta, Float total, String incidencias,
-			Float caja, Float diferencia, Set<Ticket> ticket) {
+	public CierreCaja(Long idCierre, Date fecha, Double efectivo, Double tarjeta, Double total, String incidencias,
+			Double caja, Double diferencia, Set<Ticket> ticket) {
 		super();
 		this.idCierre = idCierre;
 		this.fecha = fecha;
@@ -71,38 +79,38 @@ public class CierreCaja {
 	}
 
 	@Column (name="fecha", nullable = false, unique = true)
-	public Timestamp getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 	
 	@Column (name="efectivo")
-	public Float getEfectivo() {
+	public Double getEfectivo() {
 		return efectivo;
 	}
 
-	public void setEfectivo(Float efectivo) {
+	public void setEfectivo(Double efectivo) {
 		this.efectivo = efectivo;
 	}
 
 	@Column (name="tarjeta")
-	public Float getTarjeta() {
+	public Double getTarjeta() {
 		return tarjeta;
 	}
 
-	public void setTarjeta(Float tarjeta) {
+	public void setTarjeta(Double tarjeta) {
 		this.tarjeta = tarjeta;
 	}
 	
 	@Column (name="total")
-	public Float getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Float total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 	
@@ -116,20 +124,20 @@ public class CierreCaja {
 	}
 	
 	@Column (name="caja")
-	public Float getCaja() {
+	public Double getCaja() {
 		return caja;
 	}
 
-	public void setCaja(Float caja) {
+	public void setCaja(Double caja) {
 		this.caja = caja;
 	}
 	
 	@Column (name="diferencia")
-	public Float getDiferencia() {
+	public Double getDiferencia() {
 		return diferencia;
 	}
 
-	public void setDiferencia(Float diferencia) {
+	public void setDiferencia(Double diferencia) {
 		this.diferencia = diferencia;
 	}
 	
@@ -142,6 +150,18 @@ public class CierreCaja {
 
 	public void setTicket(Set<Ticket> ticket) {
 		this.ticket = ticket;
+	}
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idCentro")
+	@Cascade({CascadeType.SAVE_UPDATE})
+	public Centro getCentro() {
+		return centro;
+	}
+
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
 	}
 
 

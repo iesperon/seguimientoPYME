@@ -121,7 +121,7 @@
                   <li><a href="/seguimientoPYMES/admin/cajaCentro"><i class="glyphicon glyphicon-barcode"></i> Caja</a></li>
                   <li><a href="/seguimientoPYMES/admin/tickets"><i class="glyphicon glyphicon-list-alt"></i> Tickets</a></li>
                   <li><a href="/seguimientoPYMES/admin/proveedores"><i class="glyphicon glyphicon-briefcase"></i> Proveedores</a></li>
-                  <li><a href="/seguimientoPYMES/admin/cierreCaja"><i class="glyphicon glyphicon-floppy-saved"></i> Cierres de caja	</a></li>
+                  <li><a href="/seguimientoPYMES/admin/cierresCaja"><i class="glyphicon glyphicon-floppy-saved"></i> Cierres de caja	</a></li>
                   
                   
               	</ul>

@@ -36,9 +36,11 @@
                         <td>Descripción:</td>
                         <td>${empresa.descripcion}
                         </td>
-                           
                       </tr>
-                     
+                     <tr>
+                     <td>Administrador:</td>
+                        	<td>${usuario.nombre} ${usuario.apellido1} ${usuario.apellido2}</td> 
+                    </tr>
                     </tbody>
                   </table>
                   <a href="#" class="btn btn-primary">Contabilidad</a>
@@ -66,7 +68,7 @@
     
     
 <!-- Modal -->
-	<form:form action="editarEmpresa" method="POST" modelAttribute="empresa" class="form-horizontal" role="form">
+	<form:form action="editarEmpresa" method="POST" modelAttribute="form" class="form-horizontal" role="form">
 			
 	<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   	<div class="modal-dialog modal-lg" >
@@ -80,36 +82,58 @@
 			
 			<div class="col-xs-3">
 				<label for="nombre">Nombre</label>
-				<form:input class="form-control" path="nombre" value="${empresa.nombre}" type="text"/>
+				<form:input class="form-control" path="empresa.nombre" value="${form.empresa.nombre}" type="text"/>
 			</div>
 
 			<div class="col-xs-2">
 				<label for="cif">CIF</label>
-				<form:input class="form-control" path="cif" value="${empresa.cif}" type="text"/>
+				<form:input class="form-control" path="empresa.cif" value="${form.empresa.cif}" type="text"/>
 			</div>
 			
 			<div class="col-xs-3">
 				<label for="sector">Sector</label>
-				<form:input class="form-control" path="sector" value="${empresa.sector}" type="text"/>
+				<form:input class="form-control" path="empresa.sector" value="${form.empresa.sector}" type="text"/>
 			</div>
 			
 			<div class="col-xs-3">
 				<label for="email">Email</label>
-				<form:input class="form-control" path="email" value="${empresa.email}" type="text"/>
+				<form:input class="form-control" path="empresa.email" value="${form.empresa.email}" type="text"/>
 			</div>
 			
 			<div class="col-xs-6">
 				<label for="descripcion">Descripcion</label>
-				<form:textarea class="form-control" rows="3" path="descripcion" value="${empresa.descripcion}" type="text"/>
+				<form:textarea class="form-control" rows="3" path="empresa.descripcion" value="${form.empresa.descripcion}" type="text"/>
 			</div>
 			
 			<div class="col-xs-3">
 				<label for="logo">Logo</label>
-				<form:input class="form-control" path="logo" value="${empresa.logo}" type="text"/>
+				<form:input class="form-control" path="empresa.logo" value="${form.empresa.logo}" type="text"/>
 			</div>
 			
-			<form:input class="form-control" path="idEmpresa" value="${empresa.idEmpresa}" type="hidden"/>
+			<form:input class="form-control" path="empresa.idEmpresa" value="${form.empresa.idEmpresa}" type="hidden"/>
+
+			<div class="col-xs-3">
+				<label for="email">Nombre Administrador</label>
+				<form:input class="form-control" path="usuario.nombre" value="${form.usuario.nombre}" type="text"/>
+			</div>	
+			<div class="col-xs-3">
+				<label for="email">1º Apellido Administrador</label>
+				<form:input class="form-control" path="usuario.apellido1" value="${form.usuario.apellido1}" type="text"/>
+			</div>	
+			<div class="col-xs-3">
+				<label for="email">2º Apellido Administrador</label>
+				<form:input class="form-control" path="usuario.apellido2" value="${form.usuario.apellido2}" type="text"/>
+			</div>
+			<div class="col-xs-3">
+				<label for="email">Email Administrador</label>
+				<form:input class="form-control" path="usuario.email" value="${form.usuario.email}" type="text"/>
+			</div>
 			
+			<div class="col-xs-3">
+				<label for="email">Contraseña Administrador</label>
+				<form:input class="form-control" path="usuario.contrasena" value="${form.usuario.contrasena}" type="text"/>
+			</div>
+			<form:input class="form-control" path="usuario.idUsuario" value="${form.usuario.idUsuario}" type="hidden"/>
 
 			</div>
 					

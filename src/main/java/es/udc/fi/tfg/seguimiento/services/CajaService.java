@@ -3,6 +3,7 @@ package es.udc.fi.tfg.seguimiento.services;
 import java.sql.Timestamp;
 import java.util.List;
 
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
@@ -22,6 +23,7 @@ public interface CajaService {
 	public CierreCaja buscarCierrePorFecha(Timestamp mifecha);
 	//Obtener todos los cierres 
 	public List<CierreCaja> obtenerTodosCierres();
+	public List<CierreCaja> buscarCierrePorCentros(List<Centro> centros);
 	
 	
 	//******************** TICKET *******************
@@ -35,6 +37,8 @@ public interface CajaService {
 	public List<Ticket> obtenerTickets();
 	//Buscar ticket por id
 	public Ticket buscarTicketPorId(Long miid);
+	//public List<Ticket> buscarTicketPorCentros(List<Centro> centros);
+	public List<Ticket> buscarTicketPorFormaPago (String formaPago);
 	
 	//******************* LINEA DE TICKET ***************
 	//Registro de una linea de ticket 

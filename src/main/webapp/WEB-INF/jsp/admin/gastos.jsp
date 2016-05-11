@@ -16,7 +16,7 @@
 
 <script type="text/javascript" charset="utf-8"> 
 		$(document).ready(function() {
-			$('#centros').dataTable({
+			$('#gastos').dataTable({
 				"language": {
 					url:'https://cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json'
 	        	}
@@ -34,7 +34,7 @@
 	</button>
 	</h2>
 	
-	<table class="table table-hover" id="centros">
+	<table class="table table-hover" id="gastos">
 		<thead> 
 			<tr>
         				<th>Concepto</th>

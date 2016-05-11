@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
+import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
@@ -40,6 +41,8 @@ import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
 import es.udc.fi.tfg.seguimiento.utils.CalcularTicket;
 import es.udc.fi.tfg.seguimiento.utils.Form;
+import es.udc.fi.tfg.seguimiento.utils.FormCentroCierre;
+import es.udc.fi.tfg.seguimiento.utils.FormEmpresaAdmin;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketProducto;
 import es.udc.fi.tfg.seguimiento.utils.SaveImage;
@@ -430,8 +433,11 @@ public class AdminController {
 
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
+		FormEmpresaAdmin form = new FormEmpresaAdmin(miusuario, miempresa);
 		
+		mav.addObject("usuario", miusuario);
 		mav.addObject("empresa", miempresa);
+		mav.addObject("form", form);
 		mav.setViewName("miempresa");
 		return mav;
 	}
@@ -453,8 +459,12 @@ public class AdminController {
 	}
 
 	@RequestMapping(value="/editarEmpresa",method = RequestMethod.POST)
-	public String editarEmpresa(Model model, Empresa miempresa){
+	public String editarEmpresa(Model model, FormEmpresaAdmin form){
+		Empresa miempresa = form.getEmpresa();
+		Usuario miusuario = form.getUsuario();
+		usuarioService.actualizarAdmin(miusuario);
 		empresaService.actualizarEmpresa(miempresa);
+		model.addAttribute("usuarioeditado", miusuario);
 		model.addAttribute("empresaeditada", miempresa);
 		return "redirect:/admin/miempresa";
 	}
@@ -604,5 +614,91 @@ public class AdminController {
 	}
 
 	
+	@RequestMapping(value = "/cierresCaja", method = RequestMethod.GET)
+	public ModelAndView cierresCaja() {
+		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+		List<CierreCaja> cierres = cajaService.buscarCierrePorCentros(centros);
+		
+		model.addObject("cierreslist", cierres);
+		//model.addObject("newGasto", new Gasto());
+		model.setViewName("cierresCaja");
+		return model;
+	}
+	
+	@RequestMapping(value = "/registrarCierre", method = RequestMethod.GET)
+	public ModelAndView registrarCierre(Long idCentro, ModelAndView model) {
+		Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		List<Ticket> tickets = new ArrayList<Ticket>(micentro.getTicket());
+		List<Ticket> ticketSinCierre = new ArrayList<Ticket>();
+		FormCentroCierre newFormCierre = new FormCentroCierre();
+		for(Ticket miticket:tickets){
+			if (miticket.getCierreCaja() ==null){
+				//newFormCierre.getCierre().getTicket().add(miticket);
+				ticketSinCierre.add(miticket);
+			}
+		}
+		Double tarjeta = 0.0;
+		Double efectivo = 0.0;
+		for(Ticket ticket:ticketSinCierre){
+			if (ticket.getFormaPago()=="Tarjeta"){
+				tarjeta=tarjeta+ticket.getTotal();
+			}else{
+				efectivo=efectivo+ticket.getTotal();
+			}
+		}
+		Double total = tarjeta + efectivo;
+		model.addObject("total", total);
+		model.addObject("tarjeta",tarjeta);
+		model.addObject("efectivo",efectivo);
+		model.addObject("idCentro", idCentro);
+		model.addObject("newFormCierre", newFormCierre);
+		model.setViewName("registrarCierre");
+		return model;
+	}
+	
+	@RequestMapping(value = "/addCierre", method =RequestMethod.POST )
+	public ModelAndView addCierre(@ModelAttribute("newFormCierre") FormCentroCierre newFormCierre, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+		Centro centro = empresaService.buscarCentroPorId(newFormCierre.getIdCentro());
+		CierreCaja cierre = newFormCierre.getCierre();
+		List<Ticket> tickets = new ArrayList<Ticket>(centro.getTicket());
+		Double diferencia= cierre.getCaja() - cierre.getTotal();
+		cierre.setDiferencia(diferencia);
+		cierre.setCentro(centro);
+		Date date = new Date();
+		cierre.setFecha(date);
+		for(Ticket miticket:tickets){
+			if (miticket.getCierreCaja() ==null){
+				cierre.getTicket().add(miticket);
+			}
+		}
+		cajaService.registroCierre(cierre);
+		
+		redirectAttributes.addFlashAttribute("cierre", cierre);
+		redirectAttributes.addFlashAttribute("idCentro", cierre.getCentro().getIdCentro());
+		model.setViewName("redirect:/admin/registrarCierre");
+		return model;
+	}
+	
+	
+	@RequestMapping(value = "/cierreCentro", method = RequestMethod.GET)
+	public ModelAndView cierreCentro() {
+		ModelAndView mav = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+
+		mav.addObject("centros", centros);
+		mav.setViewName("cierreCentro");
+		return mav;
+	}	
 	
 }

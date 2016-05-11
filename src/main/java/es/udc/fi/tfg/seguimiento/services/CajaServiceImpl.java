@@ -1,6 +1,7 @@
 package es.udc.fi.tfg.seguimiento.services;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import es.udc.fi.tfg.seguimiento.daos.CierreCajaDAO;
 import es.udc.fi.tfg.seguimiento.daos.EnvioDAO;
 import es.udc.fi.tfg.seguimiento.daos.LineaTicketDAO;
 import es.udc.fi.tfg.seguimiento.daos.TicketDAO;
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
@@ -85,6 +87,16 @@ public class CajaServiceImpl implements CajaService {
 	public List<CierreCaja> obtenerTodosCierres() {
 		return cierreCajaDAO.findAll();
 	}
+	
+	public List<CierreCaja> buscarCierrePorCentros(List<Centro> centros){
+		List<CierreCaja> cierres = new ArrayList<CierreCaja>();
+		for (Centro centro:centros){
+			for(CierreCaja cierre:centro.getCierre()){
+				cierres.add(cierre);
+			}
+		}
+		return cierres;
+	}
 
 	//****************** TICKET *****************
 	
@@ -117,7 +129,11 @@ public class CajaServiceImpl implements CajaService {
 	public Ticket buscarTicketPorId(Long miid) {
 		return ticketDAO.findById(miid);
 	}
-
+	
+	@Override
+	public List<Ticket> buscarTicketPorFormaPago(String formaPago) {
+		return ticketDAO.findByFormaPago(formaPago);
+	}
 	//********************** LINEA TICKET *******************
 	
 	public void registroLineaTicket(LineaTicket milineaticket) {
@@ -190,6 +206,7 @@ public class CajaServiceImpl implements CajaService {
 	public Envio buscarEnvioPorTicket(Ticket miticket) {
 		return envioDAO.findByTicket(miticket);
 	}
+
 
 
 		
