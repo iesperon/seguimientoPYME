@@ -124,6 +124,16 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/registrarCierre.jsp"/>
 	</definition>
 	
+	<!-- Envios -->
+	<definition name="envios" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/envios.jsp"/>
+	</definition>
+	
+	<!-- Ver Envio -->
+	<definition name="verEnvio" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/verEnvio.jsp"/>
+	</definition>
+	
 	<!-- 403 -->
 	<definition name="403" extends="defaultTemplate">
 		<put-attribute name="content" value="/WEB-INF/jsp/403.jsp"/>

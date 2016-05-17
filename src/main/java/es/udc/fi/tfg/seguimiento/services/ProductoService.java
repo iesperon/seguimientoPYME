@@ -5,6 +5,7 @@ import java.util.List;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
+import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
 
@@ -44,5 +45,7 @@ public interface ProductoService {
 	public Stock buscarStockPorId(Long miid);
 	public void actualizarStock(Stock mistock);
 	public List<Stock> buscarStocksMinimos();
+	public void actualizarStockCaja(Stock mistock);
+	public void descontarStock(Centro centro, List<LineaTicket> lineas);
 
 }

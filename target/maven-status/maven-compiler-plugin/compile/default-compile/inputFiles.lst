@@ -1,6 +1,7 @@
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\ImprimirTicket.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormTicketLinea.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\EmpresaServiceImpl.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormTicketEnvio.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\Login.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\ProductoConStock.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\EmpresaDAO.java
@@ -11,6 +12,7 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Empresa.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\CierreCaja.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Gasto.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\MailMail.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Proveedor.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\CentroDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\ProductoDAOImpl.java
@@ -44,9 +46,9 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\SaveImage.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormProveedorPedido.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Rol.java
-C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\EmailAPI.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\AdminController.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\UserService.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\CrunchifyEmailAPI\CrunchifyEmailAPI.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormCentroCierre.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\MultiFileBucket.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\ProveedorDAO.java

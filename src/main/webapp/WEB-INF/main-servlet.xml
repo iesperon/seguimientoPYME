@@ -143,10 +143,9 @@
 	    
  	<sec:http auto-config="true" use-expressions="true">
  	
- 	 	<sec:intercept-url pattern="/" access="permitAll" />
- 	 	<sec:intercept-url pattern="/admin/crearEmpleado" access="permitAll" />	
- 	 	<sec:intercept-url pattern="/admin/editarCentro" access="permitAll" />		
- 	 	<sec:intercept-url pattern="/admin/productos" access="permitAll" />		
+ 	 	<sec:intercept-url pattern="/index.jsp" access="permitAll" />
+ 	 	<sec:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+ 	 	<sec:intercept-url pattern="/user" access="hasRole('ROLE_USER')" />
  	 	
  	 		
 		
@@ -190,17 +189,18 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="ivanesperon@gmail.com" />
+		<property name="username" value="mipymeon@gmail.com" />
 		<property name="password" value="76933725j" />
  
 		<!-- The name of the property, following JavaBean naming conventions -->
 		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
+	   		<props>
+       	      <prop key="mail.smtp.auth">true</prop>
+       	      <prop key="mail.smtp.starttls.enable">true</prop>
+       	  	</props>
 		</property>
+	</bean>
+	<bean id="mailMail" class="es.udc.fi.tfg.seguimiento.utils.MailMail">
+		<property name="mailSender" ref="mailSender" />
 	</bean>
 </beans>

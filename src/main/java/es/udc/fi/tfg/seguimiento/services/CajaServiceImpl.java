@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import CrunchifyEmailAPI.CrunchifyEmailAPI;
 import es.udc.fi.tfg.seguimiento.daos.CierreCajaDAO;
 import es.udc.fi.tfg.seguimiento.daos.EnvioDAO;
 import es.udc.fi.tfg.seguimiento.daos.LineaTicketDAO;
@@ -17,6 +21,8 @@ import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
+import es.udc.fi.tfg.seguimiento.utils.MailMail;
 
 @Service
 @Transactional
@@ -66,6 +72,9 @@ public class CajaServiceImpl implements CajaService {
 	public void setEnvioDAO(EnvioDAO envioDAO) {
 		this.envioDAO = envioDAO;
 	}
+	
+	@Autowired
+	private ApplicationContext context;
 
 	// **********CIERRE***********
 	public void registroCierre(CierreCaja micierre) {
@@ -133,6 +142,15 @@ public class CajaServiceImpl implements CajaService {
 	@Override
 	public List<Ticket> buscarTicketPorFormaPago(String formaPago) {
 		return ticketDAO.findByFormaPago(formaPago);
+		
+	}
+
+	@Override
+	public void cerrarTicket(Ticket ticket) {
+		Ticket ticketMod = ticketDAO.findById(ticket.getIdTicket());
+		ticketMod.setCierreCaja(ticket.getCierreCaja());
+		ticketDAO.update(ticketMod);
+
 	}
 	//********************** LINEA TICKET *******************
 	
@@ -206,6 +224,32 @@ public class CajaServiceImpl implements CajaService {
 	public Envio buscarEnvioPorTicket(Ticket miticket) {
 		return envioDAO.findByTicket(miticket);
 	}
+
+	@Override
+	public List<Envio> buscarEnvioPorCentro(Centro micentro) {
+		return envioDAO.findByCentro(micentro);
+	}
+
+	@Override
+	public void EnviarNotificacion(Usuario miusuario, Centro micentro) {
+		
+			
+		// @Service("crunchifyEmail") <-- same annotation you specified in CrunchifyEmailAPI.java
+		//CrunchifyEmailAPI crunchifyEmailAPI = (CrunchifyEmailAPI) context.getBean("mailMail");
+		MailMail mail = (MailMail) context.getBean("mailMail");
+		String toAddr = miusuario.getEmail();
+		String fromAddr = "mipymeon@gmail.com";
+ 
+		// email subject
+		String subject = "Cierre de caja "+micentro.getNombre();
+ 
+		// email body
+		String body = "Hola " + miusuario.getNombre()+" " + miusuario.getApellido1() + miusuario.getApellido2()  +", \n\n "
+				+ "Le informamos que el centro: "+micentro.getNombre() +", "+ micentro.getCalle() +", "+ micentro.getPoblacion()+" ha realizado"
+						+ " el cierre de caja diario y ya lo tiene disponible en la web. \n\n Un saludo \n\n MiPymeOnline";
+		mail.sendMail(fromAddr, toAddr, subject, body);
+	}
+
 
 
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
 @Repository
@@ -45,6 +46,13 @@ public class EnvioDAOImpl implements EnvioDAO {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Envio where idTicket=:idTicket");
 		q.setParameter("idTicket", miticket.getIdTicket());
 		return (Envio) q.list().get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Envio> findByCentro(Centro micentro) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from Envio where idCentro=:idCentro");
+		q.setParameter("idCentro", micentro.getIdCentro());
+		return (List<Envio>) q.list();
 	}
 
 }

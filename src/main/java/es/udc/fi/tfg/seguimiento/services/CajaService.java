@@ -8,6 +8,7 @@ import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface CajaService {
 
@@ -39,6 +40,7 @@ public interface CajaService {
 	public Ticket buscarTicketPorId(Long miid);
 	//public List<Ticket> buscarTicketPorCentros(List<Centro> centros);
 	public List<Ticket> buscarTicketPorFormaPago (String formaPago);
+	public void cerrarTicket(Ticket ticket);
 	
 	//******************* LINEA DE TICKET ***************
 	//Registro de una linea de ticket 
@@ -60,4 +62,7 @@ public interface CajaService {
 	public List<Envio> obtenerEnvios();
 	public Envio buscarEnvioPorId (Long miid);
 	public Envio buscarEnvioPorTicket (Ticket miticket);
+	public List<Envio> buscarEnvioPorCentro (Centro micentro);
+	
+	public void EnviarNotificacion(Usuario miusuario, Centro micentro);
 }

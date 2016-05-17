@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.Context;
+
+import org.apache.tiles.request.ApplicationAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,9 +28,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import CrunchifyEmailAPI.CrunchifyEmailAPI;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
@@ -44,7 +52,9 @@ import es.udc.fi.tfg.seguimiento.utils.Form;
 import es.udc.fi.tfg.seguimiento.utils.FormCentroCierre;
 import es.udc.fi.tfg.seguimiento.utils.FormEmpresaAdmin;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
+import es.udc.fi.tfg.seguimiento.utils.FormTicketEnvio;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketProducto;
+import es.udc.fi.tfg.seguimiento.utils.MailMail;
 import es.udc.fi.tfg.seguimiento.utils.SaveImage;
 
 @Controller
@@ -132,6 +142,7 @@ public class AdminController {
 		List<Centro> centros =empresaService.buscarCentroPorEmpresa(miempresa);
 		List <Usuario> usuarios = usuarioService.buscarUsuarioPorEmpresa(miempresa);
 		
+				
 		model.addObject("usuarioslist", usuarios);
 		model.addObject("centroslist", centros);
 		model.addObject("myForm", new Form());
@@ -516,6 +527,7 @@ public class AdminController {
 		//linea.setTicket(ticket);
 		//model.addObject("linea", linea);
 		CalcularTicket calculos = new CalcularTicket();
+		model.addObject("envioForm", new FormTicketEnvio());
 		model.addObject("iva", calculos.calcularIVA(lineas));
 		model.addObject("subtotal", calculos.calcularSubtotal(lineas));
 		model.addObject("total", calculos.calcularTotal(lineas));
@@ -592,9 +604,9 @@ public class AdminController {
 	public ModelAndView verTicket(Long idTicket, ModelAndView model ) {
 		Ticket ticket = cajaService.buscarTicketPorId(idTicket);
 		List<LineaTicket> lineas = new ArrayList<LineaTicket>(ticket.getLineaTicket());
-		//Envio envio = cajaService.buscarEnvioPorTicket(ticket);
-		
-		//model.addObject("envio", envio);
+		Envio envio = cajaService.buscarEnvioPorTicket(ticket);
+		model.addObject("envio", envio);
+		model.addObject("editEnvio", new Envio());
 		model.addObject("lineas", lineas);
 		model.addObject("ticket", ticket);
 		model.setViewName("verTicket");
@@ -604,9 +616,13 @@ public class AdminController {
 	@RequestMapping(value = "/cerrarTicket", method = RequestMethod.POST)
 	public ModelAndView cerrarTicket(Ticket ticket, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
 		Date date = new Date();
+		Ticket ticketCent=cajaService.buscarTicketPorId(ticket.getIdTicket());
 		ticket.setFecha(date);
 		Double cambio = ticket.getEntregado() - ticket.getTotal();
 		ticket.setCambio(cambio);
+		List<LineaTicket> lineas = cajaService.buscarLineaPorTicket(ticket);
+		Centro centro = ticketCent.getCentro();
+		productoService.descontarStock(centro, lineas);
 		cajaService.actualizarTicket(ticket);
 		redirectAttributes.addFlashAttribute("ticket", ticket);
 		model.setViewName("redirect:/admin/caja");
@@ -621,6 +637,7 @@ public class AdminController {
 		String login = auth.getName();
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Centro micentro = miusuario.getCentro();
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
 		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
 		List<CierreCaja> cierres = cajaService.buscarCierrePorCentros(centros);
@@ -665,23 +682,26 @@ public class AdminController {
 	@RequestMapping(value = "/addCierre", method =RequestMethod.POST )
 	public ModelAndView addCierre(@ModelAttribute("newFormCierre") FormCentroCierre newFormCierre, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
 		Centro centro = empresaService.buscarCentroPorId(newFormCierre.getIdCentro());
+		Usuario miusuario = centro.getEmpresa().getAdministrador();
 		CierreCaja cierre = newFormCierre.getCierre();
 		List<Ticket> tickets = new ArrayList<Ticket>(centro.getTicket());
 		Double diferencia= cierre.getCaja() - cierre.getTotal();
 		cierre.setDiferencia(diferencia);
 		cierre.setCentro(centro);
-		Date date = new Date();
-		cierre.setFecha(date);
+		//Date date = new Date();
+		cierre.setFecha(new Date());
 		for(Ticket miticket:tickets){
 			if (miticket.getCierreCaja() ==null){
+				//miticket.setCierreCaja(cierre);
+				//cajaService.cerrarTicket(miticket);
 				cierre.getTicket().add(miticket);
 			}
 		}
 		cajaService.registroCierre(cierre);
-		
+		cajaService.EnviarNotificacion(miusuario, centro);;
 		redirectAttributes.addFlashAttribute("cierre", cierre);
 		redirectAttributes.addFlashAttribute("idCentro", cierre.getCentro().getIdCentro());
-		model.setViewName("redirect:/admin/registrarCierre");
+		model.setViewName("redirect:/admin/cierresCaja");
 		return model;
 	}
 	
@@ -700,5 +720,64 @@ public class AdminController {
 		mav.setViewName("cierreCentro");
 		return mav;
 	}	
+	
+	@RequestMapping(value = "/addEnvio", method = RequestMethod.POST)
+	public String addEnvio(FormTicketEnvio envioForm, BindingResult result, ModelAndView model) {
+		Envio envio = envioForm.getEnvio();
+		Long idTicket = envioForm.getIdTicket();
+		Ticket ticket = cajaService.buscarTicketPorId(idTicket);
+		//Centro micentro = empresaService.buscarCentroPorId(idCentro);
+		//usuario.setCentro(micentro);
+		//usuario.setEnabled(true);
+		envio.setTicket(ticket);
+		envio.setCentro(ticket.getCentro());
+		cajaService.registroEnvio(envio);
+		//usuarioService.registroUsuario(usuario);
+		//model.addObject("empleadoNuevo", usuario);
+		return "redirect:/admin/tickets";
+		
+	}
+	
+	@RequestMapping(value = "/envios", method = RequestMethod.GET)
+	public ModelAndView envios() {
+		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String login = auth.getName();
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Centro> centros=empresaService.buscarCentroPorEmpresa(miempresa);
+		List<Envio> envios = new ArrayList<Envio>();
+		for(Centro micentro:centros){
+			List<Envio> envioCentro = cajaService.buscarEnvioPorCentro(micentro);
+			for (Envio envio:envioCentro){
+				envios.add(envio);
+			}
+		}
+		model.addObject("enviosList",envios);
+		model.setViewName("envios");
+		return model;
+	}
+	
+	@RequestMapping(value = "/verEnvio", method = RequestMethod.GET)
+	public ModelAndView verEnvio(Long idEnvio, ModelAndView model ) {
+		Envio envio = cajaService.buscarEnvioPorId(idEnvio);
+		Ticket ticket = envio.getTicket();
+		List<LineaTicket> lineas = new ArrayList<LineaTicket>(ticket.getLineaTicket());
+		model.addObject("envio", envio);
+		model.addObject("editEnvio", new Envio());
+		model.addObject("lineas", lineas);
+		model.addObject("ticket", ticket);
+		model.setViewName("verEnvio");
+		return model;
+	}
+	
+	@RequestMapping(value="/editarEnvio",method = RequestMethod.POST)
+	public String editarEnvio(Model model, Envio envio){
+		cajaService.actualizarEnvio(envio);
+		model.addAttribute("envioeditado",envio);
+		return "redirect:/admin/envios";
+	}
+	
 	
 }

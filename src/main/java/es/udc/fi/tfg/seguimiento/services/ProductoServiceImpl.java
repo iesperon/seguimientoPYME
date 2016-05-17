@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.seguimiento.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import es.udc.fi.tfg.seguimiento.daos.StockDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Iva;
+import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
 
@@ -136,6 +138,29 @@ public class ProductoServiceImpl implements ProductoService{
 		public void stockBajo(Stock mistock){
 			if(mistock.getStockActual()<=mistock.getStockMin()){
 				
+			}
+		}
+
+		@Override
+		public void actualizarStockCaja(Stock mistock) {
+			Stock stockMod = stockDAO.findById(mistock.getIdStock());
+			stockMod.setStockActual(mistock.getStockActual());
+			
+			stockDAO.update(stockMod);
+			
+			
+		}
+
+		@Override
+		public void descontarStock(Centro centro, List<LineaTicket> lineas) {
+			for (LineaTicket linea:lineas){
+				List<Stock> stocks= new ArrayList<Stock>(linea.getProducto().getStock());
+				for(Stock stock:stocks ){
+					if(centro.getIdCentro()==stock.getCentro().getIdCentro()){
+						stock.setStockActual(stock.getStockActual()-linea.getCantidad());
+						actualizarStockCaja(stock);;
+					}
+				}
 			}
 		}
 

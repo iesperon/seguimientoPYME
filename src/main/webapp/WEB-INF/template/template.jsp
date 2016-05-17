@@ -122,8 +122,8 @@
                   <li><a href="/seguimientoPYMES/admin/tickets"><i class="glyphicon glyphicon-list-alt"></i> Tickets</a></li>
                   <li><a href="/seguimientoPYMES/admin/proveedores"><i class="glyphicon glyphicon-briefcase"></i> Proveedores</a></li>
                   <li><a href="/seguimientoPYMES/admin/cierresCaja"><i class="glyphicon glyphicon-floppy-saved"></i> Cierres de caja	</a></li>
-                  
-                  
+                  <li><a href="/seguimientoPYMES/admin/envios"><i class="glyphicon glyphicon-send"></i> Envios	</a></li>
+                  <li><a href="/seguimientoPYMES/admin/estadisticas"><i class="glyphicon glyphicon-stats"></i> Estadísticas	</a></li>
               	</ul>
   				</div>
 
