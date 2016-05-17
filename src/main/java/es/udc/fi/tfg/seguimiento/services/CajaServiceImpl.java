@@ -11,7 +11,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import CrunchifyEmailAPI.CrunchifyEmailAPI;
 import es.udc.fi.tfg.seguimiento.daos.CierreCajaDAO;
 import es.udc.fi.tfg.seguimiento.daos.EnvioDAO;
 import es.udc.fi.tfg.seguimiento.daos.LineaTicketDAO;
