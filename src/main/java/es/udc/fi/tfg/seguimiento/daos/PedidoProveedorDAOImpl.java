@@ -1,12 +1,16 @@
 package es.udc.fi.tfg.seguimiento.daos;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
+import es.udc.fi.tfg.seguimiento.model.Proveedor;
 @Repository
 @EnableTransactionManagement
 public class PedidoProveedorDAOImpl implements PedidoProveedorDAO {
@@ -33,6 +37,18 @@ public class PedidoProveedorDAOImpl implements PedidoProveedorDAO {
 		Query q = sessionFactory.getCurrentSession().createQuery("from PedidoProveedor where idPedidoProveedor=:idPedidoProveedor");
 		q.setParameter("idPedidoProveedor", miid);
 		return (PedidoProveedor) q.list().get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<PedidoProveedor> findByEmpresa(Empresa miempresa) {
+	try{
+		Query q = sessionFactory.getCurrentSession().createQuery("from PedidoProveedor where idEmpresa=:idEmpresa");
+		q.setParameter("idEmpresa", miempresa.getIdEmpresa());
+		return (List<PedidoProveedor>) q.list();
+	}catch(RuntimeException e){
+		e.printStackTrace();
+	}
+	return null;
 	}
 
 }

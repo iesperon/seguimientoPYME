@@ -153,7 +153,7 @@
 							<c:param name="idUsuario" value="${usuario.idUsuario}"/>
 						</c:url>
 						
-						<td><a href='<c:out value="${usuarioUrl2}"/>' data-original-title="Editar empleado" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>   <a href='<c:out value="${usuarioUrl}"/>' data-original-title="Eliminar usuario" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> </td>
+						<td><a href='<c:out value="${usuarioUrl2}"/>' data-original-title="Editar empleado" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>   <a href='' data-toggle="modal" data-target="#deleteModal" data-original-title="Eliminar usuario" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> </td>
 						
 						
     					
@@ -163,6 +163,26 @@
 		</tbody>
 	</table>
 	
+		<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  			<div class="modal-dialog modal-lg" >
+    		<div class="modal-content">
+      			<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Eliminar Empleado</h4>
+      		</div>
+      		<div class="modal-body">
+      		<div class="row">
+      		<h4>¿Está seguro de que desea eliminar este empleado?</h4>
+      		</div>
+
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<a href='<c:out value="${usuarioUrl}"/>' type="button" class="btn btn-danger">Eliminar </a>
+      		</div>
+      		</div>
+      		</div>
+	</div>
+	</div>
 </div>
       
 </div>

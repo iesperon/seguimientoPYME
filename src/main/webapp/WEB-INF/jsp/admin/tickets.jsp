@@ -41,7 +41,7 @@
     				<tr>
     				   	<td>${tickets.idTicket}</td>
     				    <td>${tickets.centro.nombre}</td>
-    					<td><fmt:formatDate value="${tickets.fecha}" type="both" dateStyle="short" timeStyle="short" /></td>
+    					<td><fmt:formatDate value="${tickets.fecha}" pattern="dd-MM-yyyy HH:mm' h'" /></td>
     					<td><fmt:formatNumber value="${tickets.subtotal}" maxFractionDigits="2"/> €</td>
     					<td><fmt:formatNumber value="${tickets.total}" maxFractionDigits="2"/> €</td>
     					<td>${tickets.formaPago}</td>

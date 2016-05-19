@@ -1,29 +1,21 @@
 package es.udc.fi.tfg.seguimiento.web;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.Context;
 
-import org.apache.tiles.request.ApplicationAccess;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -53,14 +45,11 @@ import es.udc.fi.tfg.seguimiento.utils.FormEmpresaAdmin;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketEnvio;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketProducto;
-import es.udc.fi.tfg.seguimiento.utils.MailMail;
-import es.udc.fi.tfg.seguimiento.utils.SaveImage;
 
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
 	
-	private static String UPLOAD_LOCATION = "C:/Users/iesperon/Desktop/";
 	
 	@Autowired
 	private EmpresaService empresaService;
@@ -149,7 +138,7 @@ public class AdminController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/empleados",params={"nombre"}, method = RequestMethod.GET)
+	/*@RequestMapping(value = "/empleados",params={"nombre"}, method = RequestMethod.GET)
 	public @ResponseBody List<String> buscarEmpleadoPorNombre(@RequestParam(value = "nombre") String nombre) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String login = auth.getName();
@@ -161,7 +150,7 @@ public class AdminController {
 		List<String> u2 = new ArrayList<>();
 		u2.add(u1.getNombre()+" "+u1.getApellido1());
 		return u2;
-	}
+	}*/
 	
 	
 	@RequestMapping(value = "/addEmpleado", method = RequestMethod.POST)
@@ -258,12 +247,12 @@ public class AdminController {
 		producto.setIva(miIva);
 		producto.setEmpresa(miempresa);
 		
-		if(!image.isEmpty()){
+	/*	if(!image.isEmpty()){
 			SaveImage save = new SaveImage();
 			save.validateImage(image);
 			save.saveImage(producto.getCodProd() + ".jpg", image);
 		}
-		
+		*/
 		//MultipartFile multipartFile = myForm.getFile();
 		
 		//FileCopyUtils.copy(myForm.getFile().getBytes(), new File(UPLOAD_LOCATION + myForm.getFile().getOriginalFilename()));
@@ -399,14 +388,15 @@ public class AdminController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Proveedor> proveedores = contabilidadService.buscarProveedorPorEmpresa(miempresa);
+		List<Proveedor> proveedores = contabilidadService.buscarProveedorActivoPorEmpresa(miempresa);
+		//List<PedidoProveedor> pedidos = contabilidadService.buscarPedidoPorEmpresa(miempresa);
 		List<PedidoProveedor> pedidos = new ArrayList<>();
-		for (Proveedor proveedor:proveedores){
+		List<Proveedor> allProveedor = contabilidadService.buscarProveedorPorEmpresa(miempresa);
+		for (Proveedor proveedor:allProveedor){
 			for (PedidoProveedor pedido : proveedor.getPedido()){
 				pedidos.add(pedido);
 			}
 		}
-		//List<PedidoProveedor> pedidos = new ArrayList<PedidoProveedor>(miempresa.getPedido());
 		
 		mav.addObject("pedidoslist", pedidos);
 		mav.addObject("proveedorlist", proveedores);
@@ -689,14 +679,13 @@ public class AdminController {
 		cierre.setCentro(centro);
 		//Date date = new Date();
 		cierre.setFecha(new Date());
+		cajaService.registroCierre(cierre);
 		for(Ticket miticket:tickets){
 			if (miticket.getCierreCaja() ==null){
-				//miticket.setCierreCaja(cierre);
-				//cajaService.cerrarTicket(miticket);
-				cierre.getTicket().add(miticket);
+				miticket.setCierreCaja(cierre);
+				cajaService.cerrarTicket(miticket);
 			}
 		}
-		cajaService.registroCierre(cierre);
 		cajaService.EnviarNotificacion(miusuario, centro);;
 		redirectAttributes.addFlashAttribute("cierre", cierre);
 		redirectAttributes.addFlashAttribute("idCentro", cierre.getCentro().getIdCentro());

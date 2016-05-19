@@ -47,4 +47,17 @@ public class ProveedorDAOImpl implements ProveedorDAO {
 		q.setParameter("idEmpresa", miempresa.getIdEmpresa());
 		return (List<Proveedor>) q.list();
 	}
+
+	@Override
+	public Proveedor findByCIF(String micif, Long idEmpresa) {
+	try{	
+		Query q = sessionFactory.getCurrentSession().createQuery("from Proveedor where cif=:cif AND idEmpresa= :idEmpresa");
+		q.setParameter("cif", micif);
+		q.setParameter("idEmpresa", idEmpresa);
+		return (Proveedor) q.list().get(0);
+	}catch(RuntimeException e){
+		e.printStackTrace();
+	}
+	return null;
+	}
 }

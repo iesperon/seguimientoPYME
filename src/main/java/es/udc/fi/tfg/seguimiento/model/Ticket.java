@@ -64,8 +64,7 @@ public class Ticket {
 
 
 	@Id
-	@SequenceGenerator(name="ticketId",sequenceName = "id_ticket_seq")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="ticketId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idTicket")	
 	public Long getIdTicket() {
 		return idTicket;
@@ -143,7 +142,6 @@ public class Ticket {
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idCierre")
-	@Cascade({CascadeType.SAVE_UPDATE})
 	public CierreCaja getCierreCaja() {
 		return cierreCaja;
 	}

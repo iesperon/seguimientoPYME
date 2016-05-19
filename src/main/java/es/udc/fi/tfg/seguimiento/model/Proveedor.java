@@ -26,6 +26,7 @@ public class Proveedor {
 	private String cif;
 	private String nombre;
 	private Empresa empresa;
+	private Boolean enable;
 	private Set<PedidoProveedor> pedido = new HashSet<PedidoProveedor>();;
 	
 	public Proveedor(){
@@ -88,6 +89,15 @@ public class Proveedor {
 
 	public void setPedido(Set<PedidoProveedor> pedido) {
 		this.pedido = pedido;
+	}
+	
+	@Column(name="enable")
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
 	}
 	
 	

@@ -12,4 +12,5 @@ public interface ProveedorDAO {
 	public void remove (Proveedor miproveedor);
 	public Proveedor findById (Long miid);
 	public List<Proveedor> findByEmpresa(Empresa miempresa);
+	public Proveedor findByCIF (String micif, Long idEmpresa);
 }

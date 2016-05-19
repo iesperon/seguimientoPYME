@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.seguimiento.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,20 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	//*******************PROVEEDORES*********************
 
 	public void registroProveedor(Proveedor miproveedor) {
-		proveedorDAO.create(miproveedor);
+		Proveedor proveedor = proveedorDAO.findByCIF(miproveedor.getCif(), miproveedor.getEmpresa().getIdEmpresa());
+		if(proveedor!=null){
+			proveedor.setEnable(true);
+			proveedorDAO.update(proveedor);
+		}else{
+			miproveedor.setEnable(true);
+			proveedorDAO.create(miproveedor);
+		}
 	}
 
 	public void eliminarProveedor(Proveedor miproveedor) {
-		proveedorDAO.remove(miproveedor);		
+		Proveedor proveedorMod = proveedorDAO.findById(miproveedor.getIdProveedor());
+		proveedorMod.setEnable(false);
+		proveedorDAO.update(proveedorMod);
 	}
 
 	public void actualizarProveedor(Proveedor miproveedor) {
@@ -86,12 +96,26 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		proveedorDAO.update(proveedorMod);
 	}
 
-	public List<Proveedor> buscarProveedorPorEmpresa(Empresa miempresa) {
-		return proveedorDAO.findByEmpresa(miempresa);
+	public List<Proveedor> buscarProveedorActivoPorEmpresa(Empresa miempresa) {
+		List<Proveedor> proveedores = new ArrayList<Proveedor>(proveedorDAO.findByEmpresa(miempresa));
+		List<Proveedor> activos =new ArrayList<Proveedor>();
+		for(Proveedor proveedor:proveedores){
+			if (proveedor.getEnable()==true){
+				activos.add(proveedor);
+			}
+		}
+		return activos;
 	}
+	
+	
 
 	public Proveedor buscarProveedorPorId(Long miid) {
 		return proveedorDAO.findById(miid);
+	}
+	
+	@Override
+	public List<Proveedor> buscarProveedorPorEmpresa(Empresa miempresa) {
+		return proveedorDAO.findByEmpresa(miempresa);
 	}
 
 	//******************************PEDIDOS**********************
@@ -119,6 +143,13 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	public PedidoProveedor buscarPedidoPorId(Long miid) {
 		return pedidoDAO.findById(miid);
 	}
+
+	@Override
+	public List<PedidoProveedor> buscarPedidoPorEmpresa(Empresa miempresa) {
+		return pedidoDAO.findByEmpresa(miempresa);
+	}
+
+
 
 
 	

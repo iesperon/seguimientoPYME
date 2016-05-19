@@ -23,15 +23,20 @@
 							<form:input class="form-control" path="pedido.fechaVencimiento" type="date"/>
 						</div>
 						
-						<div class="col-xs-3">
+						<div class="col-xs-2">
 							<label for="importe">Importe</label>
+							<div class="input-group"> 
+							<span class="input-group-addon">€</span>
 							<form:input class="form-control" path="pedido.importe" type="text"/>
+							</div>
 						</div>
-						
-						<div class="col-xs-3">
+						<div class="col-xs-2">
 							<label for="estado">Estado</label>
-							<form:input class="form-control" path="pedido.estado" type="text"/>
-						</div>
+							<form:select class="form-control" path="pedido.estado">
+  								<form:option value="Pendiente">Pendiente</form:option>
+  								<form:option value="Pagado">Pagado</form:option>
+ 							</form:select>						
+ 						</div>
 						
 						<div class="col-xs-3">
 							<form:input class="form-control" path="idProveedor" value="${idProveedor}" type="hidden"/>

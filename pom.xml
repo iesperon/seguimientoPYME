@@ -124,7 +124,13 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${spring.security.version}</version>
 		</dependency>
-
+		
+		<!-- JASYPT -->
+		<dependency>
+  			<groupId>org.jasypt</groupId>
+ 			<artifactId>jasypt</artifactId>
+  			<version>1.2</version>
+		</dependency>
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

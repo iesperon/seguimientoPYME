@@ -106,7 +106,8 @@
 					<tr>
 						<th>Nombre</th>
 						<th>CIF</th>
-						<th></th>
+						<th>Añadir pedido </th>
+						<th> Eliminar proveedor</th>
 
 					</tr>
 				</thead>
@@ -126,7 +127,9 @@
 							<td><a href='<c:out value="${proveedorUrl2}"/>'
 								title="Añadir pedido" data-toggle="tooltip" type="button"
 								class="btn btn-sm btn-success"><i
-									class="glyphicon glyphicon-plus"></i></a> <a
+									class="glyphicon glyphicon-plus"></i></a> 
+							</td><td>
+									<a
 								href='<c:out value="${proveedorUrl}"/>'
 								title="Eliminar proveedor" data-toggle="tooltip" type="button"
 								class="btn btn-sm btn-danger"><i
@@ -146,7 +149,6 @@
 				<thead>
 					<tr>
 						<th>Nombre empresa</th>
-						<th>CIF empresa</th>
 						<th>Fecha de compra</th>
 						<th>Fecha de vencimiento</th>
 						<th>Importe</th>
@@ -160,7 +162,6 @@
 					<c:forEach var="pedido" items="${pedidoslist}" varStatus="status">
 						<tr>
 							<td>${pedido.proveedor.nombre}</td>
-							<td>${pedido.proveedor.cif}</td>
 							<td><fmt:formatDate value="${pedido.fechaCompra}" pattern="dd-MM-yyyy" /></td>
 							<td><fmt:formatDate value="${pedido.fechaVencimiento}" pattern="dd-MM-yyyy" /></td>
 							<td>${pedido.importe} €</td>

@@ -19,7 +19,13 @@
      	<div class="col-md-9">
      	
     	    <img src="<c:url value="/resources/images/centros.png" />" class="center-block" alt="Empleados" width="800" height="200">
-    		<h2> Centros </h2>
+    		    <h2> Centros 
+    		
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">
+			Registrar Centro
+			</button>
+			</h2>
     		<table class="table table-hover" id="centros">
 		<thead> 
 			<tr>
@@ -45,9 +51,7 @@
     					<td>${centro.email}</td>
     					<td>${centro.telefono}</td>
     					
-    					<c:url var="centroUrl" value="eliminarCentro">
-							<c:param name="idCentro" value="${centro.idCentro}"/>
-						</c:url>
+    					
 						<c:url var="centroUrl2" value="crearEmpleado">
 							<c:param name="idCentro" value="${centro.idCentro}"/>
 						</c:url>
@@ -55,6 +59,9 @@
 							<c:param name="idCentro" value="${centro.idCentro}"/>
 						</c:url>
 						<c:url var="centroUrl4" value="stock">
+							<c:param name="idCentro" value="${centro.idCentro}"/>
+						</c:url>
+						<c:url var="centroUrl" value="eliminarCentro">
 							<c:param name="idCentro" value="${centro.idCentro}"/>
 						</c:url>
 						<td> 
@@ -69,7 +76,7 @@
 									<li> <a href='<c:out value="${centroUrl3}"/>'>Editar</a>	</li>
 									<li> <a href='<c:out value="${centroUrl4}"/>'>Stock</a> </li>
 									<li> <a href='<c:out value="${centroUrl2}"/>'>Añadir empleado</a> </li>
-									<li> <a href='<c:out value="${centroUrl}"/>'>Eliminar </a> </li> 								
+									<li> <a href='' data-toggle="modal" data-target="#deleteModal">Eliminar </a> </li> 								
 								</ul>
 							</div>
 						
@@ -80,6 +87,27 @@
     			</c:forEach>
 		</tbody>
 	</table>	
+	
+	<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  			<div class="modal-dialog modal-lg" >
+    		<div class="modal-content">
+      			<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Eliminar Centro</h4>
+      		</div>
+      		<div class="modal-body">
+      		<div class="row">
+      		<h4>¿Está seguro de que desea eliminar este centro?</h4>
+      		</div>
+
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<a href='<c:out value="${centroUrl}"/>' type="button" class="btn btn-danger">Eliminar </a>
+      		</div>
+      		</div>
+      		</div>
+	</div>
+	</div>
 	
  		
 	<script>
@@ -92,14 +120,17 @@
 	</script>
     		
     		
-    		<button id="boton" onclick="mostrar()" class="btn btn-primary btn-lg btn-block" >Registrar Centro</button>
-    		
-    		<div id="oculto" style="display: none;">
+
     		<form:form action="addCentro" method="POST" modelAttribute="myCentro" class="form-horizontal" role="form">
-				<div class="col-sm-12">
-				<div>
-					<h2>Registro de Centros</h2>
-						<div class="row">
+			<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  			<div class="modal-dialog modal-lg" >
+    		<div class="modal-content">
+      			<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Registro de usuario</h4>
+      		</div>
+      		<div class="modal-body">
+					<div class="row">
 		
 						<div class="col-xs-3">
 							<label for="nombre">Nombre</label>
@@ -147,23 +178,22 @@
 						</div>
 					
 					
-											
-						</div>
-						
-					<br>
-					<div class="col-xs-6">
-						<input type="submit" value="Aceptar" class="btn btn-primary">
+						</div>				
 					</div>
-				</div>
-			</div>	
-	
-			</form:form>
+						
+					 <div class="modal-footer">
+					 	<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<input type="submit" value="Aceptar" class="btn btn-primary">
+      				</div>
+    			</div>
+  			</div>
+		</div>
+		</form:form>
     		
     		</div>	
 	
     	</div>
       
-      </div>
 
 
 
