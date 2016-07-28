@@ -1,5 +1,6 @@
 package es.udc.fi.tfg.seguimiento.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import es.udc.fi.tfg.seguimiento.daos.EmpresaDAO;
 import es.udc.fi.tfg.seguimiento.daos.StockDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
+import es.udc.fi.tfg.seguimiento.model.Proveedor;
 import es.udc.fi.tfg.seguimiento.model.Stock;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 
@@ -62,35 +64,42 @@ public class EmpresaServiceImpl implements EmpresaService{
 		empresaDAO.update(empresaMod);
 	}
 
-	public List<Empresa> obtenerTodasEmpresas() {
-		return empresaDAO.findAll();
-	}
-
-	public Empresa buscarEmpresaPorCif(String micif) {
-		return empresaDAO.findByCif(micif);
-	}
-
-	public List<Empresa> buscarEmpresaPorNombre(String minombre) {
-		return empresaDAO.findByNombre(minombre);
-	}
+//	public List<Empresa> obtenerTodasEmpresas() {
+//		return empresaDAO.findAll();
+//	}
+//
+//	public Empresa buscarEmpresaPorCif(String micif) {
+//		return empresaDAO.findByCif(micif);
+//	}
+//
+//	public List<Empresa> buscarEmpresaPorNombre(String minombre) {
+//		return empresaDAO.findByNombre(minombre);
+//	}
 	
 	public Empresa buscarEmpresaPorAdmin(Usuario miusuario) {
 		return empresaDAO.findByAdmin(miusuario);
 	}
 	
+	public Empresa buscarEmpresaPorId(Long id){
+		return empresaDAO.findById(id);
+	}
+	
 
 	//**********CENTRO***********
-	public void registroCentro(Centro micentro) {
+	public void registroCentro(Centro micentro, Empresa miempresa) {
+		micentro.setEnable(true);
 		centroDAO.create(micentro);
-		micentro.getEmpresa().getCentro().add(micentro);
+		//micentro.getEmpresa().getCentro().add(micentro);
 	}
 
 	public void eliminarCentro(Centro micentro) {
 		for (Stock mistock : micentro.getStock()){
 			stockDAO.delete(mistock);
 		}
-		centroDAO.remove(micentro);
-		micentro.getEmpresa().getCentro().remove(micentro);
+		micentro.setEnable(false);
+		centroDAO.update(micentro);
+		//centroDAO.remove(micentro);
+		//micentro.getEmpresa().getCentro().remove(micentro);
 	}
 
 	public void actualizarCentro(Centro micentro) {
@@ -110,6 +119,17 @@ public class EmpresaServiceImpl implements EmpresaService{
 
 	public List<Centro> obtenerCentros(Empresa miempresa) {
 		return centroDAO.findAllByEmpresa(miempresa);
+	}
+	
+	public List<Centro> obtenerCentrosActivos(Empresa miempresa){
+		List<Centro> centros = centroDAO.findAllByEmpresa(miempresa);
+		List<Centro> activos =new ArrayList<Centro>();
+		for(Centro centro:centros){
+			if(centro.getEnable()==true){
+				activos.add(centro);
+			}
+		}
+		return activos;
 	}
 	
 	public Centro buscarCentroPorId(Long miid){

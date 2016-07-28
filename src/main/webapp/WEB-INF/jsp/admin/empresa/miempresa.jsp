@@ -43,7 +43,8 @@
                     </tr>
                     </tbody>
                   </table>
-                  <a href="#" class="btn btn-primary">Contabilidad</a>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#catalogoModal"> Generar catálogo						
+				  </button>
                   <a href="/seguimientoPYMES/admin/notificacionStock" class="btn btn-primary">Avisos Stock</a>
                   <a href="#" class="btn btn-primary">Cierres de Caja</a>
                 </div>
@@ -65,7 +66,25 @@
       </div>
     </div>
     
-    
+    <div class="modal fade bs-example-modal-lg" id="catalogoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  			<div class="modal-dialog modal-lg" >
+    		<div class="modal-content">
+      			<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		<h4 class="modal-title" id="myModalLabel">Catálogo de la empresa ${empresa.nombre} </h4>
+      		</div>
+      		<div class="modal-body">
+      		<div class="row">
+      		<h4>Enlace: <a href="http://localhost:8080/seguimientoPYMES/catalogo/${empresa.idEmpresa}">http://localhost:8080/seguimientoPYMES/catalogo/${empresa.idEmpresa} </a></h4>
+      		</div>
+
+			 <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      		</div>
+      		</div>
+      		</div>
+	</div>
+	</div>
     
 <!-- Modal -->
 	<form:form action="editarEmpresa" method="POST" modelAttribute="form" class="form-horizontal" role="form">

@@ -52,9 +52,8 @@
 							<c:param name="idProducto" value="${productos.idProducto}"/>
 						</c:url>
 						
-						<td>
-							<button data-whatever="${productos.idProducto}" id="editar" value="${productos.idProducto}" data-original-title="Editar producto" data-toggle="modal" data-target="#modalEditar" type="button" class="editar btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></button>   
-							<a href='' data-toggle="modal" data-target="#deleteModal" data-original-title="Eliminar producto" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> </td>
+						<td><a href='<c:out value="${productoUrl2}"/>' data-original-title="Editar producto" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>   <a href='' data-toggle="modal" data-target="#deleteModal" data-original-title="Eliminar producto" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> </td>
+						
 						
     					
     				
@@ -63,58 +62,6 @@
 		</tbody>
 	</table>
 	
-	<script type="text/javascript">
-	$(document).on("click", ".editar", function (e){
-		console.log("Hola");
-		
-		  var button = $(event.relatedTarget) // Button that triggered the modal
-		  var recipient = button.data('whatever')// Extract info from data-* attributes
-		  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		 $.ajax( {
-			 	url:"/seguimientoPYMES/admin/empresa/producto",
-				type:"get",
-				data:{idProducto:editar},
-				success: function(response){
-					console.log(response.nombre);
-					var resultado = response;
-					}});
-		 
-		 console.log(editar);
-			 
-		  var modal = $(this)
-		  modal.find('.modal-title').text('New message to ' + editar)
-		  modal.find('.modal-body input').val(editar)
-		})
-		</script>
-	
-<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-		  
 	
 	<div class="modal fade bs-example-modal-lg" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   			<div class="modal-dialog modal-lg" >

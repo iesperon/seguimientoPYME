@@ -16,13 +16,13 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
-		
+
 
 	<context:annotation-config />
 	<context:component-scan base-package="es.udc.fi.tfg" />
 	<mvc:annotation-driven />
 	<tx:annotation-driven />
-	
+
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<!-- DataSource -->
@@ -33,69 +33,65 @@
 		<property name="username" value="postgres" />
 		<property name="password" value="1234" />
 	</bean>
-	
-	<bean id="tfgSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="tfgDataSource"/>
-        <property name="hibernateProperties">
+
+	<bean id="tfgSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="tfgDataSource" />
+		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-	        	<prop key="hibernate.show_sql">false</prop>
-	        	<prop key="hibernate.format_sql">true</prop>
-	        	<prop key="hibernate.use_sql_comments">true</prop>	        	
-	        	<!-- <prop key="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</prop>  -->
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<!-- <prop key="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</prop> -->
 				<prop key="hibernate.c3p0.min_size">5</prop>
 				<prop key="hibernate.c3p0.max_size">20</prop>
 				<prop key="hibernate.c3p0.timeout">300</prop>
 				<prop key="hibernate.c3p0.max_statements">50</prop>
 				<prop key="hibernate.c3p0.idle_test_period">3000</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				
-				<!-- 
-				hibernate.hbm2ddl.auto
-				So the list of possible options are,
-				validate: validate the schema, makes no changes to the database.
-				update: update the schema.
-				create: creates the schema, destroying previous data.
-				create-drop: drop the schema at the end of the session. 
-				 -->
- 
-        	</props>            
-        </property>
-        <!--  Usamos anotacións de Hibernate: hai que dicirlle ónde buscalas -->
-        <property name="packagesToScan" value="es.udc.fi.tfg.seguimiento.model" />
-    </bean>
-    
+
+				<!-- hibernate.hbm2ddl.auto So the list of possible options are, validate: 
+					validate the schema, makes no changes to the database. update: update the 
+					schema. create: creates the schema, destroying previous data. create-drop: 
+					drop the schema at the end of the session. -->
+
+			</props>
+		</property>
+		<!-- Usamos anotacións de Hibernate: hai que dicirlle ónde buscalas -->
+		<property name="packagesToScan" value="es.udc.fi.tfg.seguimiento.model" />
+	</bean>
+
 	<!-- Transaction Management -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name = "sessionFactory" ref = "tfgSessionFactory" />
+		<property name="sessionFactory" ref="tfgSessionFactory" />
 	</bean>
-	
-	
-	
+
+
+
 	<!-- JBDC Template -->
 	<bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg ref="tfgDataSource" />
 	</bean>
 
-	
-	
-	    <!--  SESSIONFACTORY BEAN   -->
-    
-    <!-- 
-       En Spring, a interface "AbstractSessionFactoryBean" encapsula a tecnoloxía utilizada para a conexión coa BD
-	   Nós queremos usar Hibernate 4, así que debemos usar a implementacion "hibernate4.LocalSessionFactoryBean"
-	   A factoría creará (e devolverá) un bean "SessionFactory" de Hibernate
-	   Ese é o xeito de compartir unha session factory con Spring (e de proporcionarllela, por exemplo, aos DAOS) mediante inxeccion de dependencias
-	   Aforramos a típica clase "Utils"
-	   Se quixeramos cambiar de DAOS, usariamos outra factoría de conexions
-	  -->     
-    
-    
+
+
+	<!-- SESSIONFACTORY BEAN -->
+
+	<!-- En Spring, a interface "AbstractSessionFactoryBean" encapsula a tecnoloxía 
+		utilizada para a conexión coa BD Nós queremos usar Hibernate 4, así que debemos 
+		usar a implementacion "hibernate4.LocalSessionFactoryBean" A factoría creará 
+		(e devolverá) un bean "SessionFactory" de Hibernate Ese é o xeito de compartir 
+		unha session factory con Spring (e de proporcionarllela, por exemplo, aos 
+		DAOS) mediante inxeccion de dependencias Aforramos a típica clase "Utils" 
+		Se quixeramos cambiar de DAOS, usariamos outra factoría de conexions -->
+
+
 
 	<!-- Tiles configuration -->
-	
+
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
 
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -105,16 +101,14 @@
 			</list>
 		</property>
 	</bean>
-	
-	
-	
+
+
+
 	<!-- View Resolver -->
-	<!--   
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean> --> 
-	
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="prefix" value="/WEB-INF/jsp/" /> <property name="suffix" 
+		value=".jsp" /> </bean> -->
+
 	<!-- Web resources (CSS, img, etc.) -->
 	<mvc:resources mapping="/resources/**" location="/resources/"
 		cache-period="31556926" />
@@ -136,79 +130,70 @@
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:messages" />
 	</bean>
-	
+
 	<!-- Authentication -->
-	
-	<!-- enable use-expressions --> 
-	    
- 	<sec:http auto-config="true" use-expressions="true">
- 	
- 	 	<sec:intercept-url pattern="/index.jsp" access="permitAll" />
- 	 	<sec:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
- 	 	<sec:intercept-url pattern="/user" access="hasRole('ROLE_USER')" />
- 	 	
- 	 		
-		
+
+	<!-- enable use-expressions -->
+
+
+	<sec:http auto-config="true" use-expressions="true">
+
+		<sec:intercept-url pattern="/index.jsp" access="permitAll" />
+		<sec:intercept-url pattern="/catalogo/**" access="permitAll" />
+		<sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
+
+
+
 		<sec:access-denied-handler error-page="/403" />
-		
-		<sec:form-login 
-		    login-page="/"  
-		    default-target-url="/admin/miempresa" 
-			authentication-failure-url="/?error" 
-			username-parameter="email"
+
+		<!-- -->
+
+		<sec:form-login login-page="/" default-target-url="/welcome"
+			authentication-failure-url="/?error" username-parameter="email"
 			password-parameter="contrasena" />
-			
-		<sec:logout
-			logout-url="/logout"
-			logout-success-url="/" />
-	
-		<sec:csrf/>
+
+		<sec:logout logout-url="/logout" logout-success-url="/" />
+
+		<sec:csrf />
 	</sec:http>
 
-  <sec:authentication-manager>
+	<sec:authentication-manager>
 		<sec:authentication-provider>
-			<sec:jdbc-user-service  data-source-ref="tfgDataSource"
+			<sec:jdbc-user-service data-source-ref="tfgDataSource"
 				users-by-username-query="SELECT email, contrasena, enabled FROM Usuarios WHERE email = ?"
-				authorities-by-username-query="SELECT u.email, r.rol FROM Rol r JOIN Usuarios u ON r.idRol=u.idRol WHERE u.email = ?"/>
-			</sec:authentication-provider>
-	</sec:authentication-manager> 
-	
-	<!-- JASYPT -->
-	<bean id="stringEncryptor"  class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor" lazy-init="false">
- 		<property name="algorithm" value="PBEWithMD5AndDES" />
-  		<property name="password" value="${jasypt_password}" />
+				authorities-by-username-query="SELECT u.email, r.rol FROM Rol r JOIN Usuarios u ON r.idRol=u.idRol WHERE u.email = ?" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+
+	<bean name="miServletFileUpload"
+		class="org.apache.commons.fileupload.servlet.ServletFileUpload">
+		<constructor-arg index="0">
+			<ref bean="miDiskFileItemFactory" />
+		</constructor-arg>
+		<property name="sizeMax" value="4194304" />
 	</bean>
-	<bean id="hibernateEncryptor" class="org.jasypt.hibernate.encryptor.HibernatePBEStringEncryptor" lazy-init="false">
-  		<!-- This property value must match "encryptorRegisteredName" used when defining hibernate user types -->
-  		<property name="registeredName" value="jasyptHibernateEncryptor" />
-  		<property name="encryptor" ref="stringEncryptor" />
-	</bean>
-	
-	<bean name="miServletFileUpload" class="org.apache.commons.fileupload.servlet.ServletFileUpload">
-    	<constructor-arg index="0">
-        	<ref bean="miDiskFileItemFactory" />
-    	</constructor-arg>
-    	<property name="sizeMax" value="4194304" />
-	</bean>
-	
+
 	<bean id="miDiskFileItemFactory" class="org.apache.commons.fileupload.disk.DiskFileItemFactory" />
-	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSizePerFile" value="5242880" />
 	</bean>
-	
+
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="mipymeon@gmail.com" />
 		<property name="password" value="76933725j" />
- 
+
 		<!-- The name of the property, following JavaBean naming conventions -->
 		<property name="javaMailProperties">
-	   		<props>
-       	      <prop key="mail.smtp.auth">true</prop>
-       	      <prop key="mail.smtp.starttls.enable">true</prop>
-       	  	</props>
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
 		</property>
 	</bean>
 	<bean id="mailMail" class="es.udc.fi.tfg.seguimiento.utils.MailMail">

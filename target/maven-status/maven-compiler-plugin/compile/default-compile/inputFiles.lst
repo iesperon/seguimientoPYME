@@ -1,4 +1,5 @@
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\ImprimirTicket.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FileBucket.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormTicketLinea.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\EmpresaServiceImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormTicketEnvio.java
@@ -12,6 +13,7 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Empresa.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\CierreCaja.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Gasto.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\AdminContabilidadController.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\MailMail.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Proveedor.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\CentroDAOImpl.java
@@ -23,6 +25,7 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Envio.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\CierreCajaDAO.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\UsuarioDAOImpl.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\UserVentasController.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\EnvioDAO.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\ProductoService.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormEmpresaAdmin.java
@@ -42,9 +45,9 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\GastoDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\LineaTicket.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Usuario.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FileUpload.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormProveedorPedido.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Rol.java
-C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\AdminController.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\UserService.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormCentroCierre.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\ProveedorDAO.java
@@ -54,10 +57,14 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\PedidoProveedorDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\PedidoProveedorDAO.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\CajaServiceImpl.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\AdminEmpresaController.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\UserEmpresaController.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\StockDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Centro.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\CajaService.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\UserServiceImpl.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\AdminVentasController.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\UserContabilidadController.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\ProductoServiceImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\IvaDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\ProveedorDAOImpl.java

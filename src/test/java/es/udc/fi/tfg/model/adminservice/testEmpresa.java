@@ -67,17 +67,17 @@ public class testEmpresa {
 		//Insertamos 
 		empresaService.registroEmpresa(empresa1);
 		empresaService.registroEmpresa(empresa2);
-		
-		//Buscamos por nombre (Buscamos alguna empresa que en su nombre tenga un '1')
-		List<Empresa> milista = empresaService.buscarEmpresaPorNombre("1");
-		assertEquals(1, milista.size());
-		
-		//Obtenemos todos
-		List<Empresa> milista2 = empresaService.obtenerTodasEmpresas();
-		assertEquals(2, milista2.size());
-		
-		//Buscamos por CIF
-		assertEquals(empresa1, (Empresa) empresaService.buscarEmpresaPorCif(empresa1.getCif()));
+//		
+//		//Buscamos por nombre (Buscamos alguna empresa que en su nombre tenga un '1')
+//		List<Empresa> milista = empresaService.buscarEmpresaPorNombre("1");
+//		assertEquals(1, milista.size());
+//		
+//		//Obtenemos todos
+//		List<Empresa> milista2 = empresaService.obtenerTodasEmpresas();
+//		assertEquals(2, milista2.size());
+//		
+//		//Buscamos por CIF
+//		assertEquals(empresa1, (Empresa) empresaService.buscarEmpresaPorCif(empresa1.getCif()));
 		
 		//Modificamos una empresa 
 		empresa1.setNombre("Hola1");
@@ -91,8 +91,8 @@ public class testEmpresa {
 		//Buscar empresa por centro
 		
 		//Añadimos un centro
-		empresaService.registroCentro(centro1);
-		empresaService.registroCentro(centro2);
+		//empresaService.registroCentro(centro1);
+		//empresaService.registroCentro(centro2);
 		
 		//Modificamos un centro
 		centro1.setNombre("NUEVO_CENTRO!!!");

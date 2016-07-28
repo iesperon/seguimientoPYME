@@ -32,6 +32,7 @@ public class Producto {
 	private Double descuento;
 	private Iva iva;
 	private Empresa empresa;
+	private Boolean enable;
 	private Set<Stock> stock = new HashSet<Stock>();
 
 	
@@ -156,6 +157,14 @@ public class Producto {
 
 	public void setStock(Set<Stock> stock) {
 		this.stock = stock;
+	}
+
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
 	}
 	
 

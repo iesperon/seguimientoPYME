@@ -12,7 +12,7 @@ public interface ProductoDAO {
 	public void update (Producto miproducto);
 	public List<Producto> findAll();
 	public List<Producto> findByEmpresa(Empresa miempresa);
-	public Producto findByCod (String micodprod);
+	public Producto findByCod (String micodprod, Long idEmpresa);
 	public Producto findById(Long miid);
 	
 }

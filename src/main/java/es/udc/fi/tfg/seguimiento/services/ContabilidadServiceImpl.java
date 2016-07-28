@@ -113,7 +113,7 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		return proveedorDAO.findById(miid);
 	}
 	
-	@Override
+	
 	public List<Proveedor> buscarProveedorPorEmpresa(Empresa miempresa) {
 		return proveedorDAO.findByEmpresa(miempresa);
 	}
@@ -144,7 +144,6 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		return pedidoDAO.findById(miid);
 	}
 
-	@Override
 	public List<PedidoProveedor> buscarPedidoPorEmpresa(Empresa miempresa) {
 		return pedidoDAO.findByEmpresa(miempresa);
 	}

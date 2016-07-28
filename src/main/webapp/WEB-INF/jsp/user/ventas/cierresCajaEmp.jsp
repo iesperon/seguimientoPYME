@@ -22,7 +22,7 @@
 
 	<h2>Cierres de Caja
 	<!-- Button trigger modal -->
-	<a href='/seguimientoPYMES/admin/ventas/cierreCentro' type="button" class="btn btn-primary"> Registrar Cierre</a>
+	<a href='/seguimientoPYMES/admin/cierreCentro' type="button" class="btn btn-primary"> Registrar Cierre</a>
 	</h2>
 	
 	<table class="table table-hover" id="cierres">

@@ -48,7 +48,7 @@ public class ProveedorDAOImpl implements ProveedorDAO {
 		return (List<Proveedor>) q.list();
 	}
 
-	@Override
+	
 	public Proveedor findByCIF(String micif, Long idEmpresa) {
 	try{	
 		Query q = sessionFactory.getCurrentSession().createQuery("from Proveedor where cif=:cif AND idEmpresa= :idEmpresa");

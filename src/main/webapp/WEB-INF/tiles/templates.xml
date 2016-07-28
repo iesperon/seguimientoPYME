@@ -6,4 +6,10 @@
     <definition name="defaultTemplate" template="/WEB-INF/template/template.jsp">
         <put-attribute name="content" value="/WEB-INF/template/defaultContent.jsp"/>
     </definition>
+    
+    
+    <definition name="userTemplate" template="/WEB-INF/template/usertemplate.jsp">
+        <put-attribute name="contentUser" value="/WEB-INF/template/defaultContent.jsp"/>
+    </definition>
+    
 </tiles-definitions>

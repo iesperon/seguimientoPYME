@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService{
 		return usuarioDAO.findById(idUsuario);
 	}
 
-	@Override
+	
 	public void actualizarAdmin(Usuario miusuario) {
 		Usuario usuarioMod = usuarioDAO.findById(miusuario.getIdUsuario());
 		usuarioMod.setNombre(miusuario.getNombre());

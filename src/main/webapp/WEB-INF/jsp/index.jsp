@@ -75,12 +75,12 @@
 					
 					<div class="col-xs-3">
 						<label for="dni">DNI</label>
-						<form:input class="form-control" path="usuario.dni" type="text"/>
+						<form:input class="form-control" id="dni" path="usuario.dni" type="text"/>
 					</div>
 					
 					<div class="col-xs-3">
-						<label for="contrasena">Contraseña</label>
-						<form:input class="form-control" path="usuario.contrasena" type="password"/>
+						<label for="contr">Contraseña</label>
+						<form:input class="form-control" id="contr" path="usuario.contrasena" type="text"/>
 					</div>
 					
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

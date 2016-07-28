@@ -36,7 +36,7 @@ public interface ProductoService {
 	//Buscar un producto por ID
 	public Producto buscarProductoPorId(Long miid);
 	//Buscar producto por codigo
-	public Producto buscarProductoPorCodigo(String micodigo);
+	public Producto buscarProductoPorCodigo(String micodigo, Long idEmpresa);
 	public List<Producto> buscarProductoPorEmpresa(Empresa miempresa);
 	
 	//*****************STOCK****************

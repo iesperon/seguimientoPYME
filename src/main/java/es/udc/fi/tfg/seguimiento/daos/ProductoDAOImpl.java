@@ -47,11 +47,18 @@ public class ProductoDAOImpl implements ProductoDAO {
 		return (List<Producto>) q.list();
 	}
 
-	public Producto findByCod(String micodprod) {
-		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where codProd=:codProd");
+	public Producto findByCod(String micodprod, Long idEmpresa) {
+	try{	
+		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where codProd=:codProd AND idEmpresa= :idEmpresa");
 		q.setParameter("codProd", micodprod);
+		q.setParameter("idEmpresa", idEmpresa);
 		return (Producto) q.list().get(0);
+	}catch(RuntimeException e){
+		e.printStackTrace();
 	}
+	return null;
+	}
+
 
 	public Producto findById(Long miid) {
 		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where idProducto=:idProducto");

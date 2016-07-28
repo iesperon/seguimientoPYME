@@ -72,14 +72,24 @@ public class ProductoServiceImpl implements ProductoService{
 	//*************PRODUCTO****************
 		
 		public void registroProducto(Producto miproducto) {
-			productoDAO.create(miproducto);
+			Producto producto = productoDAO.findByCod(miproducto.getCodProd(), miproducto.getEmpresa().getIdEmpresa());
+			if(producto!=null){
+				producto.setEnable(true);
+				productoDAO.update(producto);
+			}else{
+				miproducto.setEnable(true);
+				productoDAO.create(miproducto);	
+			}
+			
 		}
 		
 		public void eliminarProducto(Producto miproducto) {
-			for(Stock mistock : miproducto.getStock()){	
+			/*for(Stock mistock : miproducto.getStock()){	
 				stockDAO.delete(mistock);
-			}
-			productoDAO.remove(miproducto);
+			}*/
+			Producto productoMod = productoDAO.findByCod(miproducto.getCodProd(), miproducto.getEmpresa().getIdEmpresa());
+			productoMod.setEnable(false);
+			productoDAO.update(productoMod);
 		}
 
 		public void actualizarProducto(Producto miproducto) {
@@ -100,8 +110,8 @@ public class ProductoServiceImpl implements ProductoService{
 		}
 
 
-		public Producto buscarProductoPorCodigo(String micodigo) {
-			return productoDAO.findByCod(micodigo);
+		public Producto buscarProductoPorCodigo(String micodigo, Long idEmpresa) {
+			return productoDAO.findByCod(micodigo, idEmpresa);
 		}
 		
 		public List<Producto> buscarProductoPorEmpresa(Empresa miempresa) {
@@ -141,7 +151,7 @@ public class ProductoServiceImpl implements ProductoService{
 			}
 		}
 
-		@Override
+		
 		public void actualizarStockCaja(Stock mistock) {
 			Stock stockMod = stockDAO.findById(mistock.getIdStock());
 			stockMod.setStockActual(mistock.getStockActual());
@@ -151,7 +161,7 @@ public class ProductoServiceImpl implements ProductoService{
 			
 		}
 
-		@Override
+		
 		public void descontarStock(Centro centro, List<LineaTicket> lineas) {
 			for (LineaTicket linea:lineas){
 				List<Stock> stocks= new ArrayList<Stock>(linea.getProducto().getStock());

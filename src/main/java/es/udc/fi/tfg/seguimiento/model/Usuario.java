@@ -1,3 +1,4 @@
+
 package es.udc.fi.tfg.seguimiento.model;
 
 
@@ -48,7 +49,7 @@ public class Usuario {
 		this.rol=rol;
 	}
 	
-	
+
 	
 	@Id 
 	@SequenceGenerator(name="usuarioId", sequenceName = "id_usuario_seq")
@@ -107,7 +108,7 @@ public class Usuario {
 		this.dni = dni;
 	}
 
-	@Column(name="contrasena", nullable=false)
+    @Column(name="contrasena", nullable=false)
 	public String getContrasena() {
 		return contrasena;
 	}

@@ -138,13 +138,13 @@ public class CajaServiceImpl implements CajaService {
 		return ticketDAO.findById(miid);
 	}
 	
-	@Override
+	
 	public List<Ticket> buscarTicketPorFormaPago(String formaPago) {
 		return ticketDAO.findByFormaPago(formaPago);
 		
 	}
 
-	@Override
+	
 	public void cerrarTicket(Ticket ticket) {
 		Ticket ticketMod = ticketDAO.findById(ticket.getIdTicket());
 		ticketMod.setCierreCaja(ticket.getCierreCaja());
@@ -180,7 +180,7 @@ public class CajaServiceImpl implements CajaService {
 		return lineaTicketDAO.findById(miid);
 	}
 	
-	@Override
+	
 	public List<LineaTicket> buscarLineaPorTicket(Ticket miticket) {
 		return lineaTicketDAO.findByTicket(miticket);
 	}
@@ -224,12 +224,12 @@ public class CajaServiceImpl implements CajaService {
 		return envioDAO.findByTicket(miticket);
 	}
 
-	@Override
+	
 	public List<Envio> buscarEnvioPorCentro(Centro micentro) {
 		return envioDAO.findByCentro(micentro);
 	}
 
-	@Override
+	
 	public void EnviarNotificacion(Usuario miusuario, Centro micentro) {
 		
 			

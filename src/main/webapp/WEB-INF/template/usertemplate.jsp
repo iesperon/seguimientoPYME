@@ -44,7 +44,7 @@
 		
 		<sec:authorize access="isAuthenticated()">
  		 	<div class="navbar-header">
-      			<a class="navbar-brand" href="<c:url value="/admin/empresa/centros" />">MiPymeOnline</a>
+      			<a class="navbar-brand" href="<c:url value="/user/empresa/productos" />">MiPymeOnline</a>
     		</div>
 		</sec:authorize>
     		
@@ -92,8 +92,6 @@
     								<span class="caret"></span>
   								</a>
   								<ul class="dropdown-menu" aria-labelledby="dLabel">
-									<li> <a href='/seguimientoPYMES/admin/empresa/miempresa'><i class="glyphicon glyphicon-briefcase"></i> Mi empresa</a>	</li>
-									<li class="divider"></li>
 									<li><a href="javascript:formSubmit()"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
 									
 								</ul>
@@ -110,26 +108,24 @@
 	<section>	
 		<sec:authorize access="isAuthenticated()"> 
 			 <div class="col-md-2" id="leftCol">
-              	
+			 
+          	
 				<div class="well"> 
               	<ul class="nav nav-stacked" id="sidebar">
-                  <li><a href="/seguimientoPYMES/admin/empresa/centros"><i class="glyphicon glyphicon-home"></i> Centros</a></li>
-                  <li><a href="/seguimientoPYMES/admin/empresa/empleados"><i class="glyphicon glyphicon-user"></i> Empleados</a></li>
-                  <li><a href="/seguimientoPYMES/admin/empresa/productos"><i class="glyphicon glyphicon-shopping-cart"></i> Productos</a></li>
-                  <li><a href="/seguimientoPYMES/admin/contabilidad/gastos"><i class="glyphicon glyphicon-euro"></i> Gastos</a></li>
-                  <li><a href="/seguimientoPYMES/admin/ventas/cajaCentro"><i class="glyphicon glyphicon-barcode"></i> Caja</a></li>
-                  <li><a href="/seguimientoPYMES/admin/ventas/tickets"><i class="glyphicon glyphicon-list-alt"></i> Tickets</a></li>
-                  <li><a href="/seguimientoPYMES/admin/contabilidad/proveedores"><i class="glyphicon glyphicon-briefcase"></i> Proveedores</a></li>
-                  <li><a href="/seguimientoPYMES/admin/ventas/cierresCaja"><i class="glyphicon glyphicon-floppy-saved"></i> Cierres de caja	</a></li>
-                  <li><a href="/seguimientoPYMES/admin/ventas/envios"><i class="glyphicon glyphicon-send"></i> Envios	</a></li>
-                  <li><a href="/seguimientoPYMES/admin/contabilidad/estadisticas"><i class="glyphicon glyphicon-stats"></i> Estadísticas	</a></li>
+                  <li><a href="/seguimientoPYMES/user/empresa/productosEmp"><i class="glyphicon glyphicon-shopping-cart"></i> Productos</a></li>
+                  <li><a href="/seguimientoPYMES/user/contabilidad/gastosEmp"><i class="glyphicon glyphicon-euro"></i> Gastos</a></li>
+                  <li><a href="/seguimientoPYMES/user/ventas/addTicketEmp"><i class="glyphicon glyphicon-barcode"></i> Caja</a></li>
+                  <li><a href="/seguimientoPYMES/user/ventas/ticketsEmp"><i class="glyphicon glyphicon-list-alt"></i> Tickets</a></li>
+                  <li><a href="/seguimientoPYMES/user/ventas/cierresCajaEmp"><i class="glyphicon glyphicon-floppy-saved"></i> Cierres de caja	</a></li>
+                  <li><a href="/seguimientoPYMES/user/ventas/enviosEmp"><i class="glyphicon glyphicon-send"></i> Envios	</a></li>
+                  <li><a href="/seguimientoPYMES/user/ventas/stockEmp"><i class="glyphicon glyphicon-send"></i> Stock	</a></li>
               	</ul>
   				</div>
 
       		</div> 
       	</sec:authorize>		
       		
-				<tiles:insertAttribute name="content"/> 
+				<tiles:insertAttribute name="contentUser"/> 
 			
     </section>
     

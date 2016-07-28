@@ -17,13 +17,14 @@ public interface EmpresaService {
 		//Actualizar los datos de una empresa
 		public void actualizarEmpresa(Empresa miempresa);
 		//Obtener todas las empresas
-		public List<Empresa> obtenerTodasEmpresas();
-		//Buscar empresa por cif
-		public Empresa buscarEmpresaPorCif(String micif);
-		//Buscar empresas por nombre
-		public List<Empresa> buscarEmpresaPorNombre(String minombre);
+//		public List<Empresa> obtenerTodasEmpresas();
+//		//Buscar empresa por cif
+//		public Empresa buscarEmpresaPorCif(String micif);
+//		//Buscar empresas por nombre
+//		public List<Empresa> buscarEmpresaPorNombre(String minombre);
 		//Buscar empresa por empleado
 		public Empresa buscarEmpresaPorAdmin(Usuario miusuario);
+		public Empresa buscarEmpresaPorId(Long id);
 
 		
 		
@@ -31,7 +32,7 @@ public interface EmpresaService {
 		//**********Centro**************
 		
 		//Registro de un centro
-		public void registroCentro(Centro micentro);
+		public void registroCentro(Centro micentro, Empresa miempresa);
 		//Eliminación de un centro
 		public void eliminarCentro(Centro micentro);
 		//Actualizar los datos de un centro
@@ -41,5 +42,6 @@ public interface EmpresaService {
 		//Buscar centro por id
 		public Centro buscarCentroPorId(Long miid);
 		public List<Centro> buscarCentroPorEmpresa (Empresa miempresa);
-		
+		public List<Centro> obtenerCentrosActivos(Empresa miempresa);
+
 }

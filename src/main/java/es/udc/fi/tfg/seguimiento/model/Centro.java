@@ -35,6 +35,7 @@ public class Centro {
 	private String email;
 	private String telefono;
 	private Empresa empresa;
+	private Boolean enable;
 	private Set<Usuario> usuario = new HashSet<Usuario>();
 	private Set<Stock> stock = new HashSet<Stock>();
 	private Set<Ticket> ticket = new HashSet<Ticket>();
@@ -152,7 +153,7 @@ public class Centro {
 		this.telefono = telefono;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idEmpresa", nullable = false)
 	//@Cascade({CascadeType.SAVE_UPDATE})
 	public Empresa getEmpresa() {
@@ -211,6 +212,14 @@ public class Centro {
 
 	public void setEnvio(Set<Envio> envio) {
 		this.envio = envio;
+	}
+	
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
 	}
 
 	@Override
