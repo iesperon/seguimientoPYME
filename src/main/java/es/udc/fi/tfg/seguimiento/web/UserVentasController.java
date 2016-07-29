@@ -171,6 +171,17 @@ public class UserVentasController {
 			return model;
 		}
 		
+		@RequestMapping(value = "/eliminarLinea", method = RequestMethod.GET)
+		public ModelAndView eliminarLinea(LineaTicket linea,  BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+			Ticket ticket = cajaService.buscarTicketPorId(linea.getTicket().getIdTicket());
+			linea.setProducto(null);
+			cajaService.eliminarLineaTicket(linea);
+			
+			redirectAttributes.addFlashAttribute("ticket", ticket);
+			model.setViewName("redirect:/user/ventas/cajaEmp");
+			return model;
+		}
+		
 		// ****************** TICKETS ******************
 		
 		@RequestMapping(value = "/ticketsEmp", method = RequestMethod.GET)

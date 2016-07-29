@@ -76,9 +76,9 @@ $(function() {
 			<form:input class="form-control" path="ticket.idTicket" value="${lineas.ticket.idTicket}" type="hidden"/> 
 			
 		<div class="col-xs-1">
-			<c:url var="lineaUrl" value="eliminarGasto">
-				<c:param name="idLineaTicket" value="${lineas.idLineaTicket}"/>
-			</c:url>
+<%-- 			<c:url var="lineaUrl" value="eliminarLinea"> --%>
+<%-- 				<c:param name="idLineaTicket" value="${lineas.idLineaTicket}"/> --%>
+<%-- 			</c:url> --%>
 		</div>	
 		<div class="col-xs-1">
 		<button type="submit" class="btn btn-sm btn-warning">
@@ -86,10 +86,24 @@ $(function() {
 		</button>
 		</div>	
 		
-		<div class="col-xs-1">
-			<a href='<c:out value="${lineaUrl}"/>' data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-		</div>
+<!-- 		<div class="col-xs-1"> -->
+<%-- 			<a href='<c:out value="${lineaUrl}"/>' data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> --%>
+<!-- 		</div> -->
 		 
+		</form:form>
+		<form:form action="eliminarLinea" method="GET" modelAttribute="linea" class="form-horizontal" role="form"> 
+		<div class="col-xs-1">
+		<button type="submit" class="btn btn-sm btn-danger">
+			<form:input class="form-control" id="referencia" path="producto.codProd" value="${lineas.producto.codProd}"  readonly="true"  type="hidden"/>
+			<form:input class="form-control" id="cantidad" path="cantidad" value="${lineas.cantidad}" type="hidden"/>
+			<form:input class="form-control" id="producto" path="producto.nombre" value="${lineas.producto.nombre}"  readonly="true" type="hidden"/>
+			<form:input class="form-control" id="iva" path="iva" value="${lineas.iva}" type="hidden"/>
+			<form:input class="form-control" id="precio" path="precio" value="${lineas.precio}" type="hidden"/>
+			<form:input class="form-control" path="idLineaTicket" value="${lineas.idLineaTicket}" type="hidden"/> 
+			<form:input class="form-control" path="ticket.idTicket" value="${lineas.ticket.idTicket}" type="hidden"/> 
+			<i class="glyphicon glyphicon-edit"></i>
+		</button>
+		</div>	
 		</form:form>
 		</div>
 	</div>

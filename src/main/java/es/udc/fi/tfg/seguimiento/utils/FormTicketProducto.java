@@ -6,6 +6,7 @@ public class FormTicketProducto {
 
 	private Ticket ticket;
 	private String codProd;
+	private Long idProducto;
 	
 	public FormTicketProducto() {
 		// TODO Auto-generated constructor stub
@@ -28,6 +29,16 @@ public class FormTicketProducto {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+
+
+	public Long getIdProducto() {
+		return idProducto;
+	}
+
+
+	public void setIdProducto(Long idProducto) {
+		this.idProducto = idProducto;
 	}
 
 

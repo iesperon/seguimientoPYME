@@ -111,15 +111,23 @@ public class AdminVentasController {
 	
 	@RequestMapping(value="/caja",method = RequestMethod.GET)
 	public ModelAndView caja(@ModelAttribute("ticket") Ticket ticket ,BindingResult result, ModelAndView model ){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		
 		Ticket miticket = cajaService.buscarTicketPorId(ticket.getIdTicket());
 		List<LineaTicket> lineas = cajaService.buscarLineaPorTicket(miticket);
 		FormTicketProducto myForm = new FormTicketProducto();
 		//myForm.setIdTicket(idTicket);
 		myForm.setTicket(miticket);
+		List<Producto> productos = productoService.buscarProductoPorEmpresa(miempresa);
 		//LineaTicket linea = new LineaTicket();
 		//linea.setTicket(ticket);
 		//model.addObject("linea", linea);
 		CalcularTicket calculos = new CalcularTicket();
+		model.addObject("productoslist", productos);
 		model.addObject("envioForm", new FormTicketEnvio());
 		model.addObject("iva", calculos.calcularIVA(lineas));
 		model.addObject("subtotal", calculos.calcularSubtotal(lineas));
@@ -169,10 +177,46 @@ public class AdminVentasController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/addLineaProducto", method =RequestMethod.POST )
+	public ModelAndView addLineaProducto(@ModelAttribute("myForm") FormTicketProducto myForm, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//String login = auth.getName();
+		
+		//Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		//Empresa miempresa = miusuario.getCentro().getEmpresa();
+		
+		Producto miproducto = productoService.buscarProductoPorId(myForm.getIdProducto());
+		Ticket ticket = cajaService.buscarTicketPorId(myForm.getTicket().getIdTicket());
+		LineaTicket linea = new LineaTicket();
+
+		linea.setTicket(ticket);
+		linea.setProducto(miproducto);
+		linea.setCantidad(1);
+		linea.setIva(miproducto.getIva().getPorcentaje());
+		linea.setPrecio(miproducto.getPrecio());
+		
+		cajaService.registroLineaTicket(linea);
+
+		redirectAttributes.addFlashAttribute("ticket", ticket);
+		model.setViewName("redirect:/admin/ventas/caja");
+		return model;
+	}
+	
 	@RequestMapping(value = "/editLinea", method = RequestMethod.POST)
 	public ModelAndView editLinea(LineaTicket linea, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
 		cajaService.actualizarLineaTicket(linea);
 		Ticket ticket = cajaService.buscarTicketPorId(linea.getTicket().getIdTicket());
+		redirectAttributes.addFlashAttribute("ticket", ticket);
+		model.setViewName("redirect:/admin/ventas/caja");
+		return model;
+	}
+	
+	@RequestMapping(value = "/eliminarLinea", method = RequestMethod.GET)
+	public ModelAndView eliminarLinea(LineaTicket linea,  BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+		Ticket ticket = cajaService.buscarTicketPorId(linea.getTicket().getIdTicket());
+		linea.setProducto(null);
+		cajaService.eliminarLineaTicket(linea);
+		
 		redirectAttributes.addFlashAttribute("ticket", ticket);
 		model.setViewName("redirect:/admin/ventas/caja");
 		return model;
