@@ -12,7 +12,8 @@ public interface ProductoDAO {
 	public void update (Producto miproducto);
 	public List<Producto> findAll();
 	public List<Producto> findByEmpresa(Empresa miempresa);
-	public Producto findByCod (String micodprod, Long idEmpresa);
+	public Producto findByCod (String micodprod, Empresa miempresa);
 	public Producto findById(Long miid);
+//	public Producto findByIdEmpresa(Long miid, Empresa miempresa);
 	
 }

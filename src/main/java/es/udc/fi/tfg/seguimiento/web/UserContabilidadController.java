@@ -28,7 +28,7 @@ public class UserContabilidadController {
 	@Autowired
 	private ContabilidadService contabilidadService;
 	
-	// *********************** GASTOS *********************
+	// *********************** GASTOS ********************
 	
 		@RequestMapping(value = "/gastosEmp", method = RequestMethod.GET)
 		public ModelAndView gastos() {

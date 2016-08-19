@@ -30,6 +30,7 @@ import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
 import es.udc.fi.tfg.seguimiento.utils.CalcularTicket;
+import es.udc.fi.tfg.seguimiento.utils.Cierre;
 import es.udc.fi.tfg.seguimiento.utils.FormCentroCierre;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketEnvio;
 import es.udc.fi.tfg.seguimiento.utils.FormTicketProducto;
@@ -102,7 +103,7 @@ public class AdminVentasController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+		List<Centro> centros = empresaService.obtenerCentros(miempresa);
 
 		mav.addObject("centros", centros);
 		mav.setViewName("cajaCentro");
@@ -160,18 +161,20 @@ public class AdminVentasController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
 		
-		Producto miproducto = productoService.buscarProductoPorCodigo(myForm.getCodProd(), miempresa.getIdEmpresa());
+		Producto miproducto = productoService.buscarProductoPorCodigo(myForm.getCodProd(), miempresa);
 		Ticket ticket = cajaService.buscarTicketPorId(myForm.getTicket().getIdTicket());
-		LineaTicket linea = new LineaTicket();
-
-		linea.setTicket(ticket);
-		linea.setProducto(miproducto);
-		linea.setCantidad(1);
-		linea.setIva(miproducto.getIva().getPorcentaje());
-		linea.setPrecio(miproducto.getPrecio());
+//		LineaTicket linea = new LineaTicket();
+//
+//		linea.setTicket(ticket);
+//		linea.setProducto(miproducto);
+//		linea.setCantidad(1);
+//		linea.setIva(miproducto.getIva().getPorcentaje());
+//		linea.setPrecio(miproducto.getPrecio());
+//		
+//		cajaService.registroLineaTicket(linea);
 		
-		cajaService.registroLineaTicket(linea);
-
+		cajaService.addLinea(ticket, miproducto);
+		
 		redirectAttributes.addFlashAttribute("ticket", ticket);
 		model.setViewName("redirect:/admin/ventas/caja");
 		return model;
@@ -187,16 +190,19 @@ public class AdminVentasController {
 		
 		Producto miproducto = productoService.buscarProductoPorId(myForm.getIdProducto());
 		Ticket ticket = cajaService.buscarTicketPorId(myForm.getTicket().getIdTicket());
-		LineaTicket linea = new LineaTicket();
+//		LineaTicket linea = new LineaTicket();
+//
+//		linea.setTicket(ticket);
+//		linea.setProducto(miproducto);
+//		linea.setCantidad(1);
+//		linea.setIva(miproducto.getIva().getPorcentaje());
+//		linea.setPrecio(miproducto.getPrecio());
+//		
+//		cajaService.registroLineaTicket(linea);
 
-		linea.setTicket(ticket);
-		linea.setProducto(miproducto);
-		linea.setCantidad(1);
-		linea.setIva(miproducto.getIva().getPorcentaje());
-		linea.setPrecio(miproducto.getPrecio());
+		cajaService.addLinea(ticket, miproducto);
 		
-		cajaService.registroLineaTicket(linea);
-
+		
 		redirectAttributes.addFlashAttribute("ticket", ticket);
 		model.setViewName("redirect:/admin/ventas/caja");
 		return model;
@@ -232,13 +238,16 @@ public class AdminVentasController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
-		List<Ticket> tickets = new ArrayList<Ticket>();
-		for(Centro centro:centros){
-			for(Ticket ticket:centro.getTicket()){
-				tickets.add(ticket);
-			}
-		}
+		List<Centro> centros = empresaService.obtenerCentros(miempresa);
+//		List<Ticket> tickets = new ArrayList<Ticket>();
+//		for(Centro centro:centros){
+//			for(Ticket ticket:centro.getTicket()){
+//				tickets.add(ticket);
+//			}
+//		}
+		
+		List<Ticket> tickets = cajaService.buscarTicketCentros(centros);
+				
 		model.addObject("tickets", tickets);
 		model.setViewName("tickets");
 		return model;
@@ -284,7 +293,7 @@ public class AdminVentasController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Centro micentro = miusuario.getCentro();
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+		List<Centro> centros = empresaService.obtenerCentros(miempresa);
 		List<CierreCaja> cierres = cajaService.buscarCierrePorCentros(centros);
 		
 		model.addObject("cierreslist", cierres);
@@ -297,27 +306,34 @@ public class AdminVentasController {
 	public ModelAndView registrarCierre(Long idCentro, ModelAndView model) {
 		Centro micentro = empresaService.buscarCentroPorId(idCentro);
 		List<Ticket> tickets = new ArrayList<Ticket>(micentro.getTicket());
-		List<Ticket> ticketSinCierre = new ArrayList<Ticket>();
+//		List<Ticket> ticketSinCierre = new ArrayList<Ticket>();
 		FormCentroCierre newFormCierre = new FormCentroCierre();
-		for(Ticket miticket:tickets){
-			if (miticket.getCierreCaja() ==null){
-				//newFormCierre.getCierre().getTicket().add(miticket);
-				ticketSinCierre.add(miticket);
-			}
-		}
-		Double tarjeta = 0.0;
-		Double efectivo = 0.0;
-		for(Ticket ticket:ticketSinCierre){
-			if (ticket.getFormaPago()=="Tarjeta"){
-				tarjeta=tarjeta+ticket.getTotal();
-			}else{
-				efectivo=efectivo+ticket.getTotal();
-			}
-		}
-		Double total = tarjeta + efectivo;
-		model.addObject("total", total);
-		model.addObject("tarjeta",tarjeta);
-		model.addObject("efectivo",efectivo);
+//		System.out.println(tickets.get(0).getFormaPago());
+//		for(Ticket miticket:tickets){
+//			if (miticket.getCierreCaja() ==null){
+//				//newFormCierre.getCierre().getTicket().add(miticket);
+//				ticketSinCierre.add(miticket);
+//			}
+//		}
+//		Double tarjeta = 0.0;
+//		Double efectivo = 0.0;
+//		for(Ticket ticket:ticketSinCierre){
+//			if (ticket.getFormaPago()=="Tarjeta"){
+//				tarjeta=tarjeta+ticket.getTotal();
+//				System.out.println(tarjeta);
+//			}else{
+//				efectivo=efectivo+ticket.getTotal();
+//				System.out.println(efectivo);
+//			}
+//		}
+//		System.out.println(efectivo);
+//		Double total = tarjeta + efectivo;
+		
+		Cierre cierre = cajaService.registrarCierre(tickets);
+		
+		model.addObject("total", cierre.getTotal());
+		model.addObject("tarjeta",cierre.getTarjeta());
+		model.addObject("efectivo",cierre.getEfectivo());
 		model.addObject("idCentro", idCentro);
 		model.addObject("newFormCierre", newFormCierre);
 		model.setViewName("registrarCierre");
@@ -337,12 +353,13 @@ public class AdminVentasController {
 		//Date date = new Date();
 		cierre.setFecha(new Date());
 		cajaService.registroCierre(cierre);
-		for(Ticket miticket:tickets){
-			if (miticket.getCierreCaja() ==null){
-				miticket.setCierreCaja(cierre);
-				cajaService.cerrarTicket(miticket);
-			}
-		}
+//		for(Ticket miticket:tickets){
+//			if (miticket.getCierreCaja() ==null){
+//				miticket.setCierreCaja(cierre);
+//				cajaService.cerrarTicket(miticket);
+//			}
+//		}
+		cajaService.cerrarTicketsAbiertos(tickets, cierre);
 		cajaService.EnviarNotificacion(miusuario, centro);;
 		redirectAttributes.addFlashAttribute("cierre", cierre);
 		redirectAttributes.addFlashAttribute("idCentro", cierre.getCentro().getIdCentro());
@@ -358,7 +375,7 @@ public class AdminVentasController {
 		
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+		List<Centro> centros = empresaService.obtenerCentros(miempresa);
 
 		mav.addObject("centros", centros);
 		mav.setViewName("cierreCentro");
@@ -392,14 +409,15 @@ public class AdminVentasController {
 		String login = auth.getName();
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
-		List<Centro> centros=empresaService.buscarCentroPorEmpresa(miempresa);
-		List<Envio> envios = new ArrayList<Envio>();
-		for(Centro micentro:centros){
-			List<Envio> envioCentro = cajaService.buscarEnvioPorCentro(micentro);
-			for (Envio envio:envioCentro){
-				envios.add(envio);
-			}
-		}
+		List<Centro> centros=empresaService.obtenerCentros(miempresa);
+//		List<Envio> envios = new ArrayList<Envio>();
+//		for(Centro micentro:centros){
+//			List<Envio> envioCentro = cajaService.buscarEnvioPorCentro(micentro);
+//			for (Envio envio:envioCentro){
+//				envios.add(envio);
+//			}
+//		}
+		List<Envio> envios = cajaService.buscarEnvioPorCentros(centros);
 		model.addObject("enviosList",envios);
 		model.setViewName("envios");
 		return model;

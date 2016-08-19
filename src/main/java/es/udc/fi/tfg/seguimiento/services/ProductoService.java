@@ -36,8 +36,9 @@ public interface ProductoService {
 	//Buscar un producto por ID
 	public Producto buscarProductoPorId(Long miid);
 	//Buscar producto por codigo
-	public Producto buscarProductoPorCodigo(String micodigo, Long idEmpresa);
+	public Producto buscarProductoPorCodigo(String micodigo, Empresa miempresa);
 	public List<Producto> buscarProductoPorEmpresa(Empresa miempresa);
+	//public Producto buscarPorIdEmpresa(Long idProducto, Empresa miempresa);
 	
 	//*****************STOCK****************
 	public Stock buscarStockProductoCentro(Producto miproducto, Centro micentro);
@@ -47,5 +48,7 @@ public interface ProductoService {
 	public List<Stock> buscarStocksMinimos();
 	public void actualizarStockCaja(Stock mistock);
 	public void descontarStock(Centro centro, List<LineaTicket> lineas);
+	public void registroStockIni(List<Producto> productos, Centro micentro);
+	public void registroStockProd(List<Centro> centros, Producto producto);
 
 }

@@ -72,7 +72,7 @@ public class ProductoServiceImpl implements ProductoService{
 	//*************PRODUCTO****************
 		
 		public void registroProducto(Producto miproducto) {
-			Producto producto = productoDAO.findByCod(miproducto.getCodProd(), miproducto.getEmpresa().getIdEmpresa());
+			Producto producto = productoDAO.findByCod(miproducto.getCodProd(), miproducto.getEmpresa());
 			if(producto!=null){
 				producto.setEnable(true);
 				productoDAO.update(producto);
@@ -87,7 +87,7 @@ public class ProductoServiceImpl implements ProductoService{
 			/*for(Stock mistock : miproducto.getStock()){	
 				stockDAO.delete(mistock);
 			}*/
-			Producto productoMod = productoDAO.findByCod(miproducto.getCodProd(), miproducto.getEmpresa().getIdEmpresa());
+			Producto productoMod = productoDAO.findByCod(miproducto.getCodProd(), miproducto.getEmpresa());
 			productoMod.setEnable(false);
 			productoDAO.update(productoMod);
 		}
@@ -110,13 +110,20 @@ public class ProductoServiceImpl implements ProductoService{
 		}
 
 
-		public Producto buscarProductoPorCodigo(String micodigo, Long idEmpresa) {
-			return productoDAO.findByCod(micodigo, idEmpresa);
+		public Producto buscarProductoPorCodigo(String micodigo, Empresa miempresa) {
+			return productoDAO.findByCod(micodigo, miempresa);
 		}
 		
 		public List<Producto> buscarProductoPorEmpresa(Empresa miempresa) {
 			return productoDAO.findByEmpresa(miempresa);
 		}
+		
+//		@Override
+//		public Producto buscarPorIdEmpresa(Long idProducto, Empresa miempresa) {
+//			return productoDAO.findByIdEmpresa(idProducto, miempresa);
+//		}
+//		
+		
 		//********STOCK*************
 
 		public Stock buscarStockProductoCentro(Producto miproducto, Centro micentro) {
@@ -173,6 +180,36 @@ public class ProductoServiceImpl implements ProductoService{
 				}
 			}
 		}
+
+		@Override
+		public void registroStockIni(List<Producto> productos, Centro micentro) {
+			for(Producto miproducto : productos){
+				Stock mistock = new Stock();
+				mistock.setCentro(micentro);
+				mistock.setProducto(miproducto);
+				mistock.setStockActual(0);
+				mistock.setStockMin(0);
+				registroStock(mistock);
+			}
+			
+		}
+
+		@Override
+		public void registroStockProd(List<Centro> centros, Producto producto) {
+			for (Centro centro : centros) {
+				Stock stock = new Stock();
+				stock.setCentro(centro);
+				stock.setProducto(producto);
+				stock.setStockActual(0);
+				stock.setStockMin(0);
+				registroStock(stock);
+			}
+			
+		}
+
+	
+
+
 
 
 

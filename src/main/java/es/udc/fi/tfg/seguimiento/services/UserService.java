@@ -31,7 +31,7 @@ public interface UserService {
 	public Usuario buscarUsuarioPorEmail(String miemail);
 	//Buscar usuario por Id
 	public Usuario buscarUsuarioPorId(Long idUsuario);
-	
+	public void addCentroAdmin(Usuario miusuario, Centro micentro);
 	
 	//Registro administrador
 	public void registroAdmin(Usuario miusuario);

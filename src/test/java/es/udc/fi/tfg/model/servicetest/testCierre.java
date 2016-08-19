@@ -1,4 +1,4 @@
-package es.udc.fi.tfg.model.adminservice;
+package es.udc.fi.tfg.model.servicetest;
 
 import static org.junit.Assert.*;
 

@@ -145,7 +145,7 @@ public class UserVentasController {
 			Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 			Empresa miempresa = miusuario.getCentro().getEmpresa();
 			
-			Producto miproducto = productoService.buscarProductoPorCodigo(myForm.getCodProd(), miempresa.getIdEmpresa());
+			Producto miproducto = productoService.buscarProductoPorCodigo(myForm.getCodProd(), miempresa);
 			Ticket ticket = cajaService.buscarTicketPorId(myForm.getTicket().getIdTicket());
 			LineaTicket linea = new LineaTicket();
 
@@ -239,7 +239,7 @@ public class UserVentasController {
 			Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 			Centro micentro = miusuario.getCentro();
 			Empresa miempresa = miusuario.getCentro().getEmpresa();
-			List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+			List<Centro> centros = empresaService.obtenerCentros(miempresa);
 			List<CierreCaja> cierres = cajaService.buscarCierrePorCentros(centros);
 			
 			model.addObject("cierreslist", cierres);
@@ -313,7 +313,7 @@ public class UserVentasController {
 			
 			Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 			Empresa miempresa = miusuario.getCentro().getEmpresa();
-			List<Centro> centros = empresaService.buscarCentroPorEmpresa(miempresa);
+			List<Centro> centros = empresaService.obtenerCentros(miempresa);
 
 			mav.addObject("centros", centros);
 			mav.setViewName("cierreCentroEmp");
@@ -347,14 +347,17 @@ public class UserVentasController {
 			String login = auth.getName();
 			Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 			Empresa miempresa = miusuario.getCentro().getEmpresa();
-			List<Centro> centros=empresaService.buscarCentroPorEmpresa(miempresa);
-			List<Envio> envios = new ArrayList<Envio>();
-			for(Centro micentro:centros){
-				List<Envio> envioCentro = cajaService.buscarEnvioPorCentro(micentro);
-				for (Envio envio:envioCentro){
-					envios.add(envio);
-				}
-			}
+			List<Centro> centros=empresaService.obtenerCentros(miempresa);
+//			List<Envio> envios = new ArrayList<Envio>();
+//			for(Centro micentro:centros){
+//				List<Envio> envioCentro = cajaService.buscarEnvioPorCentro(micentro);
+//				for (Envio envio:envioCentro){
+//					envios.add(envio);
+//				}
+//			}
+			
+			List<Envio> envios = cajaService.buscarEnvioPorCentros(centros);
+
 			model.addObject("enviosList",envios);
 			model.setViewName("enviosEmp");
 			return model;

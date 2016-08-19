@@ -2,6 +2,8 @@ package es.udc.fi.tfg.seguimiento.web;
 
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +12,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,7 @@ import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
+import es.udc.fi.tfg.seguimiento.utils.FileBucket;
 import es.udc.fi.tfg.seguimiento.utils.FileUpload;
 import es.udc.fi.tfg.seguimiento.utils.Form;
 
@@ -41,7 +45,8 @@ public class IndexController {
 	@Autowired 
 	private ProductoService productoService;
 	
-	
+	private static String UPLOAD_LOCATION="C:/Users/iesperon/Pictures/Nueva carpeta";
+
 		
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -68,26 +73,38 @@ public class IndexController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/404", method = RequestMethod.GET)
+	public ModelAndView notFound() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("404");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/500", method = RequestMethod.GET)
+	public ModelAndView serverError() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("500");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(Form myForm, BindingResult result, Model model) {
+	public String addUser(Form myForm, BindingResult result, Model model) throws IOException {
 		if(result.hasErrors()){
 			return "index";
 		}else{
-			/*FileUpload file = (FileUpload)command;
-			
-			MultipartFile multipartFile = file.getFile();
-			
-			String fileName="";
+			//MultipartFile multipartFile = myForm.getFile();
 
-			if(multipartFile!=null){
-				fileName = multipartFile.getOriginalFilename();
-			}*/
+			// Now do something with file...
+			//FileCopyUtils.copy(myForm.getFile().getBytes(), new File( UPLOAD_LOCATION + myForm.getFile().getOriginalFilename()));
+			//String fileName = multipartFile.getOriginalFilename();
+			
 			Empresa empresa = myForm.getEmpresa();
 			Usuario usuario = myForm.getUsuario();
 			usuario.setEnabled(true);
 			usuarioService.registroAdmin(usuario);
 			empresa.setAdministrador(usuario);
 			empresaService.registroEmpresa(empresa);
+			
 			return "redirect:/";
 		}
 	}

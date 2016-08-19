@@ -8,12 +8,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.fi.tfg.seguimiento.daos.GastoDAO;
+import es.udc.fi.tfg.seguimiento.daos.LineaTicketDAO;
 import es.udc.fi.tfg.seguimiento.daos.PedidoProveedorDAO;
 import es.udc.fi.tfg.seguimiento.daos.ProveedorDAO;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
+import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
+import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
+import es.udc.fi.tfg.seguimiento.model.Ticket;
+import es.udc.fi.tfg.seguimiento.utils.Estadisticas;
 
 @Service
 @Transactional
@@ -27,6 +32,9 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	
 	@Autowired
 	private PedidoProveedorDAO pedidoDAO = null;
+	
+	@Autowired
+	private LineaTicketDAO lineaTicketDAO = null;
 	
 	//*********************GASTOS************************
 	public void setGastoDAO (GastoDAO gastoDAO){
@@ -60,9 +68,9 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		return gastoDAO.findByEstado(miestado);
 	}
 
-	public List<Gasto> buscarGastoPorConcepto(String miconcepto) {
-		return gastoDAO.findByConcepto(miconcepto);
-	}
+//	public List<Gasto> buscarGastoPorConcepto(String miconcepto) {
+//		return gastoDAO.findByConcepto(miconcepto);
+//	}
 
 	
 	public List<Gasto> buscarGastosPorEmpresa(Empresa miempresa) {
@@ -72,7 +80,7 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	//*******************PROVEEDORES*********************
 
 	public void registroProveedor(Proveedor miproveedor) {
-		Proveedor proveedor = proveedorDAO.findByCIF(miproveedor.getCif(), miproveedor.getEmpresa().getIdEmpresa());
+		Proveedor proveedor = proveedorDAO.findByCIF(miproveedor.getCif(), miproveedor.getEmpresa());
 		if(proveedor!=null){
 			proveedor.setEnable(true);
 			proveedorDAO.update(proveedor);
@@ -117,6 +125,18 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	public List<Proveedor> buscarProveedorPorEmpresa(Empresa miempresa) {
 		return proveedorDAO.findByEmpresa(miempresa);
 	}
+	
+	@Override
+	public List<PedidoProveedor> buscarPedidos(List<Proveedor> proveedores) {
+		List<PedidoProveedor> pedidos = new ArrayList<PedidoProveedor>();
+
+		for (Proveedor proveedor:proveedores){
+			for (PedidoProveedor pedido : proveedor.getPedido()){
+				pedidos.add(pedido);
+			}
+		}
+		return pedidos;
+	}
 
 	//******************************PEDIDOS**********************
 
@@ -147,6 +167,33 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	public List<PedidoProveedor> buscarPedidoPorEmpresa(Empresa miempresa) {
 		return pedidoDAO.findByEmpresa(miempresa);
 	}
+
+	@Override
+	public List<Estadisticas> productosMasVendidos() {
+		return lineaTicketDAO.productosVendidos();
+	}
+
+	@Override
+	public Long numeroVentasProd(Producto miproducto) {
+		return lineaTicketDAO.numVentas(miproducto);
+	}
+
+	@Override
+	public List<Estadisticas> estVentasProd(List<Producto> productos) {
+		List<Estadisticas> estadisticas =new ArrayList<Estadisticas>();
+		for(Producto producto:productos){
+			Long cantidad = numeroVentasProd(producto);
+			Estadisticas estad = new Estadisticas();
+			if(cantidad!=null){
+				estad.setCantidad(cantidad);
+				estad.setProducto(producto);
+				estadisticas.add(estad);
+			}
+		}
+		return estadisticas;
+	}
+
+
 
 
 

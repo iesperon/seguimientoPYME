@@ -49,11 +49,11 @@ public class ProveedorDAOImpl implements ProveedorDAO {
 	}
 
 	
-	public Proveedor findByCIF(String micif, Long idEmpresa) {
+	public Proveedor findByCIF(String micif, Empresa miempresa) {
 	try{	
 		Query q = sessionFactory.getCurrentSession().createQuery("from Proveedor where cif=:cif AND idEmpresa= :idEmpresa");
 		q.setParameter("cif", micif);
-		q.setParameter("idEmpresa", idEmpresa);
+		q.setParameter("idEmpresa", miempresa.getIdEmpresa());
 		return (Proveedor) q.list().get(0);
 	}catch(RuntimeException e){
 		e.printStackTrace();

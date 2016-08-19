@@ -47,11 +47,11 @@ public class ProductoDAOImpl implements ProductoDAO {
 		return (List<Producto>) q.list();
 	}
 
-	public Producto findByCod(String micodprod, Long idEmpresa) {
+	public Producto findByCod(String micodprod, Empresa miempresa) {
 	try{	
 		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where codProd=:codProd AND idEmpresa= :idEmpresa");
 		q.setParameter("codProd", micodprod);
-		q.setParameter("idEmpresa", idEmpresa);
+		q.setParameter("idEmpresa", miempresa.getIdEmpresa());
 		return (Producto) q.list().get(0);
 	}catch(RuntimeException e){
 		e.printStackTrace();
@@ -65,5 +65,18 @@ public class ProductoDAOImpl implements ProductoDAO {
 		q.setParameter("idProducto", miid);
 		return (Producto) q.list().get(0);
 	}
+
+//	@Override
+//	public Producto findByIdEmpresa(Long miid, Empresa miempresa) {
+//		try{
+//		Query q = sessionFactory.getCurrentSession().createQuery("from Producto where idProducto=:idProducto AND idEmpresa=:idEmpresa");
+//		q.setParameter("idProducto", miid);
+//		q.setParameter("idEmpresa", miempresa.getIdEmpresa());
+//		return (Producto) q.list().get(0);
+//		}catch(RuntimeException e){
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 
 }

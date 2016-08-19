@@ -13,13 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
+import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
+import es.udc.fi.tfg.seguimiento.model.Ticket;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.ContabilidadService;
+import es.udc.fi.tfg.seguimiento.services.EmpresaService;
+import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
+import es.udc.fi.tfg.seguimiento.utils.Estadisticas;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
 
 @Controller
@@ -33,6 +39,11 @@ public class AdminContabilidadController {
 	@Autowired
 	private ContabilidadService contabilidadService;
 	
+	@Autowired
+	private ProductoService productoService;
+	
+	@Autowired
+	private EmpresaService empresaService;
 	
 	// *********************** GASTOS *********************
 	
@@ -99,15 +110,9 @@ public class AdminContabilidadController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = miusuario.getCentro().getEmpresa();
 		List<Proveedor> proveedores = contabilidadService.buscarProveedorActivoPorEmpresa(miempresa);
-		//List<PedidoProveedor> pedidos = contabilidadService.buscarPedidoPorEmpresa(miempresa);
-		List<PedidoProveedor> pedidos = new ArrayList<PedidoProveedor>();
 		List<Proveedor> allProveedor = contabilidadService.buscarProveedorPorEmpresa(miempresa);
-		for (Proveedor proveedor:allProveedor){
-			for (PedidoProveedor pedido : proveedor.getPedido()){
-				pedidos.add(pedido);
-			}
-		}
-		
+		List<PedidoProveedor> pedidos = contabilidadService.buscarPedidos(allProveedor);
+
 		mav.addObject("pedidoslist", pedidos);
 		mav.addObject("proveedorlist", proveedores);
 		mav.addObject("proveedor", new Proveedor());
@@ -160,5 +165,34 @@ public class AdminContabilidadController {
 	public String eliminarPedido(Model model, Long idPedido){
 		contabilidadService.eliminarPedido(contabilidadService.buscarPedidoPorId(idPedido));
 		return "redirect:/admin/contabilidad/proveedores";
+	}
+	
+	//****************************** ESTADISTICAS ************************************
+	
+	@RequestMapping(value = "/estadisticas", method = RequestMethod.GET)
+	public ModelAndView estadisticas( ModelAndView model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		
+		//List<Estadisticas> estadisticas =new ArrayList<Estadisticas>();
+		List<Producto> productos = productoService.buscarProductoPorEmpresa(miempresa);
+		List<Centro> centros = empresaService.obtenerCentros(miempresa);
+
+//		for(Producto producto:productos){
+//			Long cantidad = contabilidadService.numeroVentasProd(producto);
+//			Estadisticas estad = new Estadisticas();
+//			if(cantidad!=null){
+//				estad.setCantidad(cantidad);
+//				estad.setProducto(producto);
+//				estadisticas.add(estad);
+//			}
+//		}
+		List<Estadisticas> estadisticas = contabilidadService.estVentasProd(productos); 
+		model.addObject("estadisticas", estadisticas);
+		model.setViewName("estadisticas");
+		return model;
 	}
 }

@@ -19,8 +19,10 @@ import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.CierreCaja;
 import es.udc.fi.tfg.seguimiento.model.Envio;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
+import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
 import es.udc.fi.tfg.seguimiento.model.Usuario;
+import es.udc.fi.tfg.seguimiento.utils.Cierre;
 import es.udc.fi.tfg.seguimiento.utils.MailMail;
 
 @Service
@@ -87,14 +89,14 @@ public class CajaServiceImpl implements CajaService {
 	public void actualizarCierre(CierreCaja micierre) {
 		cierreCajaDAO.update(micierre);
 	}
-
-	public CierreCaja buscarCierrePorFecha(Timestamp mifecha) {
-		return cierreCajaDAO.finByFecha(mifecha);
-	}
-
-	public List<CierreCaja> obtenerTodosCierres() {
-		return cierreCajaDAO.findAll();
-	}
+//
+//	public CierreCaja buscarCierrePorFecha(Timestamp mifecha) {
+//		return cierreCajaDAO.finByFecha(mifecha);
+//	}
+//
+//	public List<CierreCaja> obtenerTodosCierres() {
+//		return cierreCajaDAO.findAll();
+//	}
 	
 	public List<CierreCaja> buscarCierrePorCentros(List<Centro> centros){
 		List<CierreCaja> cierres = new ArrayList<CierreCaja>();
@@ -105,6 +107,47 @@ public class CajaServiceImpl implements CajaService {
 		}
 		return cierres;
 	}
+
+	@Override
+	public Cierre registrarCierre(List<Ticket> tickets) {
+		List<Ticket> ticketSinCierre = new ArrayList<Ticket>();
+		Cierre cierre = new Cierre();
+		for(Ticket miticket:tickets){
+			if (miticket.getCierreCaja() ==null){
+				//newFormCierre.getCierre().getTicket().add(miticket);
+				ticketSinCierre.add(miticket);
+			}
+		}
+		Double tarjeta = 0.0;
+		Double efectivo = 0.0;
+		for(Ticket ticket:ticketSinCierre){
+			if (ticket.getFormaPago()=="Tarjeta"){
+				tarjeta=tarjeta+ticket.getTotal();
+				System.out.println(tarjeta);
+			}else{
+				efectivo=efectivo+ticket.getTotal();
+				System.out.println(efectivo);
+			}
+		}
+		System.out.println(efectivo);
+		Double total = tarjeta + efectivo;
+		cierre.setTarjeta(tarjeta);
+		cierre.setEfectivo(efectivo);
+		cierre.setTotal(total);
+		return cierre;
+	}
+	
+	@Override
+	public void cerrarTicketsAbiertos(List<Ticket> tickets, CierreCaja cierre) {
+		for(Ticket miticket:tickets){
+			if (miticket.getCierreCaja() ==null){
+				miticket.setCierreCaja(cierre);
+				cerrarTicket(miticket);
+			}
+		}
+		
+	}
+
 
 	//****************** TICKET *****************
 	
@@ -130,11 +173,11 @@ public class CajaServiceImpl implements CajaService {
 		ticketDAO.update(ticketMod);
 	}
 
-	public List<Ticket> obtenerTickets() {
-		return ticketDAO.findAll();
-	}
+//	public List<Ticket> obtenerTickets() {
+//		return ticketDAO.findAll();
+//	}
 
-	public Ticket buscarTicketPorId(Long miid) {
+	public Ticket buscarTicketPorId(Long miid)  {
 		return ticketDAO.findById(miid);
 	}
 	
@@ -151,6 +194,18 @@ public class CajaServiceImpl implements CajaService {
 		ticketDAO.update(ticketMod);
 
 	}
+	
+	@Override
+	public List<Ticket> buscarTicketCentros(List<Centro> centros) {
+		List<Ticket> tickets = new ArrayList<Ticket>();
+		for(Centro centro:centros){
+			for(Ticket ticket:centro.getTicket()){
+				tickets.add(ticket);
+			}
+		}
+		return tickets;
+	}
+
 	//********************** LINEA TICKET *******************
 	
 	public void registroLineaTicket(LineaTicket milineaticket) {
@@ -183,6 +238,20 @@ public class CajaServiceImpl implements CajaService {
 	
 	public List<LineaTicket> buscarLineaPorTicket(Ticket miticket) {
 		return lineaTicketDAO.findByTicket(miticket);
+	}
+	
+	@Override
+	public void addLinea(Ticket ticket, Producto producto) {
+		LineaTicket linea = new LineaTicket();
+
+		linea.setTicket(ticket);
+		linea.setProducto(producto);
+		linea.setCantidad(1);
+		linea.setIva(producto.getIva().getPorcentaje());
+		linea.setPrecio(producto.getPrecio());
+		
+		lineaTicketDAO.create(linea);
+		
 	}
 
 	//************************* ENVIOS *************************
@@ -225,8 +294,16 @@ public class CajaServiceImpl implements CajaService {
 	}
 
 	
-	public List<Envio> buscarEnvioPorCentro(Centro micentro) {
-		return envioDAO.findByCentro(micentro);
+	public List<Envio> buscarEnvioPorCentros(List<Centro> centros) {
+		List<Envio> envios = new ArrayList<Envio>();
+		for(Centro micentro:centros){
+			List<Envio> envioCentro =  envioDAO.findByCentro(micentro);
+			for (Envio envio:envioCentro){
+				envios.add(envio);
+			}
+		}
+		
+		return envios;
 	}
 
 	
@@ -248,6 +325,11 @@ public class CajaServiceImpl implements CajaService {
 						+ " el cierre de caja diario y ya lo tiene disponible en la web. \n\n Un saludo \n\n MiPymeOnline";
 		mail.sendMail(fromAddr, toAddr, subject, body);
 	}
+
+
+
+
+
 
 
 

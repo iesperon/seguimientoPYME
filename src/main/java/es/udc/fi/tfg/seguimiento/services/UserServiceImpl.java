@@ -108,6 +108,15 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public void addCentroAdmin(Usuario miusuario, Centro micentro) {
+		if (miusuario.getCentro()==null){
+			miusuario.setCentro(micentro);
+			actualizarUsuario(miusuario);
+		}
+		
+	}
+
 
 
 

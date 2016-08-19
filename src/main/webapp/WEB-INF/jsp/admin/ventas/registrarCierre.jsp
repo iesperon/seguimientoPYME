@@ -84,12 +84,13 @@ $(document).on("click", ".open-AddBookDialog", function (e) {
     		<div class="modal-content">
       			<div class="modal-header">
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        		<h4 class="modal-title" id="myModalLabel">Eliminar Centro</h4>
+        		<h4 class="modal-title" id="myModalLabel">Confirmar cierre</h4>
       		</div>
       		<div class="modal-body">
+      		<h4>¿Está de acuerdo con estos datos?</h4>
 	      		<div class="row">
-	      			<input type="text" name="ingresoTotal" id="ingresoTotal" value="">
-	      			<input type="text" name="ingresoContabilizadoModal" id="ingresoContabilizadoModal" value="">
+	      			<input type="text" name="ingresoTotal" id="ingresoTotal" value="" >
+	      			<input type="text" name="ingresoContabilizadoModal" id="ingresoContabilizadoModal" value="" >
 	      			<input type="text" name="diferencia" id="diferencia" value="">
 	      			
 	      		</div>

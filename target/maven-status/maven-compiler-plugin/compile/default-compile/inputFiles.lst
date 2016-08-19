@@ -18,6 +18,7 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Proveedor.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\CentroDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\ProductoDAOImpl.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\Estadisticas.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\LineaTicketDAOImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\model\Producto.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\EnvioDAOImpl.java
@@ -55,6 +56,7 @@ C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\s
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\FormTicketProducto.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\Form.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\PedidoProveedorDAOImpl.java
+C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\utils\Cierre.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\daos\PedidoProveedorDAO.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\services\CajaServiceImpl.java
 C:\Users\iesperon\Documents\GitHub\seguimientoPYME\src\main\java\es\udc\fi\tfg\seguimiento\web\AdminEmpresaController.java

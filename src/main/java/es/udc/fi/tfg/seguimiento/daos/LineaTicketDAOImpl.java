@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
+import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
+import es.udc.fi.tfg.seguimiento.utils.Estadisticas;
 
 @Repository
 @EnableTransactionManagement
@@ -54,5 +56,22 @@ public class LineaTicketDAOImpl implements LineaTicketDAO {
 		Query q = sessionFactory.getCurrentSession().createQuery("from LineaTicket where idTicket=:idTicket");
 		q.setParameter("idTicket", miticket.getIdTicket());
 		return (List<LineaTicket>) q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Estadisticas> productosVendidos() {
+		Query q = sessionFactory.getCurrentSession().createQuery("select linea.idProducto, sum(linea.cantidad) cantidad from LineaTicket linea group by linea.idProducto ");
+		return (List<Estadisticas>) q.list();
+	}
+
+	@Override
+	public Long numVentas(Producto producto) {
+		try{
+		Query q = sessionFactory.getCurrentSession().createQuery("select sum(cantidad) from LineaTicket where idProducto=:idProducto ");
+		q.setParameter("idProducto", producto.getIdProducto());
+		return (long) q.uniqueResult();
+		}catch(RuntimeException e){
+			return null;
+		}
 	}
 }

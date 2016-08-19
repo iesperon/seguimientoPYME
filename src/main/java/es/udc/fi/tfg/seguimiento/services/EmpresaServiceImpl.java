@@ -136,10 +136,10 @@ public class EmpresaServiceImpl implements EmpresaService{
 		return centroDAO.findById(miid);
 	}
 
-	public List<Centro> buscarCentroPorEmpresa(Empresa miempresa) {
-		return centroDAO.findAllByEmpresa(miempresa);
-	}
-	
+//	public List<Centro> buscarCentroPorEmpresa(Empresa miempresa) {
+//		return centroDAO.findAllByEmpresa(miempresa);
+//	}
+//	
 	
 
 

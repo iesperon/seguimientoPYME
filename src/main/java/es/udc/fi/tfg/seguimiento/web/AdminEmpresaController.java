@@ -71,19 +71,21 @@ public class AdminEmpresaController {
 			Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 			centro.setEmpresa(miempresa);
 			empresaService.registroCentro(centro,miempresa);
-			if (miusuario.getCentro()==null){
-				miusuario.setCentro(centro);
-				usuarioService.actualizarUsuario(miusuario);
-			}
-			for(Producto miproducto : miempresa.getProducto()){
-				Stock mistock = new Stock();
-				mistock.setCentro(centro);
-				mistock.setProducto(miproducto);
-				mistock.setStockActual(0);
-				mistock.setStockMin(0);
-				productoService.registroStock(mistock);
-			}
-		
+//			if (miusuario.getCentro()==null){
+//				miusuario.setCentro(centro);
+//				usuarioService.actualizarUsuario(miusuario);
+//			}
+			usuarioService.addCentroAdmin(miusuario, centro);
+//			for(Producto miproducto : miempresa.getProducto()){
+//				Stock mistock = new Stock();
+//				mistock.setCentro(centro);
+//				mistock.setProducto(miproducto);
+//				mistock.setStockActual(0);
+//				mistock.setStockMin(0);
+//				productoService.registroStock(mistock);
+//			}
+			List<Producto> productos = new ArrayList<Producto>(miempresa.getProducto());
+			productoService.registroStockIni(productos, centro);
 			return "redirect:/admin/empresa/centros";
 		}
 	}
@@ -123,7 +125,7 @@ public class AdminEmpresaController {
 		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
 		
-		List<Centro> centros =empresaService.buscarCentroPorEmpresa(miempresa);
+		List<Centro> centros =empresaService.obtenerCentros(miempresa);
 		List <Usuario> usuarios = usuarioService.buscarUsuarioPorEmpresa(miempresa);
 		
 				
@@ -245,15 +247,16 @@ public class AdminEmpresaController {
 		producto.setEmpresa(miempresa);
 
 		productoService.registroProducto(producto);
-		for (Centro centro : miempresa.getCentro()) {
-			Stock stock = new Stock();
-			stock.setCentro(centro);
-			stock.setProducto(producto);
-			stock.setStockActual(0);
-			stock.setStockMin(0);
-			productoService.registroStock(stock);
-		}
-		
+//		for (Centro centro : miempresa.getCentro()) {
+//			Stock stock = new Stock();
+//			stock.setCentro(centro);
+//			stock.setProducto(producto);
+//			stock.setStockActual(0);
+//			stock.setStockMin(0);
+//			productoService.registroStock(stock);
+//		}
+		List<Centro> centros = new ArrayList<Centro>(miempresa.getCentro());
+		productoService.registroStockProd(centros, producto);
 		return "redirect:/admin/empresa/productos";
 		
 	}

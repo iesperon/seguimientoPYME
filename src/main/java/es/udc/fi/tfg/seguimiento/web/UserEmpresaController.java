@@ -32,7 +32,7 @@ public class UserEmpresaController {
 	@Autowired 
 	private ProductoService productoService;
 	
-	//******************* PRODUCTOS *************************
+	//******************* PRODUCTOS ************************
 	
 		@RequestMapping(value="/productosEmp",method = RequestMethod.GET)
 		public ModelAndView Productos(){

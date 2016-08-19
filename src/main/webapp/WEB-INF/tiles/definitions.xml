@@ -6,193 +6,244 @@
 
 	<!-- Index -->
 	<definition name="index" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/index.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/index.jsp" />
 	</definition>
 
 	<!-- Centros -->
 	<definition name="centros" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/empresa/centros.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/centros.jsp" />
 	</definition>
-	
+
 	<!-- Empleados -->
 	<definition name="empleados" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/empresa/empleados.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/empleados.jsp" />
 	</definition>
-	
+
 	<!-- Crear Empleados -->
 	<definition name="crearEmpleado" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/empresa/crearEmpleado.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/crearEmpleado.jsp" />
 	</definition>
-	
+
 	<!-- Editar centro -->
 	<definition name="editarCentro" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/empresa/editarCentro.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/editarCentro.jsp" />
 	</definition>
-	
+
 	<!-- Catalogo -->
 	<definition name="catalogo" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/catalogo.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/catalogo.jsp" />
 	</definition>
-	
+
 	<!-- Productos -->
 	<definition name="productos" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/empresa/productos.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/productos.jsp" />
 	</definition>
-	
+
 	<definition name="productosEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/empresa/productosEmp.jsp"/>
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/empresa/productosEmp.jsp" />
 	</definition>
-	
+
 	<!-- Stock -->
 	<definition name="stock" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/stock.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/stock.jsp" />
 	</definition>
-	
+
 	<definition name="stockEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/stockEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/stockEmp.jsp" />
+	</definition>
+
 	<!-- Editar producto -->
 	<definition name="editarProducto" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/empresa/editarProducto.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/editarProducto.jsp" />
 	</definition>
-	
+
 	<definition name="editarProductoEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/empresa/editarProductoEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/empresa/editarProductoEmp.jsp" />
+	</definition>
+
 	<!-- Gastos -->
 	<definition name="gastos" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/contabilidad/gastos.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/contabilidad/gastos.jsp" />
 	</definition>
-	
+
 	<definition name="gastosEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/contabilidad/gastosEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/contabilidad/gastosEmp.jsp" />
+	</definition>
+
 	<!-- Caja -->
 	<definition name="cajaCentro" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/cajaCentro.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/cajaCentro.jsp" />
 	</definition>
-	
+
 	<!-- Proveedores -->
 	<definition name="proveedores" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/contabilidad/proveedores.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/contabilidad/proveedores.jsp" />
 	</definition>
-	
+
 	<!-- Mi Empresa -->
 	<definition name="miempresa" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/empresa/miempresa.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/miempresa.jsp" />
 	</definition>
-	
-		<!-- Editar Gasto -->
+
+	<!-- Editar Gasto -->
 	<definition name="editarGasto" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/contabilidad/editarGasto.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/contabilidad/editarGasto.jsp" />
 	</definition>
-	
+
 	<definition name="editarGastoEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/contabilidad/editarGastoEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/contabilidad/editarGastoEmp.jsp" />
+	</definition>
+
 	<!-- File upload -->
 	<definition name="upload" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/empresa/upload.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/empresa/upload.jsp" />
 	</definition>
-	
+
 	<!-- Crear Pedido -->
 	<definition name="crearPedido" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/contabilidad/crearPedido.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/contabilidad/crearPedido.jsp" />
 	</definition>
-	
+
 	<!-- EditarStock -->
 	<definition name="editarStock" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/editarStock.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/editarStock.jsp" />
 	</definition>
-	
+
 	<definition name="editarStockEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/editarStockEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/editarStockEmp.jsp" />
+	</definition>
+
 	<!-- Notificacion Stock -->
 	<definition name="notificacionStock" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/notificacionStock.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/notificacionStock.jsp" />
 	</definition>
-	
+
 	<!-- Caja -->
 	<definition name="caja" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/caja.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/caja.jsp" />
 	</definition>
-	
+
 	<definition name="cajaEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/cajaEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/cajaEmp.jsp" />
+	</definition>
+
 	<!-- Tickets -->
 	<definition name="tickets" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/tickets.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/tickets.jsp" />
 	</definition>
-	
+
 	<definition name="ticketsEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/ticketsEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/ticketsEmp.jsp" />
+	</definition>
+
 	<!-- Ver Ticket -->
 	<definition name="verTicket" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/verTicket.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/verTicket.jsp" />
 	</definition>
-	
+
 	<definition name="verTicketEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/verTicketEmp.jsp"/>
-	</definition> 
-	
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/verTicketEmp.jsp" />
+	</definition>
+
 	<!-- Cierres Caja -->
 	<definition name="cierresCaja" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/cierresCaja.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/cierresCaja.jsp" />
 	</definition>
-	
+
 	<definition name="cierresCajaEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/cierresCajaEmp.jsp"/>
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/cierresCajaEmp.jsp" />
 	</definition>
-	
+
 	<!-- Cierres Centro -->
 	<definition name="cierreCentro" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/cierreCentro.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/cierreCentro.jsp" />
 	</definition>
-	
+
 	<definition name="cierreCentroEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/cierreCentroEmp.jsp"/>
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/cierreCentroEmp.jsp" />
 	</definition>
-	
-		<!-- Registrar Cierre -->
+
+	<!-- Registrar Cierre -->
 	<definition name="registrarCierre" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/registrarCierre.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/registrarCierre.jsp" />
 	</definition>
-	
+
 	<definition name="registrarCierreEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/registrarCierreEmp.jsp"/>
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/registrarCierreEmp.jsp" />
 	</definition>
-	
+
 	<!-- Envios -->
 	<definition name="envios" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/envios.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/envios.jsp" />
 	</definition>
-	
+
 	<definition name="enviosEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/enviosEmp.jsp"/>
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/enviosEmp.jsp" />
 	</definition>
-	
+
 	<!-- Ver Envio -->
 	<definition name="verEnvio" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/admin/ventas/verEnvio.jsp"/>
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/ventas/verEnvio.jsp" />
+	</definition>
+
+	<definition name="verEnvioEmp" extends="userTemplate">
+		<put-attribute name="contentUser"
+			value="/WEB-INF/jsp/user/ventas/verEnvioEmp.jsp" />
 	</definition>
 	
-	<definition name="verEnvioEmp" extends="userTemplate">
-		<put-attribute name="contentUser" value="/WEB-INF/jsp/user/ventas/verEnvioEmp.jsp"/>
+	<!-- Estadisticas -->
+	<definition name="estadisticas" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/admin/contabilidad/estadisticas.jsp" />
 	</definition>
 	
 	<!-- 403 -->
 	<definition name="403" extends="defaultTemplate">
-		<put-attribute name="content" value="/WEB-INF/jsp/403.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/403.jsp" />
 	</definition>
-	
+
+	<!-- 404 -->
+	<definition name="404" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/404.jsp" />
+	</definition>
+
+	<!-- 500 -->
+	<definition name="500" extends="defaultTemplate">
+		<put-attribute name="content" value="/WEB-INF/jsp/500.jsp" />
+	</definition>
+
 </tiles-definitions>
