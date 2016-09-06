@@ -5,7 +5,7 @@
 
 <div class="row">
 <div class="col-md-9">
-	<img src="<c:url value="/resources/images/empleados.jpg" />" class="center-block" alt="Empleados" width="800" height="200">
+	<img src="<c:url value="/resources/images/empleados.jpg" />" 	class="center-block img-rounded" alt="Empleados" width="1000" height="120">
     <h2> Empleados 
     		
 	<!-- Button trigger modal -->
@@ -79,8 +79,6 @@
 </div>
 </form:form>
     
-    <input class="typeahead" type="text" data-provide="typeahead" autocomplete="off">
-
 
      
     <script type="text/javascript" charset="utf-8"> 
@@ -133,7 +131,7 @@
         				<th>2º Apellido</th>
         				<th>DNI</th>
         				<th>Email</th>
-        				<th></th>
+        				<th>Opciones</th>
    			</tr>
 		</thead> 
 		

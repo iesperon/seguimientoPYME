@@ -1,18 +1,44 @@
 package es.udc.fi.tfg.seguimiento.web;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.runtime.resource.loader.ResourceLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
@@ -24,6 +50,7 @@ import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
+import es.udc.fi.tfg.seguimiento.utils.FileBucket;
 import es.udc.fi.tfg.seguimiento.utils.Form;
 import es.udc.fi.tfg.seguimiento.utils.FormEmpresaAdmin;
 
@@ -40,6 +67,7 @@ public class AdminEmpresaController {
 	@Autowired 
 	private ProductoService productoService;
 	
+	private static String UPLOAD_LOCATION="C:/Windows/Temp/";
 
 	//	*********************** CENTROS ***********************
 	
@@ -152,17 +180,24 @@ public class AdminEmpresaController {
 	@RequestMapping(value="/editarEmpleado",method = RequestMethod.GET)
 	public ModelAndView editarEmpleado(ModelAndView model, Long idUsuario){
 		Usuario miusuario = usuarioService.buscarUsuarioPorId(idUsuario);
-		Form miForm = new Form();
-		miForm.setUsuario(miusuario);
-		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
-		List<Centro> centros =new ArrayList<Centro> (miempresa.getCentro());
-		
-		model.addObject("idUsuario",idUsuario);
+		Form myForm = new Form();
+		myForm.setUsuario(miusuario);
+		Empresa miempresa = miusuario.getCentro().getEmpresa();
+		List<Centro> centros = new ArrayList<Centro> (miempresa.getCentro());
+		//model.addObject("idUsuario",idUsuario);
 		//model.addObject("usuario", miusuario);
 		model.addObject("centroslist", centros);
-		model.addObject("myForm", miForm);
+		model.addObject("myForm", myForm);
 		model.setViewName("editarEmpleado");
 		return model;
+	}
+	
+	@RequestMapping(value="/confEdicEmp",method = RequestMethod.POST)
+	public String confEdicEmp(Model model, Form myForm){
+		Usuario usuario = myForm.getUsuario();
+		usuarioService.actualizarUsuario(usuario,myForm.getIdCentro());
+		model.addAttribute("usuarioActualizado", usuario);
+		return "redirect:/admin/empresa/empleados";
 	}
 	
 	@RequestMapping(value = "/crearEmpleado",method = RequestMethod.GET)
@@ -199,19 +234,7 @@ public class AdminEmpresaController {
 		model.setViewName("productos");
 		return model;
 	}
-	/*@RequestMapping(value = "/empleados",params={"nombre"}, method = RequestMethod.GET)
-	public @ResponseBody List<String> buscarEmpleadoPorNombre(@RequestParam(value = "nombre") String nombre) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String login = auth.getName();
-		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
-		Empresa miempresa = empresaService.buscarEmpresaPorAdmin(miusuario);
-		List<Usuario> u = usuarioService.buscarUsuarioPorNombre(nombre, miempresa);		
-		Usuario u1 = u.get(0);
-		u1.setCentro(null);
-		List<String> u2 = new ArrayList<>();
-		u2.add(u1.getNombre()+" "+u1.getApellido1());
-		return u2;
-	}*/
+
 	@RequestMapping(value = "/producto",params={"idProducto"}, method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody Producto producto(@RequestParam(value="idProducto") Long idProducto){
 		Producto miproducto = productoService.buscarProductoPorId(idProducto);
@@ -283,6 +306,32 @@ public class AdminEmpresaController {
 		return "redirect:/admin/empresa/productos";
 	}
 	
+	
+	@RequestMapping(value="/subirImagenProd",method = RequestMethod.GET)
+	public ModelAndView subirImagenProd(ModelAndView model, Long idProducto){
+		FileBucket fileModel = new FileBucket();
+		model.addObject("fileBucket", fileModel);
+		model.addObject("idProducto", idProducto);
+		model.setViewName("subirImagenProd");
+		return model;
+	}
+	
+	@RequestMapping(value = "/singleUpload", method = RequestMethod.POST)
+	public String singleUpload(FileBucket file,BindingResult result, ModelAndView model, Long idProducto) throws IOException {
+		Producto producto = productoService.buscarProductoPorId(idProducto);
+
+		MultipartFile multipartFile = file.getFile();
+		
+		FileCopyUtils.copy(file.getFile().getBytes(), new File( UPLOAD_LOCATION  + producto.getNombre() + file.getFile().getOriginalFilename() ));
+		String fileName = multipartFile.getOriginalFilename();
+		producto.setFoto(producto.getNombre() + fileName);
+		productoService.actualizarProducto(producto);
+		model.addObject("fileName", fileName);
+		return "redirect:/admin/empresa/productos";
+		
+	}
+	
+	
 	// ********************** EMPRESA *****************************
 	
 	
@@ -307,10 +356,10 @@ public class AdminEmpresaController {
 	@RequestMapping(value="/editarEmpresa",method = RequestMethod.POST)
 	public String editarEmpresa(Model model, FormEmpresaAdmin form){
 		Empresa miempresa = form.getEmpresa();
-		Usuario miusuario = form.getUsuario();
-		usuarioService.actualizarAdmin(miusuario);
+//		Usuario miusuario = form.getUsuario();
+//		usuarioService.actualizarAdmin(miusuario);
 		empresaService.actualizarEmpresa(miempresa);
-		model.addAttribute("usuarioeditado", miusuario);
+//		model.addAttribute("usuarioeditado", miusuario);
 		model.addAttribute("empresaeditada", miempresa);
 		return "redirect:/admin/empresa/miempresa";
 	}

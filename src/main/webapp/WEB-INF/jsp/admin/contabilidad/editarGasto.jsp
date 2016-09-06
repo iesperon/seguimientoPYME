@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="row">
        
@@ -23,12 +24,15 @@
 			
 			<div class="col-xs-2">
 				<label for="fechaEmision">Fecha Emision</label>
-				<form:input class="form-control" id="fechaEmision" path="fechaEmision" value="${gasto.fechaEmision}" type="date"/>
+				<fmt:formatDate value="${gasto.fechaEmision}" var="fechaEmision" pattern="yyyy-MM-dd" />
+				<form:input class="form-control" id="fechaEmision" path="fechaEmision" value="${fechaEmision}" type="date"/>
 			</div>
 			
 			<div class="col-xs-2">
 				<label for="fechaPago">Fecha Pago</label>
-				<form:input class="form-control" id="fechaPago" path="fechaPago" value="${gasto.fechaPago}" type="date"/>
+				<fmt:formatDate value="${gasto.fechaPago}" var="fechaPago" pattern="yyyy-MM-dd" />
+				<form:input class="form-control" id="fechaPago" path="fechaPago" value="${fechaPago}" type="date" />
+				
 			</div>
 			
 			<div class="col-xs-2">

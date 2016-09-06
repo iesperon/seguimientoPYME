@@ -11,6 +11,8 @@ import es.udc.fi.tfg.seguimiento.daos.GastoDAO;
 import es.udc.fi.tfg.seguimiento.daos.LineaTicketDAO;
 import es.udc.fi.tfg.seguimiento.daos.PedidoProveedorDAO;
 import es.udc.fi.tfg.seguimiento.daos.ProveedorDAO;
+import es.udc.fi.tfg.seguimiento.daos.TicketDAO;
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
@@ -18,6 +20,7 @@ import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.utils.Estadisticas;
 
 @Service
@@ -35,6 +38,10 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 	
 	@Autowired
 	private LineaTicketDAO lineaTicketDAO = null;
+	
+	@Autowired
+	private TicketDAO ticketDAO = null;
+	
 	
 	//*********************GASTOS************************
 	public void setGastoDAO (GastoDAO gastoDAO){
@@ -168,6 +175,8 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		return pedidoDAO.findByEmpresa(miempresa);
 	}
 
+	
+	//**************** ESTADISTICAS ****************************
 	@Override
 	public List<Estadisticas> productosMasVendidos() {
 		return lineaTicketDAO.productosVendidos();
@@ -193,8 +202,63 @@ public class ContabilidadServiceImpl implements ContabilidadService {
 		return estadisticas;
 	}
 
+	@Override
+	public List<Estadisticas> estCentroVent(List<Centro> centros) {
+		List<Estadisticas> estadisticas =new ArrayList<Estadisticas>();
+		for(Centro centro:centros){
+			Estadisticas estad = new Estadisticas();
+			Double cantidadEfectivo = ticketDAO.contVentasEfectivo(centro);
+			Double cantidadTarjeta = ticketDAO.contVentasTarjeta(centro);
+
+			if (cantidadEfectivo!=null ){
+				estad.setEfectivoCentro(cantidadEfectivo);
+			}else{
+				estad.setEfectivoCentro(0.00);
+			}
+			if(cantidadTarjeta!=null){
+				estad.setTarjetaCentro(cantidadTarjeta);
+			}else{
+				estad.setTarjetaCentro(0.00);
+			}
+			estad.setTotalCentro(estad.getEfectivoCentro()+estad.getTarjetaCentro());
+			estad.setCentro(centro);
+			estadisticas.add(estad);
+		}
+		return estadisticas;
+	}
 
 
+	public List<Estadisticas> estEmplVent(List<Usuario> usuarios){
+		List<Estadisticas> estadisticas = new ArrayList<Estadisticas>();
+		for(Usuario usuario:usuarios){
+			Double total = ticketDAO.contTotalEmp(usuario);
+			Estadisticas estad = new Estadisticas();
+			if(total!=null){
+				estad.setTotalUsuario(total);
+				estad.setUsuario(usuario);
+				estadisticas.add(estad);
+			}
+			
+		}
+		return estadisticas;
+	}
+
+	@Override
+	public List<Estadisticas> estPedidoProveedor(List<Proveedor> proveedores) {
+		List<Estadisticas> estadisticas = new ArrayList<Estadisticas>();
+		for(Proveedor proveedor:proveedores){
+			Long pedidos = pedidoDAO.contNumPedidos(proveedor);
+			Double total = pedidoDAO.totalComprado(proveedor);
+			Estadisticas estad = new Estadisticas();
+			if(pedidos!=null){
+				estad.setPedidos(pedidos);
+				estad.setTotalPedido(total);
+				estad.setProveedor(proveedor);
+				estadisticas.add(estad);
+			}
+		}
+		return estadisticas;
+	}
 
 
 

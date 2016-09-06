@@ -18,6 +18,8 @@
 
 <div class="row">
 <div class="col-md-9">
+		
+	<img src="<c:url value="/resources/images/tickets.jpg" />" 	class="center-block img-rounded" alt="Empleados" width="1000" height="120">
 
 	<h2>Tickets</h2>
 	<br>
@@ -30,7 +32,8 @@
         				<th>Subtotal</th>
         				<th>Total</th>
         				<th>Forma de pago</th>
-        				<th></th>
+        				<th>Empleado</th>
+        				<th>Ver</th>
         				
  
    			</tr>
@@ -45,7 +48,8 @@
     					<td><fmt:formatNumber value="${tickets.subtotal}" maxFractionDigits="2"/> €</td>
     					<td><fmt:formatNumber value="${tickets.total}" maxFractionDigits="2"/> €</td>
     					<td>${tickets.formaPago}</td>
-						<c:url var="ticketUrl" value="verTicket">
+    					<td>${tickets.usuario.nombre} ${tickets.usuario.apellido1}</td>
+    					<c:url var="ticketUrl" value="verTicket">
 							<c:param name="idTicket" value="${tickets.idTicket}"/>
 						</c:url>
 						<td>

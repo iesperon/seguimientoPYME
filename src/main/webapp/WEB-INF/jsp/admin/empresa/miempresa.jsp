@@ -45,8 +45,6 @@
                   </table>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#catalogoModal"> Generar catálogo						
 				  </button>
-                  <a href="/seguimientoPYMES/admin/notificacionStock" class="btn btn-primary">Avisos Stock</a>
-                  <a href="#" class="btn btn-primary">Cierres de Caja</a>
                 </div>
               </div>
             </div>
@@ -124,37 +122,37 @@
 				<form:textarea class="form-control" rows="3" path="empresa.descripcion" value="${form.empresa.descripcion}" type="text"/>
 			</div>
 			
-			<div class="col-xs-3">
-				<label for="logo">Logo</label>
-				<form:input class="form-control" path="empresa.logo" value="${form.empresa.logo}" type="text"/>
-			</div>
+<!-- 			<div class="col-xs-3"> -->
+<!-- 				<label for="logo">Logo</label> -->
+<%-- 				<form:input class="form-control" path="empresa.logo" value="${form.empresa.logo}" type="text"/> --%>
+<!-- 			</div> -->
 			
 			<form:input class="form-control" path="empresa.idEmpresa" value="${form.empresa.idEmpresa}" type="hidden"/>
 
-			<div class="col-xs-3">
-				<label for="email">Nombre Administrador</label>
-				<form:input class="form-control" path="usuario.nombre" value="${form.usuario.nombre}" type="text"/>
-			</div>	
-			<div class="col-xs-3">
-				<label for="email">1º Apellido Administrador</label>
-				<form:input class="form-control" path="usuario.apellido1" value="${form.usuario.apellido1}" type="text"/>
-			</div>	
-			<div class="col-xs-3">
-				<label for="email">2º Apellido Administrador</label>
-				<form:input class="form-control" path="usuario.apellido2" value="${form.usuario.apellido2}" type="text"/>
-			</div>
-			<div class="col-xs-3">
-				<label for="email">Email Administrador</label>
-				<form:input class="form-control" path="usuario.email" value="${form.usuario.email}" type="text"/>
-			</div>
+<!-- 			<div class="col-xs-3"> -->
+<!-- 				<label for="email">Nombre Administrador</label> -->
+<%-- 				<form:input class="form-control" path="usuario.nombre" value="${form.usuario.nombre}" type="text"/> --%>
+<!-- 			</div>	 -->
+<!-- 			<div class="col-xs-3"> -->
+<!-- 				<label for="email">1º Apellido Administrador</label> -->
+<%-- 				<form:input class="form-control" path="usuario.apellido1" value="${form.usuario.apellido1}" type="text"/> --%>
+<!-- 			</div>	 -->
+<!-- 			<div class="col-xs-3"> -->
+<!-- 				<label for="email">2º Apellido Administrador</label> -->
+<%-- 				<form:input class="form-control" path="usuario.apellido2" value="${form.usuario.apellido2}" type="text"/> --%>
+<!-- 			</div> -->
+<!-- 			<div class="col-xs-3"> -->
+<!-- 				<label for="email">Email Administrador</label> -->
+<%-- 				<form:input class="form-control" path="usuario.email" value="${form.usuario.email}" type="text"/> --%>
+<!-- 			</div> -->
 			
-			<div class="col-xs-3">
-				<label for="email">Contraseña Administrador</label>
-				<form:input class="form-control" path="usuario.contrasena" value="${form.usuario.contrasena}" type="text"/>
-			</div>
-			<form:input class="form-control" path="usuario.idUsuario" value="${form.usuario.idUsuario}" type="hidden"/>
+<!-- 			<div class="col-xs-3"> -->
+<!-- 				<label for="email">Contraseña Administrador</label> -->
+<%-- 				<form:input class="form-control" path="usuario.contrasena" value="${form.usuario.contrasena}" type="text"/> --%>
+<!-- 			</div> -->
+<%-- 			<form:input class="form-control" path="usuario.idUsuario" value="${form.usuario.idUsuario}" type="hidden"/> --%>
 
-			</div>
+<!-- 			</div> -->
 					
 			</div>
 			 <div class="modal-footer">

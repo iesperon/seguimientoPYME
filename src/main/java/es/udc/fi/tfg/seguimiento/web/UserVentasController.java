@@ -107,11 +107,11 @@ public class UserVentasController {
 			//LineaTicket linea = new LineaTicket();
 			//linea.setTicket(ticket);
 			//model.addObject("linea", linea);
-			CalcularTicket calculos = new CalcularTicket();
+//			CalcularTicket calculos = new CalcularTicket();
 			model.addObject("envioForm", new FormTicketEnvio());
-			model.addObject("iva", calculos.calcularIVA(lineas));
-			model.addObject("subtotal", calculos.calcularSubtotal(lineas));
-			model.addObject("total", calculos.calcularTotal(lineas));
+			model.addObject("iva", cajaService.calcularIVA(lineas));
+			model.addObject("subtotal", cajaService.calcularSubtotal(lineas));
+			model.addObject("total", cajaService.calcularTotal(lineas));
 			model.addObject("myForm", myForm);
 			model.addObject("ticket", miticket);
 			model.addObject("lineas", lineas);
@@ -214,6 +214,10 @@ public class UserVentasController {
 		
 		@RequestMapping(value = "/cerrarTicketEmp", method = RequestMethod.POST)
 		public ModelAndView cerrarTicket(Ticket ticket, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			String login = auth.getName();
+			Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+			ticket.setUsuario(miusuario);
 			Date date = new Date();
 			Ticket ticketCent=cajaService.buscarTicketPorId(ticket.getIdTicket());
 			ticket.setFecha(date);

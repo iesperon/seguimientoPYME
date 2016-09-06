@@ -28,7 +28,7 @@ public class Empresa {
 	private String sector;
 	private String descripcion;
 	private String email;
-	private byte[] logo; 
+	private String logo; 
 	private Set<Centro> centro = new HashSet<Centro>();
 	private Set<Producto> producto = new HashSet<Producto>();
 	private Set<Gasto> gasto =  new HashSet<Gasto>();
@@ -41,7 +41,7 @@ public class Empresa {
 	}
 	
 	//Constructor sin administrador para el test
-	public Empresa(String nombre, String cif, String sector, String descripcion, String email, byte[] logo){
+	public Empresa(String nombre, String cif, String sector, String descripcion, String email, String logo){
 		this.nombre = nombre;
 		this.cif = cif;
 		this.sector = sector;
@@ -50,7 +50,7 @@ public class Empresa {
 		this.logo = logo;
 	}
 	
-	public Empresa(String nombre, String cif, String sector, String descripcion, String email, byte[] logo, Usuario administrador){
+	public Empresa(String nombre, String cif, String sector, String descripcion, String email, String logo, Usuario administrador){
 		this.nombre = nombre;
 		this.cif = cif;
 		this.sector = sector;
@@ -118,11 +118,11 @@ public class Empresa {
 	}
 
 	@Column (name="logo")
-	public byte[] getLogo() {
+	public String getLogo() {
 		return logo;
 	}
 
-	public void setLogo(byte[] logo) {
+	public void setLogo(String logo) {
 		this.logo = logo;
 	}
 	
@@ -217,7 +217,6 @@ public class Empresa {
 		return true;
 	}
 	
-	//*********Falta el toString que hay que meter el nombre del administrador
 	
 	
 }

@@ -16,7 +16,7 @@ public interface UserService {
 	//Eliminación de un usuario
 	public void eliminarUsuario(Usuario miusuario);
 	//Actualizar los datos de un usuario
-	public void actualizarUsuario(Usuario miusuario);
+	public void actualizarUsuario(Usuario miusuario, Long idCentro);
 	//Actualizar administrador
 	public void actualizarAdmin(Usuario miusuario);
 	//Buscar usuario dentro de un centro por nombre
@@ -40,7 +40,6 @@ public interface UserService {
 	public void registroRol(Rol rol);
 	//Buscar rol
 	public Rol buscarRolPorRol(String rol);
-
 
 	
 }

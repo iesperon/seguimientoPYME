@@ -2,23 +2,31 @@ package es.udc.fi.tfg.seguimiento.web;
 
 
 
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
@@ -29,9 +37,8 @@ import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.services.EmpresaService;
 import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
-import es.udc.fi.tfg.seguimiento.utils.FileBucket;
-import es.udc.fi.tfg.seguimiento.utils.FileUpload;
 import es.udc.fi.tfg.seguimiento.utils.Form;
+import es.udc.fi.tfg.seguimiento.validator.UsuarioValidator;
 
 @Controller
 public class IndexController {
@@ -45,9 +52,17 @@ public class IndexController {
 	@Autowired 
 	private ProductoService productoService;
 	
-	private static String UPLOAD_LOCATION="C:/Users/iesperon/Pictures/Nueva carpeta";
+	@Autowired
+	UsuarioValidator usuarioValidator;
+	
+	@InitBinder("myForm")
+	protected void initBinder(WebDataBinder binder){
+		binder.setValidator(usuarioValidator);
+	}
+	
 
-		
+	private static String UPLOAD_LOCATION="C:/Windows/Temp/";
+
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(@RequestParam(value = "error", required = false) String error, 
@@ -88,16 +103,10 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(Form myForm, BindingResult result, Model model) throws IOException {
+	public String addUser(@Validated Form myForm, BindingResult result, Model model) {
 		if(result.hasErrors()){
 			return "index";
 		}else{
-			//MultipartFile multipartFile = myForm.getFile();
-
-			// Now do something with file...
-			//FileCopyUtils.copy(myForm.getFile().getBytes(), new File( UPLOAD_LOCATION + myForm.getFile().getOriginalFilename()));
-			//String fileName = multipartFile.getOriginalFilename();
-			
 			Empresa empresa = myForm.getEmpresa();
 			Usuario usuario = myForm.getUsuario();
 			usuario.setEnabled(true);
@@ -131,4 +140,22 @@ public class IndexController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/showImage/{idProducto}", method = RequestMethod.GET)
+	public void showImage(@PathVariable("idProducto")Long idProducto,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		Producto miproducto = productoService.buscarProductoPorId(idProducto);
+	
+		response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+		ServletOutputStream out;
+		out = response.getOutputStream();
+		FileInputStream fin = new FileInputStream(UPLOAD_LOCATION+miproducto.getFoto());
+		
+		BufferedInputStream bin = new BufferedInputStream(fin);
+		BufferedOutputStream bout = new BufferedOutputStream(out);
+		int ch =0; ;
+		while((ch=bin.read())!=-1){
+			bout.write(ch);
+		}
+	
+		bin.close();fin.close();bout.close(); out.close();
+	}
 }

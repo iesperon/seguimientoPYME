@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 @Repository
 @EnableTransactionManagement
@@ -60,4 +61,6 @@ public class ProveedorDAOImpl implements ProveedorDAO {
 	}
 	return null;
 	}
+	
+
 }

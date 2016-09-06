@@ -26,7 +26,13 @@
 		<put-attribute name="content"
 			value="/WEB-INF/jsp/admin/empresa/crearEmpleado.jsp" />
 	</definition>
-
+	
+	<!-- Editar Empleado -->
+	<definition name="editarEmpleado" extends="defaultTemplate">
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/editarEmpleado.jsp" />
+	</definition>
+	
 	<!-- Editar centro -->
 	<definition name="editarCentro" extends="defaultTemplate">
 		<put-attribute name="content"
@@ -48,7 +54,13 @@
 		<put-attribute name="contentUser"
 			value="/WEB-INF/jsp/user/empresa/productosEmp.jsp" />
 	</definition>
-
+	
+	<!-- Subir foto producto -->
+	<definition name="subirImagenProd" extends="defaultTemplate">
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/empresa/subirImagenProd.jsp" />
+	</definition>
+	
 	<!-- Stock -->
 	<definition name="stock" extends="defaultTemplate">
 		<put-attribute name="content"
@@ -94,6 +106,12 @@
 			value="/WEB-INF/jsp/admin/contabilidad/proveedores.jsp" />
 	</definition>
 
+	<!--Editar Proveedores -->
+	<definition name="editarProveedor" extends="defaultTemplate">
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/contabilidad/editarProveedor.jsp" />
+	</definition>
+	
 	<!-- Mi Empresa -->
 	<definition name="miempresa" extends="defaultTemplate">
 		<put-attribute name="content"
@@ -120,6 +138,12 @@
 	<definition name="crearPedido" extends="defaultTemplate">
 		<put-attribute name="content"
 			value="/WEB-INF/jsp/admin/contabilidad/crearPedido.jsp" />
+	</definition>
+	
+	<!-- Editar pedido -->
+	<definition name="editarPedido" extends="defaultTemplate">
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/admin/contabilidad/editarPedido.jsp" />
 	</definition>
 
 	<!-- EditarStock -->

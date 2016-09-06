@@ -29,6 +29,7 @@ public interface CajaService {
 	public List<CierreCaja> buscarCierrePorCentros(List<Centro> centros);
 	public Cierre registrarCierre(List<Ticket> tickets);
 	public void cerrarTicketsAbiertos(List<Ticket> tickets, CierreCaja cierre);
+	
 	//******************** TICKET *******************
 	//Registro de un ticket 
 	public void registroTicket (Ticket miticket);
@@ -59,6 +60,10 @@ public interface CajaService {
 	public LineaTicket buscarLineaTicketPorId(Long miid);
 	public List<LineaTicket> buscarLineaPorTicket (Ticket miticket);
 	public void addLinea (Ticket ticket, Producto producto);
+	public LineaTicket calcularDescuento(LineaTicket lineaticket);	
+	public Double calcularIVA(List<LineaTicket> lineaticket);
+	public Double calcularTotal(List<LineaTicket> lineaticket);
+	public Double calcularSubtotal(List<LineaTicket> lineaticket);
 	
 	//**************** ENVIOS *************************
 	public void registroEnvio (Envio mienvio);

@@ -51,4 +51,25 @@ public class PedidoProveedorDAOImpl implements PedidoProveedorDAO {
 	return null;
 	}
 
+	@Override
+	public Long contNumPedidos(Proveedor proveedor) {
+		try{
+		Query q = sessionFactory.getCurrentSession().createQuery("select count(idPedidoProveedor) from PedidoProveedor where idProveedor=:idProveedor ");
+		q.setParameter("idProveedor", proveedor.getIdProveedor());
+		return Long.parseLong(q.uniqueResult().toString());
+		}catch(RuntimeException e){
+			return null;
+		}
+	}
+	
+	@Override
+	public Double totalComprado(Proveedor proveedor) {
+		try{
+		Query q = sessionFactory.getCurrentSession().createQuery("select sum(importe) from PedidoProveedor where idProveedor=:idProveedor ");
+		q.setParameter("idProveedor", proveedor.getIdProveedor());
+		return Double.parseDouble(q.uniqueResult().toString());
+		}catch(RuntimeException e){
+			return null;
+		}
+	}
 }

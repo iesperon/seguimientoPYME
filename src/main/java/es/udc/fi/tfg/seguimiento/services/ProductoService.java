@@ -8,6 +8,7 @@ import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public interface ProductoService {
 
@@ -50,5 +51,6 @@ public interface ProductoService {
 	public void descontarStock(Centro centro, List<LineaTicket> lineas);
 	public void registroStockIni(List<Producto> productos, Centro micentro);
 	public void registroStockProd(List<Centro> centros, Producto producto);
-
+	
+	public void EnviarNotificacionStock(Usuario miusuario, Stock stock);
 }

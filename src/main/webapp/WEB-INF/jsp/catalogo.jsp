@@ -5,19 +5,20 @@
 
 
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-12">
        	<h2>Catálogo de la empresa: ${empresa.nombre }</h2>
        
        <c:forEach var="productos" items="${productoslist}" varStatus="status">
-        		 <div class="col-sm-6 col-md-4">
+        	<div class="col-sm-6 col-md-4">
     		<div class="thumbnail">
-    		  <img src="..." alt="...">
+    			  <img src="${pageContext.servletContext.contextPath}/showImage/${productos.idProducto}" class="img-rounded" alt="Producto ${productos.nombre}" height="100" width="100">
+      		
       		<div class="caption">
       		  <h3>${productos.nombre}</h3>
      		   <p>${productos.descripcion}</p>
-     		   <p>${productos.precio}€</p>
+     		   <p>Precio ${productos.precio}€</p>
      		</div>
-  		  </div>
+   		  </div>
 		  </div>	
 		  
 	  </c:forEach>

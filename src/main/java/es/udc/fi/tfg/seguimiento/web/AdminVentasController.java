@@ -127,12 +127,12 @@ public class AdminVentasController {
 		//LineaTicket linea = new LineaTicket();
 		//linea.setTicket(ticket);
 		//model.addObject("linea", linea);
-		CalcularTicket calculos = new CalcularTicket();
+//		CalcularTicket calculos = new CalcularTicket();
 		model.addObject("productoslist", productos);
 		model.addObject("envioForm", new FormTicketEnvio());
-		model.addObject("iva", calculos.calcularIVA(lineas));
-		model.addObject("subtotal", calculos.calcularSubtotal(lineas));
-		model.addObject("total", calculos.calcularTotal(lineas));
+		model.addObject("iva", cajaService.calcularIVA(lineas));
+		model.addObject("subtotal", cajaService.calcularSubtotal(lineas));
+		model.addObject("total", cajaService.calcularTotal(lineas));
 		model.addObject("myForm", myForm);
 		model.addObject("ticket", miticket);
 		model.addObject("lineas", lineas);
@@ -144,8 +144,14 @@ public class AdminVentasController {
 	@RequestMapping(value = "/addTicket", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView addTicket(Long idCentro, final RedirectAttributes redirectAttributes) {
 		ModelAndView model = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String login = auth.getName();
+		
+		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
 		Ticket miticket = new Ticket();
 		miticket.setCentro(empresaService.buscarCentroPorId(idCentro));
+		miticket.setUsuario(miusuario);
+		
 		cajaService.registroTicket(miticket);
 		
 		redirectAttributes.addFlashAttribute("ticket", miticket);
@@ -210,7 +216,9 @@ public class AdminVentasController {
 	
 	@RequestMapping(value = "/editLinea", method = RequestMethod.POST)
 	public ModelAndView editLinea(LineaTicket linea, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
-		cajaService.actualizarLineaTicket(linea);
+//		cajaService.calcularDescuento(linea);
+//		linea.setPrecio(linea.getProducto().getPrecio());
+		cajaService.actualizarLineaTicket(cajaService.calcularDescuento(linea));
 		Ticket ticket = cajaService.buscarTicketPorId(linea.getTicket().getIdTicket());
 		redirectAttributes.addFlashAttribute("ticket", ticket);
 		model.setViewName("redirect:/admin/ventas/caja");
@@ -219,6 +227,7 @@ public class AdminVentasController {
 	
 	@RequestMapping(value = "/eliminarLinea", method = RequestMethod.GET)
 	public ModelAndView eliminarLinea(LineaTicket linea,  BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+		
 		Ticket ticket = cajaService.buscarTicketPorId(linea.getTicket().getIdTicket());
 		linea.setProducto(null);
 		cajaService.eliminarLineaTicket(linea);
@@ -254,20 +263,24 @@ public class AdminVentasController {
 	}
 	
 	@RequestMapping(value = "/verTicket", method = RequestMethod.GET)
-	public ModelAndView verTicket(Long idTicket, ModelAndView model ) {
+	public ModelAndView verTicket(Long idTicket, ModelAndView model, final RedirectAttributes redirectAttributes ) {
 		Ticket ticket = cajaService.buscarTicketPorId(idTicket);
-		List<LineaTicket> lineas = new ArrayList<LineaTicket>(ticket.getLineaTicket());
-		Envio envio = cajaService.buscarEnvioPorTicket(ticket);
-		model.addObject("envio", envio);
-		model.addObject("editEnvio", new Envio());
-		model.addObject("lineas", lineas);
-		model.addObject("ticket", ticket);
-		model.setViewName("verTicket");
+//		List<LineaTicket> lineas = new ArrayList<LineaTicket>(ticket.getLineaTicket());
+//		Envio envio = cajaService.buscarEnvioPorTicket(ticket);
+//		model.addObject("envio", envio);
+//		model.addObject("editEnvio", new Envio());
+//		model.addObject("lineas", lineas);
+//		model.addObject("ticket", ticket);
+		redirectAttributes.addFlashAttribute("ticket", ticket);
+		model.setViewName("redirect:/admin/ventas/caja");
 		return model;
 	}
 	
 	@RequestMapping(value = "/cerrarTicket", method = RequestMethod.POST)
 	public ModelAndView cerrarTicket(Ticket ticket, BindingResult result, ModelAndView model, final RedirectAttributes redirectAttributes) {
+//		String login = SecurityContextHolder.getContext().getAuthentication().getName();
+//		Usuario miusuario = usuarioService.buscarUsuarioPorEmail(login);
+//		ticket.setUsuario(miusuario);
 		Date date = new Date();
 		Ticket ticketCent=cajaService.buscarTicketPorId(ticket.getIdTicket());
 		ticket.setFecha(date);
@@ -440,6 +453,15 @@ public class AdminVentasController {
 	public String editarEnvio(Model model, Envio envio){
 		cajaService.actualizarEnvio(envio);
 		model.addAttribute("envioeditado",envio);
+		return "redirect:/admin/ventas/envios";
+	}
+	
+	@RequestMapping(value="/eliminarEnvio",method = RequestMethod.GET)
+	public String eliminarEnvio(Model model, Long idEnvio){
+		Envio envio = cajaService.buscarEnvioPorId(idEnvio);
+		envio.setCentro(null);
+		envio.setTicket(null);
+		cajaService.eliminarEnvio(envio);
 		return "redirect:/admin/ventas/envios";
 	}
 	

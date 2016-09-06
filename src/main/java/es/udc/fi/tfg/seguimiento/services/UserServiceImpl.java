@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.udc.fi.tfg.seguimiento.daos.CentroDAO;
 import es.udc.fi.tfg.seguimiento.daos.RolDAO;
 import es.udc.fi.tfg.seguimiento.daos.UsuarioDAO;
 import es.udc.fi.tfg.seguimiento.model.Centro;
@@ -22,6 +23,13 @@ public class UserServiceImpl implements UserService{
 	
 	public void setUsuarioDAO (UsuarioDAO usuarioDAO){
 		this.usuarioDAO = usuarioDAO;
+	}
+	
+	@Autowired
+	private CentroDAO centroDAO = null;
+	
+	public void setCentroDAO (CentroDAO centroDAO){
+		this.centroDAO = centroDAO;
 	}
 	
 	@Autowired
@@ -52,7 +60,7 @@ public class UserServiceImpl implements UserService{
 		miusuario.getCentro().getUsuario().remove(miusuario);
 	}
 
-	public void actualizarUsuario(Usuario miusuario) {
+	public void actualizarUsuario(Usuario miusuario, Long idCentro) {
 		Usuario usuarioMod = usuarioDAO.findById(miusuario.getIdUsuario());
 		usuarioMod.setNombre(miusuario.getNombre());
 		usuarioMod.setApellido1(miusuario.getApellido1());
@@ -60,10 +68,12 @@ public class UserServiceImpl implements UserService{
 		usuarioMod.setDni(miusuario.getDni());
 		usuarioMod.setEmail(miusuario.getEmail());
 		usuarioMod.setContrasena(miusuario.getContrasena());
-		usuarioMod.setCentro(miusuario.getCentro());	
+		Centro centro = centroDAO.findById(idCentro);
+		usuarioMod.setCentro(centro);	
 		
 		usuarioDAO.update(usuarioMod);
 	}
+	
 
 	public List<Usuario> buscarUsuarioPorNombre(String minombre, Empresa empresa) {
 		return usuarioDAO.findByName(minombre, empresa);
@@ -112,7 +122,7 @@ public class UserServiceImpl implements UserService{
 	public void addCentroAdmin(Usuario miusuario, Centro micentro) {
 		if (miusuario.getCentro()==null){
 			miusuario.setCentro(micentro);
-			actualizarUsuario(miusuario);
+			actualizarUsuario(miusuario, micentro.getIdCentro());
 		}
 		
 	}

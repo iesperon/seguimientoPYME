@@ -7,6 +7,9 @@
 
 <div class="row">
 	<div class="col-md-9">
+	
+	<img src="<c:url value="/resources/images/proveedores.jpg" />"	 alt="Empleados" width="1000" height="120"  class="center-block img-rounded" >
+	
 		<h2>
 			Proveedores
 			<!-- Button trigger modal -->
@@ -41,6 +44,8 @@
 								<div class="col-xs-5">
 									<label for="cif">CIF</label>
 									<form:input class="form-control" path="cif" type="text" />
+									<form:errors path="cif" class="alert alert-danger"/>
+			
 								</div>
 							</div>
 						</div>
@@ -107,7 +112,7 @@
 						<th>Nombre</th>
 						<th>CIF</th>
 						<th>Añadir pedido </th>
-						<th> Eliminar proveedor</th>
+						<th> Opciones</th>
 
 					</tr>
 				</thead>
@@ -121,6 +126,9 @@
 							<c:url var="proveedorUrl" value="eliminarProveedor">
 								<c:param name="idProveedor" value="${proveedor.idProveedor}" />
 							</c:url>
+							<c:url var="proveedorUrl3" value="editarProveedor">
+								<c:param name="idProveedor" value="${proveedor.idProveedor}" />
+							</c:url>
 							<c:url var="proveedorUrl2" value="crearPedido">
 								<c:param name="idProveedor" value="${proveedor.idProveedor}" />
 							</c:url>
@@ -128,12 +136,10 @@
 								title="Añadir pedido" data-toggle="tooltip" type="button"
 								class="btn btn-sm btn-success"><i
 									class="glyphicon glyphicon-plus"></i></a> 
-							</td><td>
-									<a
-								href='<c:out value="${proveedorUrl}"/>'
-								title="Eliminar proveedor" data-toggle="tooltip" type="button"
-								class="btn btn-sm btn-danger"><i
-									class="glyphicon glyphicon-remove"></i></a></td>
+							</td>
+							<td>
+								<a href='<c:out value="${proveedorUrl3}"/>' data-original-title="Editar cierre" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a> <a href='' data-toggle="modal" data-target="#deleteModalProveedor" data-original-title="Eliminar proveedor" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -153,7 +159,7 @@
 						<th>Fecha de vencimiento</th>
 						<th>Importe</th>
 						<th>Estado</th>
-						<th></th>
+						<th>Opciones</th>
 
 					</tr>
 				</thead>
@@ -172,11 +178,62 @@
 							<c:url var="pedidoUrl2" value="eliminarPedido">
 								<c:param name="idPedido" value="${pedido.idPedidoProveedor}" />
 							</c:url>
-							<td><a href='<c:out value="${pedidoUrl}"/>' title="Editar Pedido" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>  <a href='<c:out value="${pedidoUrl2}"/>' data-original-title="Eliminar pedido" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a></td>
+							<td><a href='<c:out value="${pedidoUrl}"/>' title="Editar Pedido" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>  <a href='' data-toggle="modal" data-target="#deleteModalPedido" data-original-title="Eliminar pedido" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
+		
+	<div class="modal fade bs-example-modal-lg" id="deleteModalPedido" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Eliminar Pedido</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<h4>¿Está seguro de que desea eliminar este pedido?</h4>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancelar</button>
+							<a href='<c:out value="${pedidoUrl2}"/>' type="button"	class="btn btn-danger">Eliminar </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+			<div class="modal fade bs-example-modal-lg" id="deleteModalProveedor" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Eliminar Proveedor</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<h4>¿Está seguro de que desea eliminar este proveedor?</h4>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancelar</button>
+							<a href='<c:out value="${proveedorUrl}"/>' type="button"	class="btn btn-danger">Eliminar </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 </div>

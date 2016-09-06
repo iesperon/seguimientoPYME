@@ -69,7 +69,7 @@ public class LineaTicketDAOImpl implements LineaTicketDAO {
 		try{
 		Query q = sessionFactory.getCurrentSession().createQuery("select sum(cantidad) from LineaTicket where idProducto=:idProducto ");
 		q.setParameter("idProducto", producto.getIdProducto());
-		return (long) q.uniqueResult();
+		return Long.parseLong(q.uniqueResult().toString());
 		}catch(RuntimeException e){
 			return null;
 		}

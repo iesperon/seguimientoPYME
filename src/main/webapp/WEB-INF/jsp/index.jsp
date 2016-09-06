@@ -26,9 +26,10 @@
 						<p class="text-justify">
 						La importancia de tener un sistema de control interno en las pequeñas y medianas empresas ha ido incrementado en los últimos años, 
 						siendo esta la parte que se encarga de la organización de los procedimientos y necesidades del negocio, así como de verificar la eficiencia y la 
-						productividad en las operaciones. Por todo esto se va a desarrollar una aplicación web donde el administrador de una PYME pueda registrar su empresa 
-						para hacer un seguimiento de ella. 
-						
+						productividad en las operaciones. 
+						</p>
+						<p class="text-justify">
+						Por todo esto ofrecemos la posibilidad de realizar un control de los aspectos más esenciales de la actividad comercial de tú empresa. 
 						</p>
 						
 						</div>
@@ -71,16 +72,25 @@
 					<div class="col-xs-3">
 						<label for="email">Email</label>
 						<form:input class="form-control" path="usuario.email" type="text"/>
+						<form:errors path="usuario.email" class="alert alert-danger" />	
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="dni">DNI</label>
 						<form:input class="form-control" id="dni" path="usuario.dni" type="text"/>
+						<form:errors path="usuario.dni" class="alert alert-danger" />
+						
 					</div>
 					
 					<div class="col-xs-3">
 						<label for="contr">Contraseña</label>
 						<form:input class="form-control" id="contr" path="usuario.contrasena" type="text"/>
+						<form:errors path="usuario.contrasena" class="alert alert-danger" />
+						
+					</div>
+					<div class="col-xs-3">
+						<label for="contr">Repita contraseña</label>
+						<form:input class="form-control" id="contr" path="contra2" type="text"/>
 					</div>
 					
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -115,12 +125,12 @@
 					</div>
 					
 					
-					<div class="col-xs-6">
-						<label for="logo">Logo</label>
-						<span class="btn btn-default btn-file">
-							<form:input path="empresa.logo"  type="file"/>
-						</span>
-					</div>
+<!-- 					<div class="col-xs-6"> -->
+<!-- 						<label for="logo">Logo</label> -->
+<%-- 						<span class="btn btn-default btn-file"> --%>
+<%-- 							<form:input path="empresa.logo"  type="file"/> --%>
+<%-- 						</span> --%>
+<!-- 					</div> -->
 					
 					
 				</div>

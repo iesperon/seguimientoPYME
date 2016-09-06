@@ -28,7 +28,7 @@ public class Producto {
 	private Double precio;
 	private String marca;
 	private String descripcion;
-	private byte[] foto;
+	private String foto;
 	private Double descuento;
 	private Iva iva;
 	private Empresa empresa;
@@ -41,7 +41,7 @@ public class Producto {
 		
 	}
 	
-	public Producto(String codProd, String nombre, Double precio, String marca, String descripcion, byte[] foto, Double descuento, Iva iva, Empresa empresa){
+	public Producto(String codProd, String nombre, Double precio, String marca, String descripcion, String foto, Double descuento, Iva iva, Empresa empresa){
 		this.codProd=codProd;
 		this.nombre=nombre;
 		this.precio=precio;
@@ -111,11 +111,11 @@ public class Producto {
 	}
 
 	@Column (name="foto")
-	public byte[] getFoto() {
+	public String getFoto() {
 		return foto;
 	}
 
-	public void setFoto(byte[] foto) {
+	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 

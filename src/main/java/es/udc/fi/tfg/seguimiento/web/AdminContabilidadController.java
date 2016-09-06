@@ -9,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +30,8 @@ import es.udc.fi.tfg.seguimiento.services.ProductoService;
 import es.udc.fi.tfg.seguimiento.services.UserService;
 import es.udc.fi.tfg.seguimiento.utils.Estadisticas;
 import es.udc.fi.tfg.seguimiento.utils.FormProveedorPedido;
+import es.udc.fi.tfg.seguimiento.validator.GastoValidator;
+import es.udc.fi.tfg.seguimiento.validator.ProveedorValidator;
 
 @Controller
 @RequestMapping(value = "/admin/contabilidad")
@@ -44,6 +49,22 @@ public class AdminContabilidadController {
 	
 	@Autowired
 	private EmpresaService empresaService;
+	
+	@Autowired
+	private ProveedorValidator proveedorValidator;
+	
+	@InitBinder("proveedor")
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(proveedorValidator);
+	}
+	
+	@Autowired
+	private GastoValidator gastoValidator;
+	
+	@InitBinder("newGasto")
+	protected void initBinderGasto(WebDataBinder binder) {
+		binder.setValidator(gastoValidator);
+	}
 	
 	// *********************** GASTOS *********************
 	
@@ -64,7 +85,10 @@ public class AdminContabilidadController {
 	}
 	
 	@RequestMapping(value = "/addGasto", method = RequestMethod.POST)
-	public String addGasto(Gasto newGasto, BindingResult result, ModelAndView model) {
+	public String addGasto(@Validated Gasto newGasto, BindingResult result, ModelAndView model) {
+		if(result.hasErrors()){
+			return "gastos";
+		}else{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String login = auth.getName();
 		
@@ -74,7 +98,7 @@ public class AdminContabilidadController {
 		newGasto.setEmpresa(miempresa);
 		contabilidadService.registroGasto(newGasto);
 		
-		return "redirect:/admin/contabilidad/gastos";
+		return "redirect:/admin/contabilidad/gastos";}
 	}
 	
 	@RequestMapping(value="/eliminarGasto",method = RequestMethod.GET)
@@ -86,6 +110,7 @@ public class AdminContabilidadController {
 	@RequestMapping(value="/editarGasto",method = RequestMethod.GET)
 	public ModelAndView editarGasto(ModelAndView model, Long idGasto){
 		Gasto migasto = contabilidadService.buscarGastoPorId(idGasto);
+		
 		model.addObject("idGasto", idGasto);
 		model.addObject("gasto", migasto);
 		model.setViewName("editarGasto");
@@ -121,7 +146,13 @@ public class AdminContabilidadController {
 	}
 	
 	@RequestMapping(value = "/addProveedor", method = RequestMethod.POST)
-	public String addProveedor(Proveedor proveedor, BindingResult result, ModelAndView model) {
+	public String addProveedor(@Validated Proveedor proveedor, BindingResult result, ModelAndView model) {
+		if (result.hasErrors()) {
+			
+			return "proveedores";		
+			
+		} else {
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String login = auth.getName();
 		
@@ -132,6 +163,7 @@ public class AdminContabilidadController {
 		contabilidadService.registroProveedor(proveedor);
 		
 		return "redirect:/admin/contabilidad/proveedores";
+		}
 	}
 	
 	@RequestMapping(value="/eliminarProveedor",method = RequestMethod.GET)
@@ -140,6 +172,22 @@ public class AdminContabilidadController {
 		return "redirect:/admin/contabilidad/proveedores";
 	}
 	
+	@RequestMapping(value="/editarProveedor",method = RequestMethod.GET)
+	public ModelAndView editarProveedor(ModelAndView model, Long idProveedor){
+		Proveedor miproveedor = contabilidadService.buscarProveedorPorId(idProveedor);
+		
+		model.addObject("idProveedor", idProveedor);
+		model.addObject("proveedor", miproveedor);
+		model.setViewName("editarProveedor");
+		return model;
+	}
+	
+	@RequestMapping(value="/confEdProveedor",method = RequestMethod.POST)
+	public String confEdProveedor(Model model, Proveedor miproveedor, Long idProveedor){
+		contabilidadService.actualizarProveedor(miproveedor);	
+		model.addAttribute("proveedoreditado", miproveedor);
+		return "redirect:/admin/contabilidad/proveedores";
+	}
 	// ******************** PEDIDOS **********************
 	@RequestMapping(value = "/crearPedido", method = RequestMethod.GET)
 	public ModelAndView crearPedido(Long idProveedor, ModelAndView model) {
@@ -167,6 +215,22 @@ public class AdminContabilidadController {
 		return "redirect:/admin/contabilidad/proveedores";
 	}
 	
+	@RequestMapping(value="/editarPedido",method = RequestMethod.GET)
+	public ModelAndView editarPedido(ModelAndView model, Long idPedido){
+		PedidoProveedor mipedido = contabilidadService.buscarPedidoPorId(idPedido);
+		model.addObject("idPedido", idPedido);
+		model.addObject("pedido", mipedido);
+		model.setViewName("editarPedido");
+		return model;
+	}
+	
+	@RequestMapping(value="/confEdicPedido",method = RequestMethod.POST)
+	public String confEdicPedido(Model model, PedidoProveedor mipedido, Long idPedido){
+		contabilidadService.actualizarPedido(mipedido);
+		model.addAttribute("pedidoeditado", mipedido);
+		return "redirect:/admin/contabilidad/proveedores";
+	}
+	
 	//****************************** ESTADISTICAS ************************************
 	
 	@RequestMapping(value = "/estadisticas", method = RequestMethod.GET)
@@ -180,7 +244,8 @@ public class AdminContabilidadController {
 		//List<Estadisticas> estadisticas =new ArrayList<Estadisticas>();
 		List<Producto> productos = productoService.buscarProductoPorEmpresa(miempresa);
 		List<Centro> centros = empresaService.obtenerCentros(miempresa);
-
+		List<Usuario> usuarios = usuarioService.buscarUsuarioPorEmpresa(miempresa);
+		List<Proveedor> proveedores = contabilidadService.buscarProveedorActivoPorEmpresa(miempresa);
 //		for(Producto producto:productos){
 //			Long cantidad = contabilidadService.numeroVentasProd(producto);
 //			Estadisticas estad = new Estadisticas();
@@ -190,8 +255,14 @@ public class AdminContabilidadController {
 //				estadisticas.add(estad);
 //			}
 //		}
-		List<Estadisticas> estadisticas = contabilidadService.estVentasProd(productos); 
-		model.addObject("estadisticas", estadisticas);
+		List<Estadisticas> estadisticasProd = contabilidadService.estVentasProd(productos);
+		List<Estadisticas> estadisticasCentroVentas = contabilidadService.estCentroVent(centros); 
+		List<Estadisticas> estadisticasEmplVentas = contabilidadService.estEmplVent(usuarios);
+		List<Estadisticas> estadisticasPedidoProveedor = contabilidadService.estPedidoProveedor(proveedores);
+		model.addObject("estadisticasProd", estadisticasProd);
+		model.addObject("estadisticasCentroVentas", estadisticasCentroVentas);
+		model.addObject("estadisticasEmplVentas", estadisticasEmplVentas);
+		model.addObject("estadisticasPedidoProveedor", estadisticasPedidoProveedor);
 		model.setViewName("estadisticas");
 		return model;
 	}

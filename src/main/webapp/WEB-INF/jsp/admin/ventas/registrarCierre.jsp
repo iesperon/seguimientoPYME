@@ -38,7 +38,7 @@
 			</div>
 			
 			<div class="col-xs-2">
-				<label for="descripcion">Saldo Contabilizado</label>
+				<label for="descripcion">Contabilizado</label>
 				<div class="input-group"> 
 				<span class="input-group-addon">€</span>
 				<form:input class="form-control" path="cierre.caja" id="saldoContabilizado" type="text"/>
@@ -47,14 +47,14 @@
 			
 			<div class="col-xs-3">
 				<label for="estado">Observaciones</label>
-				<form:input class="form-control" path="cierre.incidencias" type="text"/>
+				<form:input class="form-control" path="cierre.incidencias" name="observaciones" id="observaciones" type="text"/>
 			</div>
 			
 			<form:input class="form-control" path="idCentro" value="${idCentro}" type="hidden"/> 
 			
-        <button type="submit" class="btn btn-primary">Aceptar</button>
-		<a class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>		</form:form>
-            <p>Diferencia: ${cierre.diferencia}</p> 
+<!--         <button type="submit" class="btn btn-primary">Aceptar</button> -->
+		<a class="open-AddBookDialog btn btn-success" href="#addBookDialog">Aceptar</a>		</form:form>
+<%--             <p>Diferencia: ${cierre.diferencia}</p>  --%>
             </div>
       	</div>
 	</div>
@@ -73,7 +73,9 @@ $(document).on("click", ".open-AddBookDialog", function (e) {
 	$("#ingresoTotal").val(ingresoTotal);
 	var ingresoContabilizadoModal = $('#saldoContabilizado').val();
 	$("#ingresoContabilizadoModal").val(ingresoContabilizadoModal);
-
+	var observacionesModal = $('observaciones').val();
+	$("#observacionesModal").val(observacionesModal); 
+	
 	$("#diferencia").val(ingresoContabilizadoModal-ingresoTotal);
 	$(_self.attr('href')).modal('show');
 });
@@ -88,16 +90,44 @@ $(document).on("click", ".open-AddBookDialog", function (e) {
       		</div>
       		<div class="modal-body">
       		<h4>¿Está de acuerdo con estos datos?</h4>
+	      		<form:form action="addCierre" method="POST" modelAttribute="newFormCierre" class="form-horizontal" role="form">
+	      		
 	      		<div class="row">
-	      			<input type="text" name="ingresoTotal" id="ingresoTotal" value="" >
-	      			<input type="text" name="ingresoContabilizadoModal" id="ingresoContabilizadoModal" value="" >
-	      			<input type="text" name="diferencia" id="diferencia" value="">
+	      		
+	      		<div class="col-xs-2">
+	      			<label for="ingresoTotal">Total</label>
+	      			<div class="input-group"> 
+					<span class="input-group-addon">€</span>
+	      			<form:input type="text" name="ingresoTotal" id="ingresoTotal" path="cierre.total" value="" class="form-control" />
+	      			</div>
+	      		</div>
+	      		<div class="col-xs-2">
+	      			<label for="ingresoContabilizadoModal">Contabilizado</label>
+	      			<div class="input-group"> 
+					<span class="input-group-addon">€</span>
+	      			<form:input type="text" name="ingresoContabilizadoModal" id="ingresoContabilizadoModal" path="cierre.caja" value="" class="form-control" />
+	      			</div>
+	      		</div>
+	      		<div class="col-xs-2">
+	      			<label for="diferencia">Diferencia</label>
+	      			<div class="input-group"> 
+					<span class="input-group-addon">€</span>
+	      			<form:input type="text" name="diferencia" id="diferencia" path="cierre.diferencia" value="" class="form-control"/>
+	      			</div>
+	      		</div>
+	      		<form:input class="form-control" path="cierre.efectivo" value="${efectivo}" type="hidden"/>
+	      		<form:input class="form-control" path="cierre.tarjeta" value="${tarjeta}" type="hidden"/>
+	      		<form:input type="hidden" name="observacionesModal" id="observacionesModal" path="cierre.incidencias" value="" class="form-control" />
+	      		<form:input class="form-control" path="idCentro" value="${idCentro}" type="hidden"/> 
+	      		
 	      			
 	      		</div>
 
 			 <div class="modal-footer">
+			 	<button type="submit" class="btn btn-primary">Aceptar</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       		</div>
+      		</form:form>
       		</div>
       		</div>
 	</div>

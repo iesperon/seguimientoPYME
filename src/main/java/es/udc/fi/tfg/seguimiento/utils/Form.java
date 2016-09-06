@@ -20,6 +20,7 @@ public class Form {
 	private Long idIva;
 	private Integer stockMin;
 	private MultipartFile file;
+	private String contra2;
 	
 
 	public Form(){ 
@@ -113,6 +114,14 @@ public class Form {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+
+	public String getContra2() {
+		return contra2;
+	}
+
+	public void setContra2(String contra2) {
+		this.contra2 = contra2;
 	}
 	
 	

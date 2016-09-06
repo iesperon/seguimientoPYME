@@ -177,10 +177,16 @@
 
 	<bean id="miDiskFileItemFactory" class="org.apache.commons.fileupload.disk.DiskFileItemFactory" />
 
+<!-- 	<bean id="multipartResolver" -->
+<!-- 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+<!-- 		<property name="maxUploadSizePerFile" value="5242880" /> -->
+<!-- 	</bean> -->
+	
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSizePerFile" value="5242880" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
 	</bean>
+	
+	
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
@@ -199,4 +205,8 @@
 	<bean id="mailMail" class="es.udc.fi.tfg.seguimiento.utils.MailMail">
 		<property name="mailSender" ref="mailSender" />
 	</bean>
+	
+	
+	<!-- JASYPT -->
+
 </beans>

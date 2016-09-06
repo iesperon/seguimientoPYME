@@ -155,10 +155,8 @@
 
 			</div>
 		</sec:authorize>
-
 			<tiles:insertAttribute name="content" />
 	</section>
-
 
 
 </body>

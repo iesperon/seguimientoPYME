@@ -17,6 +17,7 @@
 	</script> 
 	
 		<div class="col-md-9">
+			<img src="<c:url value="/resources/images/productos.jpg" />" 	class="center-block img-rounded" alt="Empleados" width="1000" height="120">
        	<h2>Productos
        		<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">
 			Registrar Producto
@@ -32,7 +33,7 @@
         				<th>Marca</th>
         				<th>Precio</th>
         				<th>IVA</th>
-        				<th></th>
+        				<th>Opciones</th>
    			</tr>
 		</thead> 
 		
@@ -51,13 +52,16 @@
 						<c:url var="productoUrl2" value="editarProducto">
 							<c:param name="idProducto" value="${productos.idProducto}"/>
 						</c:url>
-						
+						<c:url var="productoUrl3" value="subirImagenProd">
+							<c:param name="idProducto" value="${productos.idProducto}"/>
+						</c:url>
 						<td>
-							<button data-whatever="${productos.idProducto}" id="editar" value="${productos.idProducto}" data-original-title="Editar producto" data-toggle="modal" data-target="#modalEditar" type="button" class="editar btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></button>   
-							<a href='' data-toggle="modal" data-target="#deleteModal" data-original-title="Eliminar producto" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> </td>
-						
+							<a href='<c:out value="${productoUrl3}"/>' data-original-title="Subir imagen" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-picture"></i></a>
+							<a href='<c:out value="${productoUrl2}"/>' data-original-title="Editar producto" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>   
+							<a href='' data-toggle="modal" data-target="#deleteModal" data-original-title="Eliminar producto" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> 
+    						   
     					
-    				
+    					</td>
 	   				</tr>    		
     			</c:forEach>
 		</tbody>
@@ -179,10 +183,10 @@
 							<form:input class="form-control" path="producto.marca" type="text"/>
 						</div>
 
-						<div class="col-xs-3">
-							<label for="cp">Imagen</label>
-							<form:input class="form-control" path="producto.foto" type="text"/>
-						</div>
+<!-- 						<div class="col-xs-3"> -->
+<!-- 							<label for="cp">Imagen</label> -->
+<%-- 							<form:input class="form-control" path="producto.foto" type="text"/> --%>
+<!-- 						</div> -->
 						
 						<div class="col-xs-3">
 							<label for="pais">Descuento</label>
@@ -198,7 +202,7 @@
  							</form:select>						
  						</div>
 					
-						<div class="col-xs-3">
+						<div class="col-xs-6">
 							<label for="descripcion">Descripcion</label>
 							<form:textarea class="form-control" rows="3" path="producto.descripcion"/> 
 						</div>

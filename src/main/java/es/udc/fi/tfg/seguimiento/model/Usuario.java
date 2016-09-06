@@ -2,20 +2,28 @@
 package es.udc.fi.tfg.seguimiento.model;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.jasypt.hibernate4.type.EncryptedStringType;
 
 @Entity
 @Table(name="USUARIOS")
@@ -31,6 +39,7 @@ public class Usuario {
 	private Boolean enabled;
 	private Centro centro;
 	private Rol rol;
+//	private Set<Ticket> ticket = new HashSet<Ticket>();
 	
 	public Usuario(){
 	}
@@ -147,8 +156,17 @@ public class Usuario {
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-	
-	
+		
+//	@OneToMany(mappedBy="ticket", fetch=FetchType.EAGER)
+//	@Cascade({CascadeType.ALL})
+//	public Set<Ticket> getTicket() {
+//		return ticket;
+//	}
+//
+//	public void setTicket(Set<Ticket> ticket) {
+//		this.ticket = ticket;
+//	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -9,223 +9,188 @@
 	$(function() {
 		$("form:not(.filter) :input:visible:enabled:first").focus();
 	});
+	$(document).ready(function() {
+		$("#boton").click(function() {
+			$("#oculto").slideToggle();
+		});
+
+	});
 </script>
+	
 
 <div class="row">
 	<div class="col-md-9">
 		<div class="col-md-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">CAJA</h3>
-
+					<h2 class="panel-title"></h2>
 					<div class="panel-body">
-						<div class="tab-content">
+						<div id="buscar_producto">
+							<h3>Buscar Producto</h3>
 							<div class="row">
-						
-							<h2>Buscar Producto</h2>
-							<form:form action="addLinea" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
-								<div class="row">
-    								<div class="col-lg-12">
-										<label for="codProd">Código de barras</label>
-										<div class="row">
-											<div class="col-xs-2">
-								 				<div class="form-group">
-								
-													<form:input class="form-control" id="codProd" path="codProd" type="text" />
-													<form:input class="form-control" path="ticket.idTicket"	value="${ticket.idTicket}" type="hidden" />
-												</div>
-											</div>
-								        <div class="col-xs-2">
-          									<div class="form-group">
-												<input type="submit" value="Buscar"	class="btn btn-success btn-sm">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							</form:form>
-								<form:form action="addLineaProducto" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
-								<div class="col-xs-2">
-								<label for="centro">Producto</label>
-								<form:select class="form-control" path="idProducto">
-									<c:forEach var="productos" items="${productoslist}"	varStatus="status">
-										<form:option value="${productos.idProducto}">${productos.nombre}</form:option>
-									</c:forEach>
-								</form:select>
-									<form:input class="form-control" path="ticket.idTicket"	value="${ticket.idTicket}" type="hidden" />
-								</div>
-								<div class="col-xs-1">
-									<input type="submit" value="Añadir"	class="btn btn-success btn-sm">
-								</div>
-							</form:form>
-						</div>
-						</div>
-
-						<div class="col-md-12">
-
-							<h2>Ticket</h2>
-							<div class="col-xs-2">
-								<label for="referencia">Referencia</label>
-							</div>
-							<div class="col-xs-1">
-								<label for="cantidad">Cantidad</label>
-							</div>
-							<div class="col-xs-3">
-								<label for="producto">Producto</label>
-							</div>
-							<div class="col-xs-1">
-								<label for="iva">IVA</label>
-							</div>
-							<div class="col-xs-2">
-								<label for="precio">Precio</label>
-							</div>
-
-
-							<c:forEach var="lineas" items="${lineas}" varStatus="status">
-								<div class="col-md-12">
-									<div class="row">
-										<form:form action="editLinea" method="POST"
-											modelAttribute="linea" class="form-horizontal" role="form">
-											<div class="col-xs-2">
-												<form:input class="form-control" id="referencia" path="producto.codProd" value="${lineas.producto.codProd}"
-													readonly="true" type="text" />
-											</div>
-											<div class="col-xs-1">
-												<form:input class="form-control" id="cantidad" path="cantidad" value="${lineas.cantidad}" type="text" />
-											</div>
-											<div class="col-xs-3">
-												<form:input class="form-control" id="producto"
-													path="producto.nombre" value="${lineas.producto.nombre}"
-													readonly="true" type="text" />
-											</div>
-											<div class="col-xs-1">
-												<form:input class="form-control" id="iva" path="iva"
-													value="${lineas.iva}" type="text" />
-											</div>
-											<div class="col-xs-2">
-												<form:input class="form-control" id="precio" path="precio"
-													value="${lineas.precio}" type="text" />
-											</div>
-											<form:input class="form-control" path="idLineaTicket"
-												value="${lineas.idLineaTicket}" type="hidden" />
+								<div class="col-lg-6">
+									<form:form action="addLinea" method="POST" modelAttribute="myForm" class="form-inline" role="form">
+										<div class="form-group">
+											<label for="codProd">Código de barras</label>
+											<form:input class="form-control" id="codProd" path="codProd"
+												type="text" />
 											<form:input class="form-control" path="ticket.idTicket"
-												value="${lineas.ticket.idTicket}" type="hidden" />
-
-											<div class="col-xs-1">
-												<%-- 			<c:url var="lineaUrl" value="eliminarLinea"> --%>
-												<%-- 				<c:param name="idLineaTicket" value="${lineas.idLineaTicket}"/> --%>
-												<%-- 			</c:url> --%>
-											</div>
-											<div class="col-xs-1">
-												<button type="submit" class="btn btn-sm btn-warning">
-													<i class="glyphicon glyphicon-edit"></i>
-												</button>
-											</div>
-
-											<!-- 		<div class="col-xs-1"> -->
-											<%-- 			<a href='<c:out value="${lineaUrl}"/>' data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a> --%>
-											<!-- 		</div> -->
-
-										</form:form>
-										<form:form action="eliminarLinea" method="GET"
-											modelAttribute="linea" class="form-horizontal" role="form">
-											<div class="col-xs-1">
-												<button type="submit" class="btn btn-sm btn-danger">
-													<form:input class="form-control" id="referencia"
-														path="producto.codProd" value="${lineas.producto.codProd}"
-														readonly="true" type="hidden" />
-													<form:input class="form-control" id="cantidad"
-														path="cantidad" value="${lineas.cantidad}" type="hidden" />
-													<form:input class="form-control" id="producto"
-														path="producto.nombre" value="${lineas.producto.nombre}"
-														readonly="true" type="hidden" />
-													<form:input class="form-control" id="iva" path="iva"
-														value="${lineas.iva}" type="hidden" />
-													<form:input class="form-control" id="precio" path="precio"
-														value="${lineas.precio}" type="hidden" />
-													<form:input class="form-control" path="idLineaTicket"
-														value="${lineas.idLineaTicket}" type="hidden" />
-													<form:input class="form-control" path="ticket.idTicket"
-														value="${lineas.ticket.idTicket}" type="hidden" />
-													<i class="glyphicon glyphicon-edit"></i>
-												</button>
+												value="${ticket.idTicket}" type="hidden" />
+										</div>
+										<div class="form-group">
+											<input type="submit" value="Buscar"
+												class="btn btn-success btn-sm">
+										</div>
+									</form:form>
+									</div>
+									<div class="col-lg-6">
+										<form:form action="addLineaProducto" method="POST" modelAttribute="myForm" class="form-inline" role="form">
+											<div class="form-group">
+												<label for="centro">Producto</label>
+												<form:select class="form-control" path="idProducto">
+													<c:forEach var="productos" items="${productoslist}"	varStatus="status">
+														<form:option value="${productos.idProducto}">${productos.nombre}</form:option>
+													</c:forEach>
+												</form:select>
+												<form:input class="form-control" path="ticket.idTicket"	value="${ticket.idTicket}" type="hidden" />
+												<input type="submit" value="Añadir"	class="btn btn-success btn-sm">
 											</div>
 										</form:form>
 									</div>
-								</div>
-							</c:forEach>
+									
+							</div><!-- row busqueda -->
+						</div><!-- buscar producto -->
 
-
+						<h3>Ticket</h3>
+						<table class="table table-condensed">
+							<thead>
+								<tr style="color:white">
+									<td>Referencia</td>
+									<td>Cantidad</td>
+									<td>Producto</td>
+									<td>IVA</td>
+									<td>Descuento</td>
+									<td>Precio</td>
+									<td></td>
+									<td></td>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="lineas" items="${lineas}" varStatus="status">
+								
+									<tr>
+										<form:form action="editLinea" method="POST" modelAttribute="linea" class="form-horizontal" role="form">
+									
+										<td>
+											<form:input class="form-control" id="referencia" path="producto.codProd" value="${lineas.producto.codProd}"	readonly="true" type="text" />
+										</td>
+										<td>
+											<form:input class="form-control" id="cantidad" path="cantidad" value="${lineas.cantidad}" type="text" />
+										</td>
+										<td>
+											<form:input class="form-control" id="producto" path="producto.nombre" value="${lineas.producto.nombre}"	readonly="true" type="text" />
+										</td>
+										<td>
+											<div class="input-group"> 
+												<span class="input-group-addon" >%</span>
+												<form:input class="form-control" id="iva" path="iva" value="${lineas.iva}" type="text" />
+											</div>										
+										</td>
+										<td>
+											<div class="input-group"> 
+												<span class="input-group-addon" >%</span>
+												<form:input class="form-control" id="descuento" path="descuento" value="${lineas.descuento}" type="text" />
+											</div>		
+										</td>
+										<td>
+											<div class="input-group"> 
+												<span class="input-group-addon" >€</span>
+												<form:input class="form-control" id="precio" path="precio" value="${lineas.precio}" type="text" />
+											</div>		
+										</td>
+										<form:input class="form-control" path="idLineaTicket" value="${lineas.idLineaTicket}" type="hidden" />
+										<form:input class="form-control" path="ticket.idTicket" value="${lineas.ticket.idTicket}" type="hidden" />
+										<td>
+											<button type="submit" class="btn btn-warning">
+												<i class="glyphicon glyphicon-edit"></i>
+											</button>
+										</td>
+										</form:form>
+										
+										<td>
+											<form:form action="eliminarLinea" method="GET" modelAttribute="linea" class="form-horizontal" role="form">
+											<button type="submit" class="btn btn-danger">
+												<form:input class="form-control" id="referencia" path="producto.codProd" value="${lineas.producto.codProd}" readonly="true" type="hidden" />
+												<form:input class="form-control" id="cantidad" path="cantidad" value="${lineas.cantidad}" type="hidden" />
+												<form:input class="form-control" id="producto" path="producto.nombre" value="${lineas.producto.nombre}" readonly="true" type="hidden" />
+												<form:input class="form-control" id="iva" path="iva" value="${lineas.iva}" type="hidden" />
+												<form:input class="form-control" id="descuento" path="descuento" value="${lineas.descuento}" type="hidden" />
+												<form:input class="form-control" id="precio" path="precio" value="${lineas.precio}" type="hidden" />
+												<form:input class="form-control" path="idLineaTicket"	value="${lineas.idLineaTicket}" type="hidden" />
+												<form:input class="form-control" path="ticket.idTicket"	value="${lineas.ticket.idTicket}" type="hidden" />
+												<i class="glyphicon glyphicon-remove"></i>
+											</button>
+											</form:form>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<div class="col-md-12 text-right">
+							<h4>
+								Subtotal : <fmt:formatNumber value="${subtotal}" maxFractionDigits="2" /> €
+							</h4>
+							<h4>
+								IVA: <fmt:formatNumber value="${iva}" maxFractionDigits="2" /> €
+							</h4>
+							<hr>
+							<h3>
+								TOTAL: <fmt:formatNumber value="${total}" maxFractionDigits="2" /> €
+							</h3>
+							<h4>
+								Cambio:	<fmt:formatNumber value="${ticket.cambio}" maxFractionDigits="2" />	€
+							</h4>
 						</div>
-						<div class="col-md-12 text-left">
-							<h3>
-								Subtotal :
-								<fmt:formatNumber value="${subtotal}" maxFractionDigits="2" />
-								€
-							</h3>
-							<h3>
-								IVA:
-								<fmt:formatNumber value="${iva}" maxFractionDigits="2" />
-								€
-							</h3>
-							<h3>
-								TOTAL:
-								<fmt:formatNumber value="${total}" maxFractionDigits="2" />
-								€
-							</h3>
-							<h3>
-								Cambio:
-								<fmt:formatNumber value="${ticket.cambio}" maxFractionDigits="2" />
-								€
-							</h3>
+						<div class="row text-right">
+							<form:form action="cerrarTicket" method="POST" modelAttribute="ticket" class="form-inline" role="form">
+								<form:input class="form-control" path="subtotal" value="${subtotal}" type="hidden" />
+								<form:input class="form-control" path="iva" value="${iva}" type="hidden" />
+								<form:input class="form-control" path="total" value="${total}" type="hidden" />
+								<form:input class="form-control" path="idTicket" value="${ticket.idTicket}" type="hidden" />
+								<div class="col-lg-4 ">
+									<div class="form-group">
+											<label for="entregado">Entregado</label>
+											<form:input class="form-control" id="entregado" path="entregado" type="text" />
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label for="centro">Forma de pago</label>
+										<form:select class="form-control input" path="formaPago">
+											<form:option value="Efectivo">Efectivo</form:option>
+											<form:option value="Tarjeta">Tarjeta</form:option>
+										</form:select>
+									</div>
+								</div>
+								<div class="col-lg-4 ">
+									<div class="form-group">
+										<button type="submit" class="btn btn-success">Imprimir Ticket</button>
+									</div>
+								</div>
+							</form:form>
 						</div>
 					</div>
 				</div>
 			</div>
+			
 		</div>
-		<form:form action="cerrarTicket" method="POST" modelAttribute="ticket"
-			class="form-horizontal" role="form">
-			<form:input class="form-control" path="subtotal" value="${subtotal}"
-				type="hidden" />
-			<form:input class="form-control" path="iva" value="${iva}"
-				type="hidden" />
-			<form:input class="form-control" path="total" value="${total}"
-				type="hidden" />
-			<form:input class="form-control" path="idTicket"
-				value="${ticket.idTicket}" type="hidden" />
-
-			<div class="col-xs-2">
-				<label for="entregado">Entregado</label>
-				<form:input class="form-control" id="entregado" path="entregado"
-					type="text" />
-			</div>
-			<div class="col-xs-3">
-				<label for="centro">Forma de pago</label>
-				<form:select class="form-control" path="formaPago">
-					<form:option value="Efectivo">Efectivo</form:option>
-					<form:option value="Tarjeta">Tarjeta</form:option>
-				</form:select>
-			</div>
-
-			<button type="submit" class="btn btn-primary">Imprimir
-				Ticket</button>
-
-
-		</form:form>
-
-		<script>
-			$(document).ready(function() {
-				$("#boton").click(function() {
-					$("#oculto").slideToggle();
-				});
-
-			});
-		</script>
-
-
-		<button id="boton" onclick="mostrar()"
-			class="btn btn-primary btn-lg btn-block">Enviar</button>
-
+		
+		<div class="row">
+			<button id="boton" onclick="mostrar()"
+				class="btn btn-primary btn-lg btn-block">Enviar
+			</button>
+		</div>
 		<div id="oculto" style="display: none;">
 			<form:form action="addEnvio" method="POST" modelAttribute="envioForm"
 				class="form-horizontal" role="form">

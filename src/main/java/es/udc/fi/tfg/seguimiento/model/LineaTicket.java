@@ -23,6 +23,7 @@ public class LineaTicket {
 	private Double precio;
 	private Integer iva;
 	private Producto producto;
+	private Integer descuento;
 	private Ticket ticket;
 	
 	public LineaTicket(){
@@ -97,6 +98,14 @@ public class LineaTicket {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+
+	public Integer getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(Integer descuento) {
+		this.descuento = descuento;
 	}
 
 

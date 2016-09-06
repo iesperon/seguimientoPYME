@@ -113,23 +113,20 @@ public class CajaServiceImpl implements CajaService {
 		List<Ticket> ticketSinCierre = new ArrayList<Ticket>();
 		Cierre cierre = new Cierre();
 		for(Ticket miticket:tickets){
-			if (miticket.getCierreCaja() ==null){
-				//newFormCierre.getCierre().getTicket().add(miticket);
+			if (miticket.getCierreCaja() ==null && miticket.getFecha()!=null){
 				ticketSinCierre.add(miticket);
 			}
 		}
 		Double tarjeta = 0.0;
 		Double efectivo = 0.0;
 		for(Ticket ticket:ticketSinCierre){
-			if (ticket.getFormaPago()=="Tarjeta"){
+			if (ticket.getFormaPago().equals("Tarjeta")){
 				tarjeta=tarjeta+ticket.getTotal();
-				System.out.println(tarjeta);
+
 			}else{
 				efectivo=efectivo+ticket.getTotal();
-				System.out.println(efectivo);
 			}
 		}
-		System.out.println(efectivo);
 		Double total = tarjeta + efectivo;
 		cierre.setTarjeta(tarjeta);
 		cierre.setEfectivo(efectivo);
@@ -169,6 +166,7 @@ public class CajaServiceImpl implements CajaService {
 		ticketMod.setLineaTicket(miticket.getLineaTicket());
 		ticketMod.setSubtotal(miticket.getSubtotal());
 		ticketMod.setTotal(miticket.getTotal());
+		ticketMod.setIva(miticket.getIva());
 		
 		ticketDAO.update(ticketMod);
 	}
@@ -221,6 +219,7 @@ public class CajaServiceImpl implements CajaService {
 		lineaMod.setCantidad(milineaticket.getCantidad());
 		lineaMod.setIva(milineaticket.getIva());
 		lineaMod.setPrecio(milineaticket.getPrecio());
+		lineaMod.setDescuento(milineaticket.getDescuento());
 		//lineaMod.setProducto(milineaticket.getProducto());
 		//lineaMod.setTicket(milineaticket.getTicket());
 		
@@ -306,6 +305,52 @@ public class CajaServiceImpl implements CajaService {
 		return envios;
 	}
 
+	public LineaTicket calcularDescuento(LineaTicket lineaticket){
+//		List<LineaTicket> mislineas = new ArrayList<LineaTicket>();
+//		for(LineaTicket milinea:lineaticket){
+			LineaTicket milinea = buscarLineaTicketPorId(lineaticket.getIdLineaTicket());
+			if(lineaticket.getDescuento()!=null){
+				Double precioDesc = (milinea.getProducto().getPrecio()-((lineaticket.getDescuento()*milinea.getProducto().getPrecio())/100));
+				lineaticket.setPrecio(precioDesc);
+			}
+//			mislineas.add(milinea);
+			return lineaticket;
+
+		}
+	
+	public Double calcularSubtotal(List<LineaTicket> lineaticket){
+		Double subtotal = 0.0;
+		Double totprod = 0.0;
+		Double siniva = 0.0;
+		for(LineaTicket milinea : lineaticket){
+			siniva = milinea.getPrecio()/(1+(milinea.getIva()/100.0));
+			totprod = siniva*milinea.getCantidad();
+			subtotal = subtotal + totprod;
+		}
+		return subtotal;
+	}
+	
+	public Double calcularTotal(List<LineaTicket> lineaticket){
+		Double total = 0.0;
+		Double totprod = 0.0;
+		for(LineaTicket milinea : lineaticket){
+			totprod = milinea.getCantidad()*milinea.getPrecio();
+			total = total + totprod;
+		}
+		return total;
+	}
+	
+	public Double calcularIVA(List<LineaTicket> lineaticket){
+		Double siniva = 0.0;
+		Double iva = 0.0;
+		Double ivaunitario = 0.0;
+		for(LineaTicket milinea : lineaticket){
+		siniva = milinea.getPrecio()/(1+(milinea.getIva()/100.0));
+		ivaunitario = milinea.getPrecio() - siniva;
+		iva = iva + (ivaunitario * milinea.getCantidad());
+		}
+		return iva;
+	}
 	
 	public void EnviarNotificacion(Usuario miusuario, Centro micentro) {
 		

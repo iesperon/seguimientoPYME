@@ -9,7 +9,7 @@
 <div class="col-md-9">   
 
 
-<form:form action="confEdicEmpl" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
+<form:form action="confEdicEmp" method="POST" modelAttribute="myForm" class="form-horizontal" role="form">
 				<div class="col-sm-12">
 				<div>
 					<h2>Editar Empleado</h2>
@@ -49,13 +49,13 @@
 							<label for="centro">Centro</label>
 							<form:select class="form-control" path="idCentro">
   								<c:forEach var="centros" items="${centroslist}" varStatus="status">
-  									<form:option value="${centros.idCentro}">${centros.nombre}, ${centros.calle}, ${centros.poblacion} </form:option>
+  									<form:option value="${centros.idCentro}"> ${centros.nombre}, ${centros.calle}, ${centros.poblacion} </form:option>
  								</c:forEach>
  							</form:select>						
  						</div>
 						
 						<div class="col-xs-3">
-						<form:input class="form-control" path="idUsuario" value="${idUsuario}" type="hidden"/>
+						<form:input class="form-control" path="usuario.idUsuario" value="${usuario.idUsuario}" type="hidden"/>
 						</div>
 														
 						</div>

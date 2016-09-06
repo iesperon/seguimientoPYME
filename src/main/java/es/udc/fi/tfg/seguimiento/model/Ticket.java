@@ -38,6 +38,7 @@ public class Ticket {
 	private String formaPago;
 	private Centro centro;
 	private CierreCaja cierreCaja;
+	private Usuario usuario;
 	private Set<LineaTicket> lineaTicket = new HashSet<LineaTicket>();
 	
 	
@@ -168,6 +169,17 @@ public class Ticket {
 
 	public void setIva(Double iva) {
 		this.iva = iva;
+	}
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idUsuario")
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 

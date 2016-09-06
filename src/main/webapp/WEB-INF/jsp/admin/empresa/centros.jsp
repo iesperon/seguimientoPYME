@@ -21,10 +21,9 @@
 	</script>
 
 
-	<div class="col-md-10">
+	<div class="col-md-9">
 
-		<img src="<c:url value="/resources/images/centros.png" />"
-			class="center-block" alt="Empleados" width="800" height="200">
+		<img src="<c:url value="/resources/images/centros.jpg" />" 	class="center-block img-rounded" alt="Empleados" width="1000" height="120">
 		<h2>
 			Centros
 
@@ -42,7 +41,7 @@
 					<th>Pais</th>
 					<th>Email</th>
 					<th>Teléfono</th>
-					<th></th>
+					<th>Opciones</th>
 				</tr>
 			</thead>
 
@@ -64,7 +63,7 @@
 						<c:url var="centroUrl3" value="editarCentro">
 							<c:param name="idCentro" value="${centro.idCentro}" />
 						</c:url>
-						<c:url var="centroUrl4" value="stock">
+						<c:url var="centroUrl4" value="/admin/ventas/stock">
 							<c:param name="idCentro" value="${centro.idCentro}" />
 						</c:url>
 						<c:url var="centroUrl" value="eliminarCentro">

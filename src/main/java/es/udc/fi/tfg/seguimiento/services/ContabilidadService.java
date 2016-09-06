@@ -2,6 +2,7 @@ package es.udc.fi.tfg.seguimiento.services;
 
 import java.util.List;
 
+import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.Gasto;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
@@ -9,6 +10,7 @@ import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Proveedor;
 import es.udc.fi.tfg.seguimiento.model.Ticket;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 import es.udc.fi.tfg.seguimiento.utils.Estadisticas;
 
 public interface ContabilidadService {
@@ -62,4 +64,7 @@ public interface ContabilidadService {
 	public List<Estadisticas> productosMasVendidos();
 	public Long numeroVentasProd(Producto miproducto);
 	public List<Estadisticas> estVentasProd(List<Producto> productos);
+	public List<Estadisticas> estCentroVent(List<Centro> centros);
+	public List<Estadisticas> estEmplVent(List<Usuario> usuarios);
+	public List<Estadisticas> estPedidoProveedor(List<Proveedor> proveedores);
 }

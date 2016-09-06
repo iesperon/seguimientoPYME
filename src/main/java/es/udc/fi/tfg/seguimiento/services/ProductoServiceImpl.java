@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,8 @@ import es.udc.fi.tfg.seguimiento.model.Iva;
 import es.udc.fi.tfg.seguimiento.model.LineaTicket;
 import es.udc.fi.tfg.seguimiento.model.Producto;
 import es.udc.fi.tfg.seguimiento.model.Stock;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
+import es.udc.fi.tfg.seguimiento.utils.MailMail;
 
 @Service
 @Transactional
@@ -41,6 +44,9 @@ public class ProductoServiceImpl implements ProductoService{
 	public void setStockDAO (StockDAO stockDAO){
 		this.stockDAO = stockDAO;
 	}
+	
+	@Autowired
+	private ApplicationContext context;
 	
 	//**********IVA***********
 	
@@ -175,7 +181,11 @@ public class ProductoServiceImpl implements ProductoService{
 				for(Stock stock:stocks ){
 					if(centro.getIdCentro()==stock.getCentro().getIdCentro()){
 						stock.setStockActual(stock.getStockActual()-linea.getCantidad());
-						actualizarStockCaja(stock);;
+						actualizarStockCaja(stock);
+						if(stock.getStockActual()<=stock.getStockMin()){
+							Usuario usuario = centro.getEmpresa().getAdministrador();
+							EnviarNotificacionStock(usuario, stock);
+						}
 					}
 				}
 			}
@@ -204,6 +214,24 @@ public class ProductoServiceImpl implements ProductoService{
 				stock.setStockMin(0);
 				registroStock(stock);
 			}
+			
+		}
+
+		@Override
+		public void EnviarNotificacionStock(Usuario miusuario, Stock stock) {
+			MailMail mail = (MailMail) context.getBean("mailMail");
+			String toAddr = miusuario.getEmail();
+			String fromAddr = "mipymeon@gmail.com";
+	 
+			// email subject
+			String subject = "Stock bajo del producto  "+stock.getProducto().getNombre();
+	 
+			// email body
+			String body = "Hola " + miusuario.getNombre()+" " + miusuario.getApellido1() + miusuario.getApellido2()  +", \n\n " 
+					+ "Le informamos que el centro: "+stock.getCentro().getNombre() +", "+ stock.getCentro().getCalle() +", "+ stock.getCentro().getPoblacion()+" el producto "
+							+ stock.getProducto().getNombre() +", con código de barras "+ stock.getProducto().getCodProd() +" ha llegado a su stock mínimo: "+stock.getStockMin()+" unidades. "
+									+ "\n\n Un saludo \n\n MiPymeOnline";
+			mail.sendMail(fromAddr, toAddr, subject, body);
 			
 		}
 

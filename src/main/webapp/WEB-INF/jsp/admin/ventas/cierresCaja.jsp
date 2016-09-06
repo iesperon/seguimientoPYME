@@ -19,6 +19,7 @@
 
 <div class="row">
 <div class="col-md-9">
+	<img src="<c:url value="/resources/images/cierres de caja.jpg" />" 	class="center-block img-rounded" alt="Empleados" width="1000" height="120">
 
 	<h2>Cierres de Caja
 	<!-- Button trigger modal -->
@@ -33,7 +34,8 @@
         				<th>Efectivo</th>
         				<th>Total</th>
         				<th>Caja</th>
-        				<th> </th>
+        				<th>Diferencia </th>
+        				<th>Opciones </th>
    			</tr>
 		</thead> 
 		
@@ -43,9 +45,9 @@
     					<td><fmt:formatDate value="${cierres.fecha}" pattern="dd-MM-yyyy" /></td>
     					<td>${cierres.tarjeta} €</td>
     					<td>${cierres.efectivo} €</td>
-    					<td>${cierres.total} </td>
-    					<td>${cierres.caja}</td>
-    					
+    					<td>${cierres.total} €</td>
+    					<td>${cierres.caja} €</td>
+    					<td>${cierres.diferencia} €</td>
 						<c:url var="cierreUrl" value="eliminarCierre">
 							<c:param name="idCierre" value="${cierres.idCierre}"/>
 						</c:url>

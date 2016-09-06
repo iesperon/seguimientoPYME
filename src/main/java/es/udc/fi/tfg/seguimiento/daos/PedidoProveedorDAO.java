@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.udc.fi.tfg.seguimiento.model.Empresa;
 import es.udc.fi.tfg.seguimiento.model.PedidoProveedor;
+import es.udc.fi.tfg.seguimiento.model.Proveedor;
 
 public interface PedidoProveedorDAO {
 
@@ -12,5 +13,6 @@ public interface PedidoProveedorDAO {
 	public void update (PedidoProveedor mipedido);
 	public PedidoProveedor findById (Long miid);
 	public List<PedidoProveedor> findByEmpresa(Empresa miempresa);
-	
+	public Long contNumPedidos(Proveedor proveedor);
+	public Double totalComprado(Proveedor proveedor);
 }

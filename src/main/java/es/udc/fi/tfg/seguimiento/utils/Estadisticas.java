@@ -2,6 +2,8 @@ package es.udc.fi.tfg.seguimiento.utils;
 
 import es.udc.fi.tfg.seguimiento.model.Centro;
 import es.udc.fi.tfg.seguimiento.model.Producto;
+import es.udc.fi.tfg.seguimiento.model.Proveedor;
+import es.udc.fi.tfg.seguimiento.model.Usuario;
 
 public class Estadisticas {
 
@@ -11,7 +13,11 @@ public class Estadisticas {
 	private Double efectivoCentro;
 	private Double tarjetaCentro;
 	private Double totalCentro;
-	
+	private Double totalUsuario;
+	private Usuario usuario;
+	private Long pedidos;
+	private Double totalPedido;
+	private Proveedor proveedor;
 	
 	public Producto getProducto() {
 		return Producto;
@@ -51,6 +57,36 @@ public class Estadisticas {
 	}
 	public void setTotalCentro(Double totalCentro) {
 		this.totalCentro = totalCentro;
+	}
+	public Double getTotalUsuario() {
+		return totalUsuario;
+	}
+	public void setTotalUsuario(Double totalUsuario) {
+		this.totalUsuario = totalUsuario;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public Long getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(Long pedidos) {
+		this.pedidos = pedidos;
+	}
+	public Double getTotalPedido() {
+		return totalPedido;
+	}
+	public void setTotalPedido(Double totalPedido) {
+		this.totalPedido = totalPedido;
+	}
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
 
 	

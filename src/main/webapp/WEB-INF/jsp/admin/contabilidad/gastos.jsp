@@ -34,7 +34,8 @@
 
 <div class="row">
 	<div class="col-md-9">
-
+		<img src="<c:url value="/resources/images/gastos.jpg" />"	 alt="Empleados" width="1000" height="120"  class="center-block img-rounded" >
+	
 		<h2>
 			Gastos
 			<!-- Button trigger modal -->
@@ -50,7 +51,7 @@
 					<th>Fecha Emisión</th>
 					<th>Fecha Vencimiento</th>
 					<th>Estado</th>
-					<th></th>
+					<th>Opciones</th>
 				</tr>
 			</thead>
 
@@ -132,7 +133,9 @@
 
 										<div class="col-xs-3">
 											<label for="descripcion">Concepto</label>
-											<form:input class="form-control" path="concepto" type="text" />
+											<form:input class="form-control" path="concepto" type="text"  />
+											<form:errors path="concepto" class="formerrors" />
+								
 										</div>
 
 										<div class="col-xs-2">
@@ -140,6 +143,7 @@
 											<div class="input-group">
 												<span class="input-group-addon">€</span>
 												<form:input class="form-control" path="importe" type="text" />
+												<form:errors path="importe" class="formerrors" />
 											</div>
 										</div>
 
